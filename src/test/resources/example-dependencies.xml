@@ -1,0 +1,25 @@
+<dependencies>
+  
+  <alwaysAllowed>
+    <dependsOn package="a.b.c"/>
+    <dependsOn package="a.b.d" includeSubPackages="false"/>
+  </alwaysAllowed>
+
+  <alwaysForbidden>
+    <notDependsOn package="a.b.e" comment="Evil package and more evil sub packages"/>
+    <notDependsOn package="a.b.f" includeSubPackages="false" comment="This package is considered to be evil (sub packages are OK)"/>
+  </alwaysForbidden>
+  
+  <allowed>
+    <package name="my.package.x" comment="This package is only allowed to use the following packages (all other packages are forbidden)">
+       <dependsOn package="org.fuin.utils4j"/>
+    </package>
+  </allowed>
+  
+  <forbidden>
+    <package name="my.package.y" comment="This package is not allowed to use the following ones (all other packages are allowed)">
+      <notDependsOn package="javax.security" comment="Package 'my.package' should never depend on 'javax.security'!"/>
+    </package>
+  </forbidden>
+  
+</dependencies>

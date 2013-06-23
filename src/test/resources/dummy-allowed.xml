@@ -1,0 +1,16 @@
+<dependencies>
+  
+  <alwaysAllowed/>
+  
+  <alwaysForbidden/>
+  
+  <allowed>
+    <package name="dummy.test.good" comment="This package is only allowed to use the following packages (all other packages are forbidden)">
+       <dependsOn package="dummy.good"/>
+       <dependsOn package="org.fuin.utils4j"/>
+    </package>
+  </allowed>
+  
+  <forbidden/>
+  
+</dependencies>

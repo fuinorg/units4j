@@ -1,0 +1,15 @@
+<dependencies>
+  
+  <alwaysAllowed/>
+  
+  <alwaysForbidden>
+    <notDependsOn package="org.fuin.utils4j"/>
+    <notDependsOn package="dummy.bad"/>
+    <notDependsOn package="dummy.test" includeSubPackages="false"/>
+  </alwaysForbidden>
+  
+  <allowed/>
+  
+  <forbidden/>
+  
+</dependencies>

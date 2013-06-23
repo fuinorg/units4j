@@ -1,0 +1,19 @@
+<dependencies>
+
+  <alwaysAllowed/>
+  
+  <alwaysForbidden>
+    <notDependsOn package="org.fuin.utils4j" comment="This is a nice utility but not allowed here!"/>
+  </alwaysForbidden>
+  
+  <allowed/>
+  
+  <forbidden>
+    <package name="dummy.test.bad" comment="This package is not allowed to use the following ones (all other packages are allowed)">
+       <!-- sub directories are included by default -->
+       <notDependsOn package="dummy.bad" comment="This is an evil package!"/>
+       <notDependsOn package="dummy.test" comment="You should not use something from the parent package!"/>
+    </package>
+  </forbidden>
+  
+</dependencies>

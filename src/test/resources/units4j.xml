@@ -1,0 +1,27 @@
+<dependencies>
+  
+  <alwaysAllowed>
+    <dependsOn package="java.lang"/>
+    <dependsOn package="java.io"/>
+    <dependsOn package="java.util"/>
+    <dependsOn package="org.junit"/>
+  </alwaysAllowed>
+  
+  <alwaysForbidden>
+    <notDependsOn package="junit.framework"/>
+  </alwaysForbidden>
+  
+  <allowed>
+    <package name="org.fuin.units4j">
+      <dependsOn package="org.fuin.utils4j"/>
+      <dependsOn package="org.fuin.units4j.dependency"/>
+    </package>
+  </allowed>
+  
+  <forbidden>
+    <package name="org.fuin.units4j.dependency">
+      <notDependsOn package="org.fuin.units4j" comment="A package should not depend on it's parent!"/>
+    </package>
+  </forbidden>
+  
+</dependencies>

@@ -1,0 +1,13 @@
+<dependencies>
+  
+  <alwaysAllowed/>
+  
+  <alwaysForbidden/>
+  
+  <allowed>
+    <package name="dummy.nothing" comment="Depends only on itself"/>
+  </allowed>
+  
+  <forbidden/>
+  
+</dependencies>
