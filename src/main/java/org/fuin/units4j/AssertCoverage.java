@@ -185,7 +185,8 @@ public final class AssertCoverage {
                         analyzeDir(classes, baseDir, files[i], recursive, classFilter);
                     }
                 } else {
-                    if (files[i].getName().endsWith(".java")) {
+                    if (files[i].getName().endsWith(".java") 
+                    		&& !files[i].getName().equals("package-info.java")) {
                         final String name = files[i].getName();
                         final String simpleName = name.substring(0, name.length() - 5);
                         final String className = packageName + "." + simpleName;
