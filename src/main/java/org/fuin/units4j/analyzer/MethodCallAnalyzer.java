@@ -29,6 +29,9 @@ import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+import org.fuin.utils4j.fileprocessor.FileHandler;
+import org.fuin.utils4j.fileprocessor.FileHandlerResult;
+import org.fuin.utils4j.fileprocessor.FileProcessor;
 import org.objectweb.asm.ClassReader;
 
 /**
@@ -97,6 +100,19 @@ public final class MethodCallAnalyzer {
         }
     }
 
+    private void handleClass(final File classFile) {
+        try {
+            final InputStream in = new BufferedInputStream(new FileInputStream(classFile), 1024);
+            try {
+                new ClassReader(in).accept(cv, 0);
+            } finally {
+                in.close();
+            }
+        } catch (final IOException ex) {
+            throw new RuntimeException("Error reading: " + classFile, ex);
+        }
+    }
+
     /**
      * Locate method calls in classes of a directory.
      * 
@@ -104,28 +120,33 @@ public final class MethodCallAnalyzer {
      *            Directory to search (including sub directories).
      */
     public final void findCallingMethodsInDir(final File dir) {
-        try {
-            final File[] files = dir.listFiles(new FileFilter() {
-                @Override
-                public boolean accept(final File file) {
-                    return file.getName().endsWith(".class") || file.isDirectory();
+        findCallingMethodsInDir(dir, null);
+    }
+
+    /**
+     * Locate method calls in classes of a directory.
+     * 
+     * @param dir
+     *            Directory to search (including sub directories).
+     * @param filter
+     *            File filter or NULL (process all '*.class' files).
+     */
+    public final void findCallingMethodsInDir(final File dir, final FileFilter filter) {
+
+        final FileProcessor fileProcessor = new FileProcessor(new FileHandler() {
+            @Override
+            public final FileHandlerResult handleFile(final File file) {
+                if (file.isDirectory()) {
+                    return FileHandlerResult.CONTINUE;
                 }
-            });
-            for (final File file : files) {
-                if (file.getName().endsWith(".class")) {
-                    final InputStream in = new BufferedInputStream(new FileInputStream(file), 1024);
-                    try {
-                        new ClassReader(in).accept(cv, 0);
-                    } finally {
-                        in.close();
-                    }
-                } else {
-                    findCallingMethodsInDir(file);
+                if (file.getName().endsWith(".class") && (filter == null || filter.accept(file))) {
+                    handleClass(file);
                 }
+                return FileHandlerResult.CONTINUE;
             }
-        } catch (final IOException ex) {
-            throw new RuntimeException("Error reading: " + dir, ex);
-        }
+        });
+        fileProcessor.process(dir);
+
     }
 
     /**
