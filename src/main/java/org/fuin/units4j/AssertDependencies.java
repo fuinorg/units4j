@@ -18,7 +18,6 @@
 package org.fuin.units4j;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import org.fuin.units4j.dependency.Dependencies;
@@ -42,19 +41,15 @@ public final class AssertDependencies {
     }
 
     private static void assertIntern(final File classesDir, final DependencyAnalyzer analyzer) {
-        try {
-            analyzer.analyze(classesDir);
-            final List<DependencyError> dependencyErrors = analyzer.getDependencyErrors();
-            if (dependencyErrors.size() > 0) {
-                final StringBuffer sb = new StringBuffer();
-                for (int i = 0; i < dependencyErrors.size(); i++) {
-                    sb.append("\n");
-                    sb.append(dependencyErrors.get(i));
-                }
-                Assert.fail(sb.toString());
+        analyzer.analyze(classesDir);
+        final List<DependencyError> dependencyErrors = analyzer.getDependencyErrors();
+        if (dependencyErrors.size() > 0) {
+            final StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < dependencyErrors.size(); i++) {
+                sb.append("\n");
+                sb.append(dependencyErrors.get(i));
             }
-        } catch (final IOException ex) {
-            throw new RuntimeException(ex);
+            Assert.fail(sb.toString());
         }
     }
 

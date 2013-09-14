@@ -27,6 +27,9 @@ import java.util.List;
 import java.util.Set;
 
 import org.fuin.utils4j.Utils4J;
+import org.fuin.utils4j.fileprocessor.FileHandler;
+import org.fuin.utils4j.fileprocessor.FileHandlerResult;
+import org.fuin.utils4j.fileprocessor.FileProcessor;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -163,9 +166,10 @@ public final class AssertCoverage {
      * @param classes
      *            Set to populate.
      * @param baseDir
-     *            Root directory like ("src/main/java").
+     *            Root directory like "src/main/java".
      * @param srcDir
-     *            A directory inside the root directory.
+     *            A directory inside the root directory like "a/b/c" (path of
+     *            the package "a.b.c").
      * @param recursive
      *            If sub directories should be included <code>true</code> else
      *            <code>false</code>.
@@ -175,29 +179,35 @@ public final class AssertCoverage {
      */
     static void analyzeDir(final Set<Class<?>> classes, final File baseDir, final File srcDir,
             final boolean recursive, final ClassFilter classFilter) {
-        final String packageName = Utils4J.getRelativePath(baseDir, srcDir).replace(
-                File.separatorChar, '.');
-        final File[] files = srcDir.listFiles();
-        if (files != null) {
-            for (int i = 0; i < files.length; i++) {
-                if (files[i].isDirectory()) {
+
+        final FileProcessor fileProcessor = new FileProcessor(new FileHandler() {
+            @Override
+            public final FileHandlerResult handleFile(final File file) {
+                if (file.isDirectory()) {
+                    // Directory
                     if (recursive) {
-                        analyzeDir(classes, baseDir, files[i], recursive, classFilter);
+                        return FileHandlerResult.CONTINUE;
                     }
-                } else {
-                    if (files[i].getName().endsWith(".java") 
-                    		&& !files[i].getName().equals("package-info.java")) {
-                        final String name = files[i].getName();
-                        final String simpleName = name.substring(0, name.length() - 5);
-                        final String className = packageName + "." + simpleName;
-                        final Class<?> clasz = classForName(className);
-                        if (isInclude(clasz, classFilter)) {
-                            classes.add(clasz);
-                        }
+                    return FileHandlerResult.SKIP_SUBDIRS;
+                }
+                // File
+                final String name = file.getName();
+                if (name.endsWith(".java") && !name.equals("package-info.java")) {
+                    final String packageName = Utils4J.getRelativePath(baseDir,
+                            file.getParentFile()).replace(File.separatorChar, '.');
+                    final String simpleName = name.substring(0, name.length() - 5);
+                    final String className = packageName + "." + simpleName;
+                    final Class<?> clasz = classForName(className);
+                    if (isInclude(clasz, classFilter)) {
+                        classes.add(clasz);
                     }
                 }
+                return FileHandlerResult.CONTINUE;
             }
-        }
+        });
+
+        fileProcessor.process(srcDir);
+
     }
 
     private static Class<?> classForName(final String className) {

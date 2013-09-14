@@ -30,6 +30,9 @@ import java.util.Map;
 import java.util.Set;
 
 import org.fuin.utils4j.Utils4J;
+import org.fuin.utils4j.fileprocessor.FileHandler;
+import org.fuin.utils4j.fileprocessor.FileHandlerResult;
+import org.fuin.utils4j.fileprocessor.FileProcessor;
 import org.objectweb.asm.ClassReader;
 
 /**
@@ -91,29 +94,6 @@ public final class DependencyAnalyzer {
         this.dependencies = dependencies;
         this.dependencies.validate();
         dependencyErrors = new ArrayList<DependencyError>();
-    }
-
-    /**
-     * Analyze the dependencies of all classes in the directory and it's sub
-     * directories.
-     * 
-     * @param classesDir
-     *            Directory with ".class" files.
-     * 
-     * @throws IOException
-     *             Error reading a class file.
-     */
-    private void analyzeDir(final File classesDir) throws IOException {
-        final File[] files = classesDir.listFiles();
-        for (int i = 0; i < files.length; i++) {
-            if (files[i].isDirectory()) {
-                analyzeDir(files[i]);
-            } else {
-                if (files[i].getName().endsWith(".class")) {
-                    analyzeClass(files[i]);
-                }
-            }
-        }
     }
 
     /**
@@ -211,36 +191,6 @@ public final class DependencyAnalyzer {
     }
 
     /**
-     * Analyze the dependencies of a class.
-     * 
-     * @param classFile
-     *            Class file to check.
-     * 
-     * @throws IOException
-     *             Error loading the file.
-     */
-    private void analyzeClass(final File classFile) throws IOException {
-
-        final ClassInfo classInfo = new ClassInfo(classFile);
-
-        final Package<DependsOn> allowedPkg = dependencies.findAllowedByName(classInfo
-                .getPackageName());
-        if (allowedPkg == null) {
-            final Package<NotDependsOn> forbiddenPkg = dependencies.findForbiddenByName(classInfo
-                    .getPackageName());
-            if (forbiddenPkg == null) {
-                dependencyErrors.addAll(checkAlwaysForbiddenSection(dependencies, classInfo));
-            } else {
-                dependencyErrors
-                        .addAll(checkForbiddenSection(dependencies, forbiddenPkg, classInfo));
-            }
-        } else {
-            dependencyErrors.addAll(checkAllowedSection(dependencies, allowedPkg, classInfo));
-        }
-
-    }
-
-    /**
      * Checks if any of the imports is listed in the "alwaysForbidden" section.
      * 
      * @param dependencies
@@ -276,13 +226,46 @@ public final class DependencyAnalyzer {
      * @param classesDir
      *            Directory where the "*.class" files are located (something
      *            like "bin" or "classes").
-     * 
-     * @throws IOException
-     *             Error reading the classes.
      */
-    public final void analyze(final File classesDir) throws IOException {
+    public final void analyze(final File classesDir) {
+
+        final FileProcessor fileProcessor = new FileProcessor(new FileHandler() {
+            @Override
+            public final FileHandlerResult handleFile(final File classFile) {
+                if (!classFile.getName().endsWith(".class")) {
+                    return FileHandlerResult.CONTINUE;
+                }
+                try {
+                    final ClassInfo classInfo = new ClassInfo(classFile);
+
+                    final Package<DependsOn> allowedPkg = dependencies.findAllowedByName(classInfo
+                            .getPackageName());
+                    if (allowedPkg == null) {
+                        final Package<NotDependsOn> forbiddenPkg = dependencies
+                                .findForbiddenByName(classInfo.getPackageName());
+                        if (forbiddenPkg == null) {
+                            dependencyErrors.addAll(checkAlwaysForbiddenSection(dependencies,
+                                    classInfo));
+                        } else {
+                            dependencyErrors.addAll(checkForbiddenSection(dependencies,
+                                    forbiddenPkg, classInfo));
+                        }
+                    } else {
+                        dependencyErrors.addAll(checkAllowedSection(dependencies, allowedPkg,
+                                classInfo));
+                    }
+                } catch (final IOException ex) {
+                    throw new RuntimeException("Error handling file: " + classFile, ex);
+                }
+
+                return FileHandlerResult.CONTINUE;
+
+            }
+        });
+
         dependencyErrors.clear();
-        analyzeDir(classesDir);
+        fileProcessor.process(classesDir);
+
     }
 
     /**
