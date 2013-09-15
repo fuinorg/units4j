@@ -29,14 +29,14 @@ import org.fuin.utils4j.Utils4J;
 import org.junit.Assert;
 
 /**
- * Assertion tool class for checking usage of a method.
+ * Assertion tool class for checking usage of some code.
  */
-public final class AssertMethodUsage {
+public final class AssertUsage {
 
     /**
      * Private default constructor.
      */
-    private AssertMethodUsage() {
+    private AssertUsage() {
         throw new UnsupportedOperationException(
                 "This utility class is not intended to be instanciated!");
     }

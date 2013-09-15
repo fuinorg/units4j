@@ -26,7 +26,7 @@ import org.fuin.units4j.analyzer.MCAMethod;
 import org.junit.Test;
 
 //TESTCODE:BEGIN
-public final class AssertMethodUsageTest {
+public final class AssertUsageTest {
 
     @Test
     public void testAssertMethodsNotUsed() {
@@ -35,9 +35,8 @@ public final class AssertMethodUsageTest {
         final MCAMethod divide = new MCAMethod(BigDecimal.class.getName(),
                 BigDecimal.class.getName() + " divide(" + BigDecimal.class.getName() + ")");
 
-        // FindMethodCallExampleClasz.class.getName()
         try {
-            AssertMethodUsage.assertMethodsNotUsed(binDir, null, divide);
+            AssertUsage.assertMethodsNotUsed(binDir, null, divide);
         } catch (final AssertionError err) {
             assertThat(err.getMessage()).isEqualTo(
                     "Illegal method call(s) found:\n"
@@ -51,5 +50,6 @@ public final class AssertMethodUsageTest {
         assertThat(true).isTrue();
 
     }
+
 }
 // TESTCODE:END
