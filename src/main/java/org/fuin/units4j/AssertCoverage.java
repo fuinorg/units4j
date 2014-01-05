@@ -252,6 +252,9 @@ public final class AssertCoverage {
      *         <code>false</code>.
      */
     static boolean hasTestMethod(final Class<?> testClass) {
+        if (testClass.getAnnotation(TestOmitted.class) != null) {
+            return true;
+        }
         boolean found = false;
         final Method[] methods = testClass.getMethods();
         for (final Method method : methods) {
