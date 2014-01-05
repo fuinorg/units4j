@@ -5,6 +5,8 @@
     <dependsOn package="java.io"/>
     <dependsOn package="java.util"/>
     <dependsOn package="org.junit"/>
+    <dependsOn package="org.jboss.weld.environment.se"/>
+    <dependsOn package="javax.enterprise.inject"/>
   </alwaysAllowed>
   
   <alwaysForbidden>
