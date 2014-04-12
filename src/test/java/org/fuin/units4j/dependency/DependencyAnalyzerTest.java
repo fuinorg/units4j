@@ -95,6 +95,9 @@ public final class DependencyAnalyzerTest {
 
         testee.analyze(new File("target/test-classes/dummy/test/bad"));
         final List<DependencyError> errors = testee.getDependencyErrors();
+        for (DependencyError error : errors) {
+            System.err.println(error);
+        }
         assertThat(errors).hasSize(3);
 
         final List<String> messages = new ArrayList<String>();

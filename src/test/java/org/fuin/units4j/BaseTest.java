@@ -19,6 +19,11 @@ package org.fuin.units4j;
 
 import java.io.File;
 
+import org.fuin.units4j.AssertCoverage.ClassFilter;
+import org.fuin.units4j.analyzer.EmptyAnnotationVisitor;
+import org.fuin.units4j.analyzer.EmptyClassVisitor;
+import org.fuin.units4j.analyzer.EmptyFieldVisitor;
+import org.fuin.units4j.analyzer.EmptyMethodVisitor;
 import org.junit.Test;
 
 //TESTCODE:BEGIN
@@ -26,7 +31,17 @@ public final class BaseTest {
 
     @Test
     public final void testCoverage() {
-        AssertCoverage.assertEveryClassHasATest(new File("src/main/java"));
+        AssertCoverage.assertEveryClassHasATest(new File("src/main/java"), new ClassFilter() {
+            @Override
+            public boolean isIncludeClass(final Class<?> clasz) {
+                if ((clasz == EmptyClassVisitor.class) || (clasz == EmptyAnnotationVisitor.class)
+                        || (clasz == EmptyFieldVisitor.class)
+                        || (clasz == EmptyMethodVisitor.class)) {
+                    return false;
+                }
+                return true;
+            }
+        });
     }
 
 }

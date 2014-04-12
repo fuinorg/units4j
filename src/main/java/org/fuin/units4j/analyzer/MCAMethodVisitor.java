@@ -20,14 +20,14 @@ package org.fuin.units4j.analyzer;
 import java.util.List;
 
 import org.objectweb.asm.Label;
-import org.objectweb.asm.MethodAdapter;
-import org.objectweb.asm.commons.EmptyVisitor;
+import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 
 /**
  * Visits a method and checks if one of a set of methods is called in that
  * method.
  */
-public final class MCAMethodVisitor extends MethodAdapter {
+public final class MCAMethodVisitor extends MethodVisitor {
 
     private final MCAClassVisitor classVisitor;
 
@@ -46,7 +46,7 @@ public final class MCAMethodVisitor extends MethodAdapter {
      *            List of methods to find.
      */
     public MCAMethodVisitor(final MCAClassVisitor classVisitor, final List<MCAMethod> toFind) {
-        super(new EmptyVisitor());
+        super(Opcodes.ASM5, new EmptyMethodVisitor());
         if (classVisitor == null) {
             throw new IllegalArgumentException("Argument 'classVisitor' canot be NULL");
         }
@@ -59,7 +59,7 @@ public final class MCAMethodVisitor extends MethodAdapter {
 
     @Override
     public final void visitMethodInsn(final int opcode, final String owner, final String name,
-            final String descr) {
+            final String descr, final boolean itf) {
 
         final MCAMethod m = new MCAMethod(owner, name, descr);
         final int idx = toFind.indexOf(m);

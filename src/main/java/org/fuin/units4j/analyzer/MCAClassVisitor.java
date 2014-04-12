@@ -20,14 +20,14 @@ package org.fuin.units4j.analyzer;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.objectweb.asm.ClassAdapter;
+import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.commons.EmptyVisitor;
+import org.objectweb.asm.Opcodes;
 
 /**
  * Visits a class and checks if one of a set of methods is called in that class.
  */
-public final class MCAClassVisitor extends ClassAdapter {
+public final class MCAClassVisitor extends ClassVisitor {
 
     private final List<MCAMethodCall> calls;
 
@@ -48,7 +48,7 @@ public final class MCAClassVisitor extends ClassAdapter {
      *            Method calls to find.
      */
     public MCAClassVisitor(final List<MCAMethod> methodsToFind) {
-        super(new EmptyVisitor());
+        super(Opcodes.ASM5, new EmptyClassVisitor());
         if (methodsToFind == null) {
             throw new IllegalArgumentException("Argument 'methodsToFind' canot be NULL");
         }
