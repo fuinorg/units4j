@@ -20,6 +20,7 @@
 			<property name="hibernate.connection.username" value="sa" />
 			<property name="hibernate.connection.password" value="" />
 			
+			<!-- Necessary for shutdown of HSQL in tests -->
 			<property name="units4j.shutdown" value="true" />
 			<property name="units4j.url" value="jdbc:hsqldb:mem:unit-testing-jpa" />
 			<property name="units4j.user" value="sa" />
