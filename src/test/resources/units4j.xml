@@ -1,12 +1,12 @@
 <dependencies>
   
   <alwaysAllowed>
-    <dependsOn package="java.lang"/>
-    <dependsOn package="java.io"/>
-    <dependsOn package="java.util"/>
+    <dependsOn package="java"/>
+    <dependsOn package="javax"/>
     <dependsOn package="org.junit"/>
+    <dependsOn package="org.apache.commons"/>
+    <dependsOn package="org.fest.assertions"/>
     <dependsOn package="org.jboss.weld.environment.se"/>
-    <dependsOn package="javax.enterprise.inject"/>
   </alwaysAllowed>
   
   <alwaysForbidden>
