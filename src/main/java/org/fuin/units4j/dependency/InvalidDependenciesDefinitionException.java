@@ -25,7 +25,7 @@ import org.fuin.utils4j.Utils4J;
 public class InvalidDependenciesDefinitionException extends Exception {
 
     private static final long serialVersionUID = 1L;
-    
+
     private final Dependencies dependencies;
 
     /**
@@ -36,7 +36,8 @@ public class InvalidDependenciesDefinitionException extends Exception {
      * @param message
      *            Error message.
      */
-    public InvalidDependenciesDefinitionException(final Dependencies dependencies, final String message) {
+    public InvalidDependenciesDefinitionException(
+            final Dependencies dependencies, final String message) {
         super(message);
         Utils4J.checkNotNull("dependencies", dependencies);
         this.dependencies = dependencies;

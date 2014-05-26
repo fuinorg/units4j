@@ -23,7 +23,7 @@ import org.junit.Test;
 
 //TESTCODE:BEGIN
 public final class InvalidDependenciesDefinitionExceptionTest {
-    
+
     @Test
     public final void testConstruction() {
         final String message = "A message";

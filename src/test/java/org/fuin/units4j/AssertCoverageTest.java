@@ -87,12 +87,13 @@ public final class AssertCoverageTest {
         final File baseDir = new File("src/test/java");
         final File srcDir = new File(baseDir, "assertcoverage");
 
-        AssertCoverage.analyzeDir(classes, baseDir, srcDir, false, new ClassFilter() {
-            public boolean isIncludeClass(final Class<?> clasz) {
-                return !clasz.getSimpleName().equals("ExampleClass")
-                        && !clasz.equals(ExampleExcludedClass.class);
-            }
-        });
+        AssertCoverage.analyzeDir(classes, baseDir, srcDir, false,
+                new ClassFilter() {
+                    public boolean isIncludeClass(final Class<?> clasz) {
+                        return !clasz.getSimpleName().equals("ExampleClass")
+                                && !clasz.equals(ExampleExcludedClass.class);
+                    }
+                });
         assertThat(classes.size()).isEqualTo(0);
 
     }
@@ -105,7 +106,8 @@ public final class AssertCoverageTest {
         final File srcDir = new File(baseDir, "assertcoverage");
 
         AssertCoverage.analyzeDir(classes, baseDir, srcDir, false, ALWAYS_TRUE);
-        assertThat(classes).contains(ExampleClass.class, ExampleExcludedClass.class);
+        assertThat(classes).contains(ExampleClass.class,
+                ExampleExcludedClass.class);
 
     }
 
@@ -124,13 +126,23 @@ public final class AssertCoverageTest {
     @Test
     public final void testIsInclude() {
 
-        assertThat(AssertCoverage.isInclude(ExampleClass.class, ALWAYS_TRUE)).isTrue();
-        assertThat(AssertCoverage.isInclude(ExampleClass.class, ALWAYS_FALSE)).isFalse();
+        assertThat(AssertCoverage.isInclude(ExampleClass.class, ALWAYS_TRUE))
+                .isTrue();
+        assertThat(AssertCoverage.isInclude(ExampleClass.class, ALWAYS_FALSE))
+                .isFalse();
 
-        assertThat(AssertCoverage.isInclude(AbstractExampleClass.class, ALWAYS_TRUE)).isFalse();
-        assertThat(AssertCoverage.isInclude(AnnotationExampleClass.class, ALWAYS_TRUE)).isFalse();
-        assertThat(AssertCoverage.isInclude(EnumExampleClass.class, ALWAYS_TRUE)).isFalse();
-        assertThat(AssertCoverage.isInclude(InterfaceExampleClass.class, ALWAYS_TRUE)).isFalse();
+        assertThat(
+                AssertCoverage.isInclude(AbstractExampleClass.class,
+                        ALWAYS_TRUE)).isFalse();
+        assertThat(
+                AssertCoverage.isInclude(AnnotationExampleClass.class,
+                        ALWAYS_TRUE)).isFalse();
+        assertThat(
+                AssertCoverage.isInclude(EnumExampleClass.class, ALWAYS_TRUE))
+                .isFalse();
+        assertThat(
+                AssertCoverage.isInclude(InterfaceExampleClass.class,
+                        ALWAYS_TRUE)).isFalse();
 
     }
 
@@ -138,7 +150,8 @@ public final class AssertCoverageTest {
     public final void testHasTestMethod() {
 
         assertThat(AssertCoverage.hasTestMethod(ExampleClass.class)).isFalse();
-        assertThat(AssertCoverage.hasTestMethod(AssertCoverageTest.class)).isTrue();
+        assertThat(AssertCoverage.hasTestMethod(AssertCoverageTest.class))
+                .isTrue();
 
     }
 
@@ -156,10 +169,11 @@ public final class AssertCoverageTest {
     @Test
     public final void testExcludeListClassFilterProperties() {
 
-        final Properties excludes = Utils4J.loadProperties(ExampleExcludedClass.class,
-                "excludeClasses.properties");
+        final Properties excludes = Utils4J.loadProperties(
+                ExampleExcludedClass.class, "excludeClasses.properties");
         final Set<Object> keySet = excludes.keySet();
-        final String[] fqnClassNames = keySet.toArray(new String[keySet.size()]);
+        final String[] fqnClassNames = keySet
+                .toArray(new String[keySet.size()]);
 
         final AssertCoverage.ExcludeListClassFilter testee = new AssertCoverage.ExcludeListClassFilter(
                 fqnClassNames);

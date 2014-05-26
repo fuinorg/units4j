@@ -52,8 +52,8 @@ public final class AssertUsage {
      * @param methodsToFind
      *            List of methods to find.
      */
-    public static final void assertMethodsNotUsed(final File classesDir, final FileFilter filter,
-            final MCAMethod... methodsToFind) {
+    public static final void assertMethodsNotUsed(final File classesDir,
+            final FileFilter filter, final MCAMethod... methodsToFind) {
 
         Utils4J.checkNotNull("methodsToFind", methodsToFind);
         assertMethodsNotUsed(classesDir, filter, Arrays.asList(methodsToFind));
@@ -71,19 +71,21 @@ public final class AssertUsage {
      * @param methodsToFind
      *            List of methods to find - Cannot be NULL.
      */
-    public static final void assertMethodsNotUsed(final File classesDir, final FileFilter filter,
-            final List<MCAMethod> methodsToFind) {
+    public static final void assertMethodsNotUsed(final File classesDir,
+            final FileFilter filter, final List<MCAMethod> methodsToFind) {
 
         Utils4J.checkNotNull("classesDir", classesDir);
         Utils4J.checkValidDir(classesDir);
         Utils4J.checkNotNull("methodsToFind", methodsToFind);
 
-        final MethodCallAnalyzer analyzer = new MethodCallAnalyzer(methodsToFind);
+        final MethodCallAnalyzer analyzer = new MethodCallAnalyzer(
+                methodsToFind);
         analyzer.findCallingMethodsInDir(classesDir, filter);
 
         final List<MCAMethodCall> methodCalls = analyzer.getMethodCalls();
         if (methodCalls.size() > 0) {
-            final StringBuffer sb = new StringBuffer("Illegal method call(s) found:");
+            final StringBuffer sb = new StringBuffer(
+                    "Illegal method call(s) found:");
             for (final MCAMethodCall methodCall : methodCalls) {
                 sb.append("\n");
                 sb.append(methodCall);

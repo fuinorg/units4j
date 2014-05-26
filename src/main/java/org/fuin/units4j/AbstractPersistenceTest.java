@@ -44,85 +44,85 @@ import org.junit.BeforeClass;
 // CHECKSTYLE:OFF:JavaDoc
 public abstract class AbstractPersistenceTest {
 
-	private static EntityManagerFactory emf;
+    private static EntityManagerFactory emf;
 
-	private static EntityManager em;
+    private static EntityManager em;
 
-	private static Connection connection;
+    private static Connection connection;
 
-	@BeforeClass
-	public static void beforeClass() throws Exception {
-		try {
-			emf = Persistence.createEntityManagerFactory("testPU");
-			em = emf.createEntityManager();
-			final Map<String, Object> props = emf.getProperties();
-			final boolean shutdown = Boolean.valueOf(""
-					+ props.get("units4j.shutdown"));
-			if (shutdown) {
-				final String connUrl = "" + props.get("units4j.url");
-				final String connUsername =  "" + props.get("units4j.user");
-				final String connPassword =  "" + props.get("units4j.pw");
-				connection = DriverManager.getConnection(connUrl, connUsername,
-						connPassword);
-			}
+    @BeforeClass
+    public static void beforeClass() throws Exception {
+        try {
+            emf = Persistence.createEntityManagerFactory("testPU");
+            em = emf.createEntityManager();
+            final Map<String, Object> props = emf.getProperties();
+            final boolean shutdown = Boolean.valueOf(""
+                    + props.get("units4j.shutdown"));
+            if (shutdown) {
+                final String connUrl = "" + props.get("units4j.url");
+                final String connUsername = "" + props.get("units4j.user");
+                final String connPassword = "" + props.get("units4j.pw");
+                connection = DriverManager.getConnection(connUrl, connUsername,
+                        connPassword);
+            }
 
-		} catch (final SQLException ex) {
-			throw new RuntimeException(ex);
-		}
-	}
-	
-	@AfterClass
-	public static void afterClass() {
-		if (em != null) {
-			em.close();
-		}
-		if (emf != null) {
-			emf.close();
-		}
-		try {
-			if (connection != null) {
-				connection.createStatement().execute("SHUTDOWN");
-			}
-		} catch (final SQLException ex) {
-			throw new RuntimeException(ex);
-		}
-	}
+        } catch (final SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 
-	/**
-	 * Returns the entity manager.
-	 * 
-	 * @return Test entity manager.
-	 */
-	protected static EntityManager getEm() {
-		if (em == null) {
-			throw new IllegalStateException(
-					"Entity manager not available - Something went wrong...");
-		}
-		return em;
-	}
+    @AfterClass
+    public static void afterClass() {
+        if (em != null) {
+            em.close();
+        }
+        if (emf != null) {
+            emf.close();
+        }
+        try {
+            if (connection != null) {
+                connection.createStatement().execute("SHUTDOWN");
+            }
+        } catch (final SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 
-	/**
-	 * Starts a transaction.
-	 */
-	protected static void beginTransaction() {
-		getEm().getTransaction().begin();
-	}
+    /**
+     * Returns the entity manager.
+     * 
+     * @return Test entity manager.
+     */
+    protected static EntityManager getEm() {
+        if (em == null) {
+            throw new IllegalStateException(
+                    "Entity manager not available - Something went wrong...");
+        }
+        return em;
+    }
 
-	/**
-	 * Commits the current transaction.
-	 */
-	protected static void commitTransaction() {
-		getEm().getTransaction().commit();
-	}
+    /**
+     * Starts a transaction.
+     */
+    protected static void beginTransaction() {
+        getEm().getTransaction().begin();
+    }
 
-	/**
-	 * Rolls back the current transaction (if active.
-	 */
-	protected static void rollbackTransaction() {
-		if (getEm().getTransaction().isActive()) {
-			getEm().getTransaction().rollback();
-		}
-	}
+    /**
+     * Commits the current transaction.
+     */
+    protected static void commitTransaction() {
+        getEm().getTransaction().commit();
+    }
+
+    /**
+     * Rolls back the current transaction (if active.
+     */
+    protected static void rollbackTransaction() {
+        if (getEm().getTransaction().isActive()) {
+            getEm().getTransaction().rollback();
+        }
+    }
 
 }
 // CHECKSTYLE:ON:JavaDoc

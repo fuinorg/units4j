@@ -45,21 +45,24 @@ public final class MCAMethodVisitor extends MethodVisitor {
      * @param toFind
      *            List of methods to find.
      */
-    public MCAMethodVisitor(final MCAClassVisitor classVisitor, final List<MCAMethod> toFind) {
+    public MCAMethodVisitor(final MCAClassVisitor classVisitor,
+            final List<MCAMethod> toFind) {
         super(Opcodes.ASM5, new EmptyMethodVisitor());
         if (classVisitor == null) {
-            throw new IllegalArgumentException("Argument 'classVisitor' canot be NULL");
+            throw new IllegalArgumentException(
+                    "Argument 'classVisitor' canot be NULL");
         }
         if (toFind == null) {
-            throw new IllegalArgumentException("Argument 'toFind' canot be NULL");
+            throw new IllegalArgumentException(
+                    "Argument 'toFind' canot be NULL");
         }
         this.classVisitor = classVisitor;
         this.toFind = toFind;
     }
 
     @Override
-    public final void visitMethodInsn(final int opcode, final String owner, final String name,
-            final String descr, final boolean itf) {
+    public final void visitMethodInsn(final int opcode, final String owner,
+            final String name, final String descr, final boolean itf) {
 
         final MCAMethod m = new MCAMethod(owner, name, descr);
         final int idx = toFind.indexOf(m);

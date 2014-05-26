@@ -75,11 +75,14 @@ public final class MethodCallAnalyzerTest {
         final MCAMethod setScale = new MCAMethod(BigDecimal.class.getName(),
                 BigDecimal.class.getName() + " setScale(int)");
         final MCAMethod divide = new MCAMethod(BigDecimal.class.getName(),
-                BigDecimal.class.getName() + " divide(" + BigDecimal.class.getName() + ")");
+                BigDecimal.class.getName() + " divide("
+                        + BigDecimal.class.getName() + ")");
         final MCAMethod superCall = new MCAMethod(
-                "org.fuin.units4j.analyzer.FindMethodCallExampleClasz", "void <init>()");
+                "org.fuin.units4j.analyzer.FindMethodCallExampleClasz",
+                "void <init>()");
 
-        final MethodCallAnalyzer testee = new MethodCallAnalyzer(setScale, divide, superCall);
+        final MethodCallAnalyzer testee = new MethodCallAnalyzer(setScale,
+                divide, superCall);
 
         // TEST
         testee.findCallingMethodsInDir(binDir);
@@ -106,17 +109,21 @@ public final class MethodCallAnalyzerTest {
 
         // PREPARE
         final File binDir = new File("target/test-classes");
-        final File zipFile = File.createTempFile("MethodCallAnalyzerTest-", ".jar");
+        final File zipFile = File.createTempFile("MethodCallAnalyzerTest-",
+                ".jar");
         Utils4J.zipDir(binDir, null, zipFile);
 
         final MCAMethod setScale = new MCAMethod(BigDecimal.class.getName(),
                 BigDecimal.class.getName() + " setScale(int)");
         final MCAMethod divide = new MCAMethod(BigDecimal.class.getName(),
-                BigDecimal.class.getName() + " divide(" + BigDecimal.class.getName() + ")");
+                BigDecimal.class.getName() + " divide("
+                        + BigDecimal.class.getName() + ")");
         final MCAMethod superCall = new MCAMethod(
-                "org.fuin.units4j.analyzer.FindMethodCallExampleClasz", "void <init>()");
+                "org.fuin.units4j.analyzer.FindMethodCallExampleClasz",
+                "void <init>()");
 
-        final MethodCallAnalyzer testee = new MethodCallAnalyzer(setScale, divide, superCall);
+        final MethodCallAnalyzer testee = new MethodCallAnalyzer(setScale,
+                divide, superCall);
 
         // TEST
         testee.findCallingMethodsInJar(zipFile);

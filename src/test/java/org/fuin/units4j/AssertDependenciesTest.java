@@ -57,7 +57,8 @@ public final class AssertDependenciesTest {
 
     @Test
     public final void testAssertRulesClassStringFile() {
-        AssertDependencies.assertRules(this.getClass(), "/units4j.xml", classesDir);
+        AssertDependencies.assertRules(this.getClass(), "/units4j.xml",
+                classesDir);
     }
 
 }

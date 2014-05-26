@@ -31,138 +31,138 @@ import org.junit.Test;
 // TESTCODE:BEGIN
 public final class Units4JUtilsTest {
 
-	@Test
-	public final void testSerializeDeserialize() {
+    @Test
+    public final void testSerializeDeserialize() {
 
-		// PREPARE
-		final MyTestClass original = new MyTestClass(1, "Test");
+        // PREPARE
+        final MyTestClass original = new MyTestClass(1, "Test");
 
-		// TEST
-		final MyTestClass copy = Units4JUtils.deserialize(Units4JUtils
-				.serialize(original));
+        // TEST
+        final MyTestClass copy = Units4JUtils.deserialize(Units4JUtils
+                .serialize(original));
 
-		// VERIFY
-		assertThat(copy).isEqualTo(original);
+        // VERIFY
+        assertThat(copy).isEqualTo(original);
 
-	}
+    }
 
-	@Test
-	public final void testMarshalUnmarshal() {
+    @Test
+    public final void testMarshalUnmarshal() {
 
-		// PREPARE
-		final MyTestClass original = new MyTestClass(1, "Test");
+        // PREPARE
+        final MyTestClass original = new MyTestClass(1, "Test");
 
-		// TEST
-		final String xml = Units4JUtils.marshal(original, MyTestClass.class);
-		final MyTestClass copy = Units4JUtils.unmarshal(xml, MyTestClass.class);
+        // TEST
+        final String xml = Units4JUtils.marshal(original, MyTestClass.class);
+        final MyTestClass copy = Units4JUtils.unmarshal(xml, MyTestClass.class);
 
-		// VERIFY
-		assertThat(copy).isEqualTo(original);
+        // VERIFY
+        assertThat(copy).isEqualTo(original);
 
-	}
+    }
 
-	@Test
-	public final void testSetPrivateField() {
+    @Test
+    public final void testSetPrivateField() {
 
-		// PREPARE
-		final MyTestClass original = new MyTestClass(1, "Test");
-		final Integer id = Integer.valueOf(2);
-		final String name = "Changed";
+        // PREPARE
+        final MyTestClass original = new MyTestClass(1, "Test");
+        final Integer id = Integer.valueOf(2);
+        final String name = "Changed";
 
-		// TEST
-		Units4JUtils.setPrivateField(original, "id", id);
-		Units4JUtils.setPrivateField(original, "name", name);
+        // TEST
+        Units4JUtils.setPrivateField(original, "id", id);
+        Units4JUtils.setPrivateField(original, "name", name);
 
-		// VERIFY
-		assertThat(original.getId()).isEqualTo(id);
-		assertThat(original.getName()).isEqualTo(name);
+        // VERIFY
+        assertThat(original.getId()).isEqualTo(id);
+        assertThat(original.getName()).isEqualTo(name);
 
-	}
+    }
 
-	@Test
-	public final void testAssertCauseMessage() {
+    @Test
+    public final void testAssertCauseMessage() {
 
-		// PREPARE
-		final Exception second = new RuntimeException("second");
-		final Exception first = new RuntimeException("first", second);
+        // PREPARE
+        final Exception second = new RuntimeException("second");
+        final Exception first = new RuntimeException("first", second);
 
-		// TEST & VERIFY
-		Units4JUtils.assertCauseMessage(first, "second");
-		try {
-			Units4JUtils.assertCauseMessage(first, "xxx");
-			fail();
-		} catch (final ComparisonFailure f) {
-			// OK
-			assertThat(f.getMessage()).isEqualTo(
-					"expected:<'[xxx]'> but was:<'[second]'>");
-		}
+        // TEST & VERIFY
+        Units4JUtils.assertCauseMessage(first, "second");
+        try {
+            Units4JUtils.assertCauseMessage(first, "xxx");
+            fail();
+        } catch (final ComparisonFailure f) {
+            // OK
+            assertThat(f.getMessage()).isEqualTo(
+                    "expected:<'[xxx]'> but was:<'[second]'>");
+        }
 
-	}
+    }
 
-	@Test
-	public final void testAssertCauseCauseMessage() {
+    @Test
+    public final void testAssertCauseCauseMessage() {
 
-		// PREPARE
-		final Exception third = new RuntimeException("third");
-		final Exception second = new RuntimeException("second", third);
-		final Exception first = new RuntimeException("first", second);
+        // PREPARE
+        final Exception third = new RuntimeException("third");
+        final Exception second = new RuntimeException("second", third);
+        final Exception first = new RuntimeException("first", second);
 
-		// TEST & VERIFY
-		Units4JUtils.assertCauseCauseMessage(first, "third");
-		try {
-			Units4JUtils.assertCauseCauseMessage(first, "xxx");
-			fail();
-		} catch (final ComparisonFailure f) {
-			// OK
-			assertThat(f.getMessage()).isEqualTo(
-					"expected:<'[xxx]'> but was:<'[third]'>");
-		}
+        // TEST & VERIFY
+        Units4JUtils.assertCauseCauseMessage(first, "third");
+        try {
+            Units4JUtils.assertCauseCauseMessage(first, "xxx");
+            fail();
+        } catch (final ComparisonFailure f) {
+            // OK
+            assertThat(f.getMessage()).isEqualTo(
+                    "expected:<'[xxx]'> but was:<'[third]'>");
+        }
 
-	}
+    }
 
-	@Test
-	public final void testValidate() {
+    @Test
+    public final void testValidate() {
 
-		// PREPARE
-		final MyTestClass obj = new MyTestClass(0, null);
+        // PREPARE
+        final MyTestClass obj = new MyTestClass(0, null);
 
-		// TEST
-		final Set<ConstraintViolation<Object>> result = Units4JUtils
-				.validate(obj);
+        // TEST
+        final Set<ConstraintViolation<Object>> result = Units4JUtils
+                .validate(obj);
 
-		// VERIFY
-		assertThat(result).isNotNull();
-		assertThat(result).hasSize(2);
+        // VERIFY
+        assertThat(result).isNotNull();
+        assertThat(result).hasSize(2);
 
-	}
+    }
 
-	@Test
-	public final void testValidator() {
+    @Test
+    public final void testValidator() {
 
-		assertThat(Units4JUtils.validator()).isNotNull();
+        assertThat(Units4JUtils.validator()).isNotNull();
 
-	}
+    }
 
-	@Test
-	public final void testReplaceXmlAttr() {
+    @Test
+    public final void testReplaceXmlAttr() {
 
-		// PREPARE
-		final MyTestClass original = new MyTestClass(1, "Test");
-		final String xml = Units4JUtils.marshal(original, MyTestClass.class);
-		final Integer id = Integer.valueOf(2);
-		final String name = "Changed";
+        // PREPARE
+        final MyTestClass original = new MyTestClass(1, "Test");
+        final String xml = Units4JUtils.marshal(original, MyTestClass.class);
+        final Integer id = Integer.valueOf(2);
+        final String name = "Changed";
 
-		// TEST
-		final String changed = Units4JUtils.replaceXmlAttr(xml, new KV("id", ""
-				+ id), new KV("name", name));
+        // TEST
+        final String changed = Units4JUtils.replaceXmlAttr(xml, new KV("id", ""
+                + id), new KV("name", name));
 
-		// VERIFY
-		final MyTestClass copy = Units4JUtils.unmarshal(changed,
-				MyTestClass.class);
-		assertThat(copy.getId()).isEqualTo(id);
-		assertThat(copy.getName()).isEqualTo(name);
+        // VERIFY
+        final MyTestClass copy = Units4JUtils.unmarshal(changed,
+                MyTestClass.class);
+        assertThat(copy.getId()).isEqualTo(id);
+        assertThat(copy.getName()).isEqualTo(name);
 
-	}
+    }
 
 }
 // TESTCODE:END

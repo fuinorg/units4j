@@ -43,8 +43,8 @@ public final class MCAClassVisitorTest {
 
     @Before
     public final void setup() {
-        setScale = new MCAMethod(BigDecimal.class.getName(), BigDecimal.class.getName()
-                + " setScale(int)");
+        setScale = new MCAMethod(BigDecimal.class.getName(),
+                BigDecimal.class.getName() + " setScale(int)");
         methodsToFind = new ArrayList<MCAMethod>();
         methodsToFind.add(setScale);
         testee = new MCAClassVisitor(methodsToFind);
@@ -105,7 +105,8 @@ public final class MCAClassVisitorTest {
         final String desc = "(Ljava/lang/String;)I";
 
         // TEST
-        final MethodVisitor result = testee.visitMethod(0, name, desc, null, null);
+        final MethodVisitor result = testee.visitMethod(0, name, desc, null,
+                null);
 
         // VERIFY
         assertThat(result).isNotNull();
@@ -118,7 +119,8 @@ public final class MCAClassVisitorTest {
     public final void testAddCall() {
 
         // PREPARE
-        final MCAMethod method = new MCAMethod("a.b.c.MyClass", "int myMethod(java.lang.String)");
+        final MCAMethod method = new MCAMethod("a.b.c.MyClass",
+                "int myMethod(java.lang.String)");
         final int line = 123;
         final String source = "MyClass.java";
         testee.visit(0, 0, "a.b.c.MyClass", null, null, null);

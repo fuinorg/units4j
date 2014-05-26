@@ -84,7 +84,8 @@ public abstract class Dependency implements ToDebugStringCapable {
     public final int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((packageName == null) ? 0 : packageName.hashCode());
+        result = prime * result
+                + ((packageName == null) ? 0 : packageName.hashCode());
         return result;
     }
 

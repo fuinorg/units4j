@@ -80,7 +80,8 @@ public final class Utils {
         Utils4J.checkNotNull("file", file);
         Utils4J.checkValidFile(file);
         try {
-            final InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+            final InputStream inputStream = new BufferedInputStream(
+                    new FileInputStream(file));
             try {
                 return load(inputStream);
             } finally {
@@ -118,14 +119,16 @@ public final class Utils {
      * 
      * @return New dependencies instance.
      */
-    public static Dependencies load(final Class<?> clasz, final String resourcePathAndName) {
+    public static Dependencies load(final Class<?> clasz,
+            final String resourcePathAndName) {
         Utils4J.checkNotNull("clasz", clasz);
         Utils4J.checkNotNull("resourcePathAndName", resourcePathAndName);
 
         try {
             final URL url = clasz.getResource(resourcePathAndName);
             if (url == null) {
-                throw new RuntimeException("Resource '" + resourcePathAndName + "' not found!");
+                throw new RuntimeException("Resource '" + resourcePathAndName
+                        + "' not found!");
             }
             final InputStream in = url.openStream();
             try {
@@ -174,7 +177,8 @@ public final class Utils {
      * 
      * @return Entry or <code>null</code> if nothing was found.
      */
-    public static DependsOn findAllowedByName(final List<DependsOn> allowed, final String pkgName) {
+    public static DependsOn findAllowedByName(final List<DependsOn> allowed,
+            final String pkgName) {
         if (allowed == null) {
             return null;
         }
@@ -204,8 +208,8 @@ public final class Utils {
      * 
      * @return Entry or <code>null</code> if nothing was found.
      */
-    public static NotDependsOn findForbiddenByName(final List<NotDependsOn> forbidden,
-            final String pkgName) {
+    public static NotDependsOn findForbiddenByName(
+            final List<NotDependsOn> forbidden, final String pkgName) {
         if (forbidden == null) {
             return null;
         }

@@ -26,35 +26,36 @@ import org.junit.Test;
 // TESTCODE:BEGIN
 public class AbstractPersistenceTestTest extends AbstractPersistenceTest {
 
-	@Test
-	public final void testPersistence() {
+    @Test
+    public final void testPersistence() {
 
-		// PREPARE
-		beginTransaction();
-		getEm().persist(new MyTestClass(1, "John Doe"));
-		getEm().persist(new MyTestClass(2, "Jane Doe"));
-		commitTransaction();
+        // PREPARE
+        beginTransaction();
+        getEm().persist(new MyTestClass(1, "John Doe"));
+        getEm().persist(new MyTestClass(2, "Jane Doe"));
+        commitTransaction();
 
-		// TEST
-		beginTransaction();
-		final MyTestClass john = getEm().find(MyTestClass.class, 1);
-		assertThat(john).isNotNull();
-		final MyTestClass jane = getEm().find(MyTestClass.class, 2);
-		assertThat(jane).isNotNull();
-		getEm().remove(jane);
-		commitTransaction();
+        // TEST
+        beginTransaction();
+        final MyTestClass john = getEm().find(MyTestClass.class, 1);
+        assertThat(john).isNotNull();
+        final MyTestClass jane = getEm().find(MyTestClass.class, 2);
+        assertThat(jane).isNotNull();
+        getEm().remove(jane);
+        commitTransaction();
 
-		// VERIFY
-		beginTransaction();
-		final List<MyTestClass> resultList = getEm().createQuery(
-				"select t from MyTestClass t", MyTestClass.class).getResultList();
-		assertThat(resultList).isNotNull();
-		assertThat(resultList).hasSize(1);
-		assertThat(resultList.get(0).getId()).isEqualTo(Integer.valueOf(1));
-		assertThat(resultList.get(0).getName()).isEqualTo("John Doe");
-		commitTransaction();
+        // VERIFY
+        beginTransaction();
+        final List<MyTestClass> resultList = getEm().createQuery(
+                "select t from MyTestClass t", MyTestClass.class)
+                .getResultList();
+        assertThat(resultList).isNotNull();
+        assertThat(resultList).hasSize(1);
+        assertThat(resultList.get(0).getId()).isEqualTo(Integer.valueOf(1));
+        assertThat(resultList.get(0).getName()).isEqualTo("John Doe");
+        commitTransaction();
 
-	}
+    }
 
 }
 // TESTCODE:END

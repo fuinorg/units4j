@@ -46,10 +46,12 @@ public final class MCAMethodCall {
      * @param line
      *            Line number in the source file.
      */
-    public MCAMethodCall(final MCAMethod called, final String className, final String methodName,
-            final String methodDescr, final String sourceFileName, final int line) {
+    public MCAMethodCall(final MCAMethod called, final String className,
+            final String methodName, final String methodDescr,
+            final String sourceFileName, final int line) {
         if (called == null) {
-            throw new IllegalArgumentException("Argument 'called' canot be NULL");
+            throw new IllegalArgumentException(
+                    "Argument 'called' canot be NULL");
         }
         this.called = called;
         this.caller = new MCAMethod(className, methodName, methodDescr);
@@ -95,7 +97,7 @@ public final class MCAMethodCall {
 
     @Override
     public final String toString() {
-        return "Source='" + sourceFileName + "', Line=" + line + ", " + caller + " ==CALLS==> "
-                + called;
+        return "Source='" + sourceFileName + "', Line=" + line + ", " + caller
+                + " ==CALLS==> " + called;
     }
 }

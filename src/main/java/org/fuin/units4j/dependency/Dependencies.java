@@ -154,7 +154,8 @@ public final class Dependencies {
             }
         }
         if (errorCount > 0) {
-            throw new InvalidDependenciesDefinitionException(this, sb.toString());
+            throw new InvalidDependenciesDefinitionException(this,
+                    sb.toString());
         }
     }
 
@@ -186,7 +187,8 @@ public final class Dependencies {
      * @return Package or <code>null</code> if no entry with the given name was
      *         found.
      */
-    public final Package<NotDependsOn> findForbiddenByName(final String packageName) {
+    public final Package<NotDependsOn> findForbiddenByName(
+            final String packageName) {
         final List<Package<NotDependsOn>> list = getForbidden();
         for (final Package<NotDependsOn> pkg : list) {
             if (pkg.getName().equals(packageName)) {

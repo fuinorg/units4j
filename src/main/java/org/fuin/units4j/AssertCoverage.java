@@ -55,7 +55,8 @@ public final class AssertCoverage {
      * @param classes
      *            Set of classes - Cannot be <code>null</code>.
      */
-    public static final void assertEveryClassHasATest(final Set<Class<?>> classes) {
+    public static final void assertEveryClassHasATest(
+            final Set<Class<?>> classes) {
         Utils4J.checkNotNull("classes", classes);
 
         final StringBuffer sb = new StringBuffer();
@@ -128,7 +129,8 @@ public final class AssertCoverage {
      * @param recursive
      *            Should sub directories be included?
      */
-    public static final void assertEveryClassHasATest(final File baseDir, final boolean recursive) {
+    public static final void assertEveryClassHasATest(final File baseDir,
+            final boolean recursive) {
         assertEveryClassHasATest(baseDir, recursive, new ClassFilter() {
             public final boolean isIncludeClass(final Class<?> clasz) {
                 return true;
@@ -151,8 +153,8 @@ public final class AssertCoverage {
      *            Filter that decides if a class should have a corresponding
      *            test or not.
      */
-    public static final void assertEveryClassHasATest(final File baseDir, final boolean recursive,
-            final ClassFilter classFilter) {
+    public static final void assertEveryClassHasATest(final File baseDir,
+            final boolean recursive, final ClassFilter classFilter) {
         Utils4J.checkNotNull("baseDir", baseDir);
         final Set<Class<?>> classes = new HashSet<Class<?>>();
         analyzeDir(classes, baseDir, baseDir, recursive, classFilter);
@@ -177,34 +179,40 @@ public final class AssertCoverage {
      *            Filter that decides if a class should have a corresponding
      *            test or not.
      */
-    static void analyzeDir(final Set<Class<?>> classes, final File baseDir, final File srcDir,
-            final boolean recursive, final ClassFilter classFilter) {
+    static void analyzeDir(final Set<Class<?>> classes, final File baseDir,
+            final File srcDir, final boolean recursive,
+            final ClassFilter classFilter) {
 
-        final FileProcessor fileProcessor = new FileProcessor(new FileHandler() {
-            @Override
-            public final FileHandlerResult handleFile(final File file) {
-                if (file.isDirectory()) {
-                    // Directory
-                    if (recursive) {
+        final FileProcessor fileProcessor = new FileProcessor(
+                new FileHandler() {
+                    @Override
+                    public final FileHandlerResult handleFile(final File file) {
+                        if (file.isDirectory()) {
+                            // Directory
+                            if (recursive) {
+                                return FileHandlerResult.CONTINUE;
+                            }
+                            return FileHandlerResult.SKIP_SUBDIRS;
+                        }
+                        // File
+                        final String name = file.getName();
+                        if (name.endsWith(".java")
+                                && !name.equals("package-info.java")) {
+                            final String packageName = Utils4J.getRelativePath(
+                                    baseDir, file.getParentFile()).replace(
+                                    File.separatorChar, '.');
+                            final String simpleName = name.substring(0,
+                                    name.length() - 5);
+                            final String className = packageName + "."
+                                    + simpleName;
+                            final Class<?> clasz = classForName(className);
+                            if (isInclude(clasz, classFilter)) {
+                                classes.add(clasz);
+                            }
+                        }
                         return FileHandlerResult.CONTINUE;
                     }
-                    return FileHandlerResult.SKIP_SUBDIRS;
-                }
-                // File
-                final String name = file.getName();
-                if (name.endsWith(".java") && !name.equals("package-info.java")) {
-                    final String packageName = Utils4J.getRelativePath(baseDir,
-                            file.getParentFile()).replace(File.separatorChar, '.');
-                    final String simpleName = name.substring(0, name.length() - 5);
-                    final String className = packageName + "." + simpleName;
-                    final Class<?> clasz = classForName(className);
-                    if (isInclude(clasz, classFilter)) {
-                        classes.add(clasz);
-                    }
-                }
-                return FileHandlerResult.CONTINUE;
-            }
-        });
+                });
 
         fileProcessor.process(srcDir);
 
@@ -237,8 +245,9 @@ public final class AssertCoverage {
      */
     static boolean isInclude(final Class<?> clasz, final ClassFilter classFilter) {
         final int modifiers = clasz.getModifiers();
-        return classFilter.isIncludeClass(clasz) && !clasz.isAnnotation() && !clasz.isEnum()
-                && !clasz.isInterface() && !Modifier.isAbstract(modifiers);
+        return classFilter.isIncludeClass(clasz) && !clasz.isAnnotation()
+                && !clasz.isEnum() && !clasz.isInterface()
+                && !Modifier.isAbstract(modifiers);
     }
 
     /**
@@ -355,11 +364,13 @@ public final class AssertCoverage {
         public AndClassFilter(final ClassFilter... classFilters) {
             super();
             if (classFilters == null) {
-                throw new IllegalArgumentException("Argument 'classFilters' cannot be null");
+                throw new IllegalArgumentException(
+                        "Argument 'classFilters' cannot be null");
             }
             if (classFilters.length < 2) {
-                throw new IllegalArgumentException("Argument 'classFilters' is less than two: "
-                        + classFilters.length);
+                throw new IllegalArgumentException(
+                        "Argument 'classFilters' is less than two: "
+                                + classFilters.length);
             }
             this.classFilters = classFilters;
         }

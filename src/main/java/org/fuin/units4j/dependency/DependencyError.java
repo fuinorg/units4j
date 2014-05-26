@@ -42,8 +42,8 @@ public final class DependencyError {
      *            Comment describing why the dependency is not OK or
      *            <code>null</code>.
      */
-    public DependencyError(final String className, final String referencedPackage,
-            final String comment) {
+    public DependencyError(final String className,
+            final String referencedPackage, final String comment) {
         super();
         Utils4J.checkNotNull("className", className);
         Utils4J.checkNotNull("referencedPackage", referencedPackage);

@@ -41,10 +41,11 @@ public final class MCAMethodTest {
         // VERIFY
         assertThat(testee.getClassName()).isEqualTo(className);
         assertThat(testee.getMethod().getName()).isEqualTo("myMethod");
-        assertThat(testee.getMethod().getReturnType().getClassName()).isEqualTo("int");
+        assertThat(testee.getMethod().getReturnType().getClassName())
+                .isEqualTo("int");
         assertThat(testee.getMethod().getArgumentTypes()).hasSize(1);
-        assertThat(testee.getMethod().getArgumentTypes()[0].getClassName()).isEqualTo(
-                "java.lang.String");
+        assertThat(testee.getMethod().getArgumentTypes()[0].getClassName())
+                .isEqualTo("java.lang.String");
 
     }
 

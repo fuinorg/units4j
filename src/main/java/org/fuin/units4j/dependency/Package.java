@@ -34,7 +34,8 @@ import org.fuin.utils4j.Utils4J;
  *            Type of dependency.
  */
 // CHECKSTYLE:ON
-public final class Package<DEP_TYPE extends Dependency> implements ToDebugStringCapable {
+public final class Package<DEP_TYPE extends Dependency> implements
+        ToDebugStringCapable {
 
     private final String name;
 

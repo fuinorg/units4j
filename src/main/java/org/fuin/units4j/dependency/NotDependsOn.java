@@ -63,8 +63,8 @@ public final class NotDependsOn extends Dependency {
      * @param comment
      *            Comment why the dependency is OK or not - May be null.
      */
-    public NotDependsOn(final String packageName, final boolean includeSubPackages,
-            final String comment) {
+    public NotDependsOn(final String packageName,
+            final boolean includeSubPackages, final String comment) {
         super(packageName, includeSubPackages);
         this.comment = comment;
     }

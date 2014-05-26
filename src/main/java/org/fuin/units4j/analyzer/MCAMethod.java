@@ -42,10 +42,12 @@ public final class MCAMethod implements Comparable<MCAMethod> {
     public MCAMethod(final String className, final String methodSignature) {
         super();
         if (className == null) {
-            throw new IllegalArgumentException("Argument 'className' canot be NULL");
+            throw new IllegalArgumentException(
+                    "Argument 'className' canot be NULL");
         }
         if (methodSignature == null) {
-            throw new IllegalArgumentException("Argument 'methodSignature' canot be NULL");
+            throw new IllegalArgumentException(
+                    "Argument 'methodSignature' canot be NULL");
         }
         this.className = className;
         this.methodSignature = methodSignature;
@@ -66,19 +68,23 @@ public final class MCAMethod implements Comparable<MCAMethod> {
             final String asmMethodDescr) {
 
         if (asmClassName == null) {
-            throw new IllegalArgumentException("Argument 'asmClassName' canot be NULL");
+            throw new IllegalArgumentException(
+                    "Argument 'asmClassName' canot be NULL");
         }
         if (asmMethodName == null) {
-            throw new IllegalArgumentException("Argument 'asmMethodName' canot be NULL");
+            throw new IllegalArgumentException(
+                    "Argument 'asmMethodName' canot be NULL");
         }
         if (asmMethodDescr == null) {
-            throw new IllegalArgumentException("Argument 'asmMethodDescr' canot be NULL");
+            throw new IllegalArgumentException(
+                    "Argument 'asmMethodDescr' canot be NULL");
         }
 
         this.className = asmClassName.replace('/', '.');
         final int p = asmMethodDescr.indexOf(')');
         if (p < 0) {
-            throw new IllegalStateException("Couldn't find closing bracket: " + asmMethodDescr);
+            throw new IllegalStateException("Couldn't find closing bracket: "
+                    + asmMethodDescr);
         }
         final StringBuilder sb = new StringBuilder("(");
         final Type[] argTypes = Type.getArgumentTypes(asmMethodDescr);
@@ -91,7 +97,8 @@ public final class MCAMethod implements Comparable<MCAMethod> {
             }
         }
         sb.append(")");
-        final String returnType = Type.getReturnType(asmMethodDescr).getClassName();
+        final String returnType = Type.getReturnType(asmMethodDescr)
+                .getClassName();
         this.methodSignature = returnType + " " + asmMethodName + sb;
         this.method = Method.getMethod(methodSignature);
     }
@@ -120,8 +127,10 @@ public final class MCAMethod implements Comparable<MCAMethod> {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((className == null) ? 0 : className.hashCode());
-        result = prime * result + ((methodSignature == null) ? 0 : methodSignature.hashCode());
+        result = prime * result
+                + ((className == null) ? 0 : className.hashCode());
+        result = prime * result
+                + ((methodSignature == null) ? 0 : methodSignature.hashCode());
         return result;
     }
 

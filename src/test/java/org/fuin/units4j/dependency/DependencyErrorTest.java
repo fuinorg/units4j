@@ -30,7 +30,8 @@ public final class DependencyErrorTest {
         final String className = "Name";
         final String referencedPackage = "a.b.c";
         final String comment = "Whatever";
-        final DependencyError testee = new DependencyError(className, referencedPackage, comment);
+        final DependencyError testee = new DependencyError(className,
+                referencedPackage, comment);
         assertThat(testee.getClassName()).isEqualTo(className);
         assertThat(testee.getReferencedPackage()).isEqualTo(referencedPackage);
         assertThat(testee.getComment()).isEqualTo(comment);

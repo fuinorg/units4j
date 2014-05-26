@@ -40,9 +40,11 @@ public final class AssertDependencies {
                 "This utility class is not intended to be instanciated!");
     }
 
-    private static void assertIntern(final File classesDir, final DependencyAnalyzer analyzer) {
+    private static void assertIntern(final File classesDir,
+            final DependencyAnalyzer analyzer) {
         analyzer.analyze(classesDir);
-        final List<DependencyError> dependencyErrors = analyzer.getDependencyErrors();
+        final List<DependencyError> dependencyErrors = analyzer
+                .getDependencyErrors();
         if (dependencyErrors.size() > 0) {
             final StringBuffer sb = new StringBuffer();
             for (int i = 0; i < dependencyErrors.size(); i++) {
@@ -63,12 +65,14 @@ public final class AssertDependencies {
      *            Directory with the ".class" files to check - Cannot be
      *            <code>null</code> and must be a valid directory.
      */
-    public static final void assertRules(final Dependencies dependencies, final File classesDir) {
+    public static final void assertRules(final Dependencies dependencies,
+            final File classesDir) {
         Utils4J.checkNotNull("dependencies", dependencies);
         Utils4J.checkNotNull("classesDir", classesDir);
         Utils4J.checkValidDir(classesDir);
         try {
-            final DependencyAnalyzer analyzer = new DependencyAnalyzer(dependencies);
+            final DependencyAnalyzer analyzer = new DependencyAnalyzer(
+                    dependencies);
             assertIntern(classesDir, analyzer);
         } catch (final InvalidDependenciesDefinitionException ex) {
             throw new RuntimeException(ex);
@@ -114,7 +118,8 @@ public final class AssertDependencies {
     public static final void assertRules(final Class<?> clasz,
             final String dependenciesFilePathAndName, final File classesDir) {
         Utils4J.checkNotNull("clasz", clasz);
-        Utils4J.checkNotNull("dependenciesFilePathAndName", dependenciesFilePathAndName);
+        Utils4J.checkNotNull("dependenciesFilePathAndName",
+                dependenciesFilePathAndName);
         Utils4J.checkNotNull("classesDir", classesDir);
         try {
             final DependencyAnalyzer analyzer = new DependencyAnalyzer(clasz,
