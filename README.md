@@ -9,6 +9,7 @@ http://www.fuin.org/units4j/index.html
 [![Build Status](https://fuin-org.ci.cloudbees.com/job/units4j/badge/icon)](https://fuin-org.ci.cloudbees.com/job/units4j/)
 [![Coverage Status](https://coveralls.io/repos/fuinorg/units4j/badge.svg?branch=master)](https://coveralls.io/r/fuinorg/units4j?branch=master)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.fuin/units4j/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.fuin/units4j/)
+[![LGPLv3 License](http://img.shields.io/badge/license-LGPLv3-blue.svg)](https://www.gnu.org/licenses/lgpl.html)
 
 ###Snapshots
 
