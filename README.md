@@ -10,7 +10,7 @@ http://www.fuin.org/units4j/index.html
 [![Coverage Status](https://coveralls.io/repos/fuinorg/units4j/badge.svg?branch=master)](https://coveralls.io/r/fuinorg/units4j?branch=master)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.fuin/units4j/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.fuin/units4j/)
 [![LGPLv3 License](http://img.shields.io/badge/license-LGPLv3-blue.svg)](https://www.gnu.org/licenses/lgpl.html)
-[![Java Development Kit 1.7](https://img.shields.io/badge/JDK-1.7-green.svg)](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)
+[![Java Development Kit 1.8](https://img.shields.io/badge/JDK-1.8-green.svg)](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 
 <a href="https://fuin-org.ci.cloudbees.com/job/units4j"><img src="http://www.fuin.org/images/Button-Built-on-CB-1.png" width="213" height="72" border="0" alt="Built on CloudBees"/></a>
 
