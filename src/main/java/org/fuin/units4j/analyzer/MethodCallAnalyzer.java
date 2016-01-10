@@ -88,20 +88,26 @@ public final class MethodCallAnalyzer {
             throws IOException {
 
         final JarFile jarFile = new JarFile(file);
-        final Enumeration<JarEntry> entries = jarFile.entries();
-
-        while (entries.hasMoreElements()) {
-            final JarEntry entry = entries.nextElement();
-
-            if (entry.getName().endsWith(".class")) {
-                final InputStream in = new BufferedInputStream(
-                        jarFile.getInputStream(entry), 1024);
-                try {
-                    new ClassReader(in).accept(cv, 0);
-                } finally {
-                    in.close();
+        try {
+            
+            final Enumeration<JarEntry> entries = jarFile.entries();
+    
+            while (entries.hasMoreElements()) {
+                final JarEntry entry = entries.nextElement();
+    
+                if (entry.getName().endsWith(".class")) {
+                    final InputStream in = new BufferedInputStream(
+                            jarFile.getInputStream(entry), 1024);
+                    try {
+                        new ClassReader(in).accept(cv, 0);
+                    } finally {
+                        in.close();
+                    }
                 }
             }
+            
+        } finally {
+            jarFile.close();
         }
     }
 
