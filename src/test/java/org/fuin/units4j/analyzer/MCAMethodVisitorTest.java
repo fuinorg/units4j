@@ -17,7 +17,7 @@
  */
 package org.fuin.units4j.analyzer;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -80,7 +80,7 @@ public final class MCAMethodVisitorTest {
         // TEST
         testee.visitMethodInsn(0, BigDecimal.class.getName().replace('.', '/'),
                 setScale.getMethod().getName(), setScale.getMethod()
-                        .getDescriptor());
+                        .getDescriptor(), false);
 
         // VERIFY
         assertThat(testee.isFound()).isTrue();
@@ -93,7 +93,7 @@ public final class MCAMethodVisitorTest {
         // PREPARE
         testee.visitMethodInsn(0, BigDecimal.class.getName().replace('.', '/'),
                 setScale.getMethod().getName(), setScale.getMethod()
-                        .getDescriptor());
+                        .getDescriptor(), false);
         assertThat(testee.isFound()).isTrue();
 
         // TEST
@@ -114,7 +114,7 @@ public final class MCAMethodVisitorTest {
         testee.visitCode();
         testee.visitMethodInsn(0, BigDecimal.class.getName().replace('.', '/'),
                 setScale.getMethod().getName(), setScale.getMethod()
-                        .getDescriptor());
+                        .getDescriptor(), false);
 
         // TEST
         testee.visitLineNumber(123, null);
