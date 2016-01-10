@@ -17,7 +17,7 @@
  */
 package org.fuin.units4j.dependency;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -42,6 +42,7 @@ public final class UtilsTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public final void testSaveLoad() throws IOException {
 
         final File file = File.createTempFile(this.getClass().getSimpleName()

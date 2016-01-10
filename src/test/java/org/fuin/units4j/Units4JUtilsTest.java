@@ -17,7 +17,7 @@
  */
 package org.fuin.units4j;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 import java.util.Set;
@@ -25,6 +25,8 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 
 import org.fuin.units4j.Units4JUtils.KV;
+import org.fuin.utils4j.JaxbUtils;
+import org.fuin.utils4j.Utils4J;
 import org.junit.ComparisonFailure;
 import org.junit.Test;
 
@@ -38,8 +40,7 @@ public final class Units4JUtilsTest {
         final MyTestClass original = new MyTestClass(1, "Test");
 
         // TEST
-        final MyTestClass copy = Units4JUtils.deserialize(Units4JUtils
-                .serialize(original));
+        final MyTestClass copy = Utils4J.deserialize(Utils4J.serialize(original));
 
         // VERIFY
         assertThat(copy).isEqualTo(original);
@@ -53,8 +54,8 @@ public final class Units4JUtilsTest {
         final MyTestClass original = new MyTestClass(1, "Test");
 
         // TEST
-        final String xml = Units4JUtils.marshal(original, MyTestClass.class);
-        final MyTestClass copy = Units4JUtils.unmarshal(xml, MyTestClass.class);
+        final String xml = JaxbUtils.marshal(original, MyTestClass.class);
+        final MyTestClass copy = JaxbUtils.unmarshal(xml, MyTestClass.class);
 
         // VERIFY
         assertThat(copy).isEqualTo(original);
@@ -94,7 +95,7 @@ public final class Units4JUtilsTest {
         } catch (final ComparisonFailure f) {
             // OK
             assertThat(f.getMessage()).isEqualTo(
-                    "expected:<'[xxx]'> but was:<'[second]'>");
+                    "expected:<\"[xxx]\"> but was:<\"[second]\">");
         }
 
     }
@@ -115,7 +116,7 @@ public final class Units4JUtilsTest {
         } catch (final ComparisonFailure f) {
             // OK
             assertThat(f.getMessage()).isEqualTo(
-                    "expected:<'[xxx]'> but was:<'[third]'>");
+                    "expected:<\"[xxx]\"> but was:<\"[third]\">");
         }
 
     }
@@ -148,7 +149,7 @@ public final class Units4JUtilsTest {
 
         // PREPARE
         final MyTestClass original = new MyTestClass(1, "Test");
-        final String xml = Units4JUtils.marshal(original, MyTestClass.class);
+        final String xml = JaxbUtils.marshal(original, MyTestClass.class);
         final Integer id = Integer.valueOf(2);
         final String name = "Changed";
 
@@ -157,8 +158,7 @@ public final class Units4JUtilsTest {
                 + id), new KV("name", name));
 
         // VERIFY
-        final MyTestClass copy = Units4JUtils.unmarshal(changed,
-                MyTestClass.class);
+        final MyTestClass copy = JaxbUtils.unmarshal(changed, MyTestClass.class);
         assertThat(copy.getId()).isEqualTo(id);
         assertThat(copy.getName()).isEqualTo(name);
 

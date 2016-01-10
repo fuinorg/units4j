@@ -5,7 +5,7 @@
     <dependsOn package="javax"/>
     <dependsOn package="org.junit"/>
     <dependsOn package="org.apache.commons"/>
-    <dependsOn package="org.fest.assertions"/>
+    <dependsOn package="org.assertj"/>
     <dependsOn package="org.jboss.weld.environment.se"/>
   </alwaysAllowed>
   

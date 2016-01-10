@@ -11,7 +11,7 @@
 
 	<artifactId>units4j</artifactId>
 	<packaging>jar</packaging>
-	<version>0.7.1</version>
+	<version>0.8.0-SNAPSHOT</version>
 	<name>Units4J</name>
 	<description>A home for additional useful unit testing modules for Java.</description>
 	<url>http://www.fuin.org/units4j/</url>
@@ -90,9 +90,9 @@
 		</dependency>
 
 		<dependency>
-		    <groupId>org.jboss</groupId>
-		    <artifactId>jandex</artifactId>
-		    <version>1.2.4.Final</version>
+			<groupId>org.jboss</groupId>
+			<artifactId>jandex</artifactId>
+			<version>1.2.4.Final</version>
 		</dependency>
 
 		<dependency>
@@ -102,9 +102,10 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.easytesting</groupId>
-			<artifactId>fest-assert</artifactId>
-			<version>1.4</version>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>3.3.0</version>
+			<scope>test</scope>
 		</dependency>
 
 		<!-- Test -->
