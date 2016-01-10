@@ -19,6 +19,10 @@ package org.fuin.units4j;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +40,11 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 import org.apache.commons.lang.StringUtils;
 import org.fuin.utils4j.JaxbUtils;
 import org.fuin.utils4j.Utils4J;
+import org.fuin.utils4j.fileprocessor.FileHandler;
+import org.fuin.utils4j.fileprocessor.FileHandlerResult;
+import org.fuin.utils4j.fileprocessor.FileProcessor;
+import org.jboss.jandex.Index;
+import org.jboss.jandex.Indexer;
 
 /**
  * Utilities for use in tests.
@@ -46,13 +55,11 @@ public final class Units4JUtils {
     public static final String XML_PREFIX = JaxbUtils.XML_PREFIX;
 
     private Units4JUtils() {
-        throw new UnsupportedOperationException(
-                "It's not allowed to create an instance of a utility class");
+        throw new UnsupportedOperationException("It's not allowed to create an instance of a utility class");
     }
 
     /**
-     * Serializes the given object. A <code>null</code> argument returns
-     * <code>null</code>.
+     * Serializes the given object. A <code>null</code> argument returns <code>null</code>.
      * 
      * @param obj
      *            Object to serialize.
@@ -67,8 +74,7 @@ public final class Units4JUtils {
     }
 
     /**
-     * Deserializes a byte array to an object. A <code>null</code> argument
-     * returns <code>null</code>.
+     * Deserializes a byte array to an object. A <code>null</code> argument returns <code>null</code>.
      * 
      * @param data
      *            Byte array to deserialize.
@@ -86,14 +92,12 @@ public final class Units4JUtils {
     }
 
     /**
-     * Marshals the given data. A <code>null</code> data argument returns
-     * <code>null</code>.
+     * Marshals the given data. A <code>null</code> data argument returns <code>null</code>.
      * 
      * @param data
      *            Data to serialize or <code>null</code>.
      * @param classesToBeBound
-     *            List of java classes to be recognized by the
-     *            {@link JAXBContext}.
+     *            List of java classes to be recognized by the {@link JAXBContext}.
      * 
      * @return XML data or <code>null</code>.
      * 
@@ -103,23 +107,19 @@ public final class Units4JUtils {
      * @deprecated Use {@link JaxbUtils#marshal(Object, Class...)}
      */
     @Deprecated
-    public static <T> String marshal(final T data,
-            @NotNull final Class<?>... classesToBeBound) {
+    public static <T> String marshal(final T data, @NotNull final Class<?>... classesToBeBound) {
         return JaxbUtils.marshal(data, classesToBeBound);
     }
 
     /**
-     * Marshals the given data. A <code>null</code> data argument returns
-     * <code>null</code>.
+     * Marshals the given data. A <code>null</code> data argument returns <code>null</code>.
      * 
      * @param data
      *            Data to serialize or <code>null</code>.
      * @param adapters
-     *            Adapters to associate with the marshaller or <code>null</code>
-     *            .
+     *            Adapters to associate with the marshaller or <code>null</code> .
      * @param classesToBeBound
-     *            List of java classes to be recognized by the
-     *            {@link JAXBContext}.
+     *            List of java classes to be recognized by the {@link JAXBContext}.
      * 
      * @return XML data or <code>null</code>.
      * 
@@ -129,15 +129,14 @@ public final class Units4JUtils {
      * @deprecated Use {@link JaxbUtils#marshal(Object, XmlAdapter[], Class...)}
      */
     @Deprecated
-    public static <T> String marshal(final T data,
-            final XmlAdapter<?, ?>[] adapters,
+    public static <T> String marshal(final T data, final XmlAdapter<?, ?>[] adapters,
             @NotNull final Class<?>... classesToBeBound) {
         return JaxbUtils.marshal(data, adapters, classesToBeBound);
     }
 
     /**
-     * Marshals the given data using a given context. A <code>null</code> data
-     * argument returns <code>null</code>.
+     * Marshals the given data using a given context. A <code>null</code> data argument returns
+     * <code>null</code>.
      * 
      * @param ctx
      *            Context to use.
@@ -152,46 +151,41 @@ public final class Units4JUtils {
      * @deprecated Use {@link JaxbUtils#marshal(JAXBContext, Object)}
      */
     @Deprecated
-    public static <T> String marshal(@NotNull final JAXBContext ctx,
-            final T data) {
+    public static <T> String marshal(@NotNull final JAXBContext ctx, final T data) {
         return JaxbUtils.marshal(marshal(ctx, data));
     }
 
     /**
-     * Marshals the given data using a given context. A <code>null</code> data
-     * argument returns <code>null</code>.
+     * Marshals the given data using a given context. A <code>null</code> data argument returns
+     * <code>null</code>.
      * 
      * @param ctx
      *            Context to use.
      * @param data
      *            Data to serialize or <code>null</code>.
      * @param adapters
-     *            Adapters to associate with the marshaller or <code>null</code>
-     *            .
+     *            Adapters to associate with the marshaller or <code>null</code> .
      * 
      * @return XML data or <code>null</code>.
      * 
      * @param <T>
      *            Type of the data.
      * 
-     * @deprecated Use
-     *             {@link JaxbUtils#marshal(JAXBContext, Object, XmlAdapter[])}
+     * @deprecated Use {@link JaxbUtils#marshal(JAXBContext, Object, XmlAdapter[])}
      */
     @Deprecated
-    public static <T> String marshal(@NotNull final JAXBContext ctx,
-            final T data, final XmlAdapter<?, ?>[] adapters) {
+    public static <T> String marshal(@NotNull final JAXBContext ctx, final T data,
+            final XmlAdapter<?, ?>[] adapters) {
         return JaxbUtils.marshal(ctx, data, adapters);
     }
 
     /**
-     * Unmarshals the given data. A <code>null</code> XML data argument returns
-     * <code>null</code>.
+     * Unmarshals the given data. A <code>null</code> XML data argument returns <code>null</code>.
      * 
      * @param xmlData
      *            XML data or <code>null</code>.
      * @param classesToBeBound
-     *            List of java classes to be recognized by the
-     *            {@link JAXBContext}.
+     *            List of java classes to be recognized by the {@link JAXBContext}.
      * 
      * @return Data or <code>null</code>.
      * 
@@ -201,62 +195,54 @@ public final class Units4JUtils {
      * @deprecated Use {@link JaxbUtils#unmarshal(String, Class...)}
      */
     @Deprecated
-    public static <T> T unmarshal(final String xmlData,
-            @NotNull final Class<?>... classesToBeBound) {
+    public static <T> T unmarshal(final String xmlData, @NotNull final Class<?>... classesToBeBound) {
         return JaxbUtils.unmarshal(xmlData, classesToBeBound);
     }
 
     /**
-     * Unmarshals the given data. A <code>null</code> XML data argument returns
-     * <code>null</code>.
+     * Unmarshals the given data. A <code>null</code> XML data argument returns <code>null</code>.
      * 
      * @param xmlData
      *            XML data or <code>null</code>.
      * @param adapters
-     *            Adapters to associate with the unmarshaller or
-     *            <code>null</code>.
+     *            Adapters to associate with the unmarshaller or <code>null</code>.
      * @param classesToBeBound
-     *            List of java classes to be recognized by the
-     *            {@link JAXBContext}.
+     *            List of java classes to be recognized by the {@link JAXBContext}.
      * 
      * @return Data or <code>null</code>.
      * 
      * @param <T>
      *            Type of the expected data.
      * 
-     * @deprecated Use
-     *             {@link JaxbUtils#unmarshal(String, XmlAdapter[], Class...)}
+     * @deprecated Use {@link JaxbUtils#unmarshal(String, XmlAdapter[], Class...)}
      */
     @Deprecated
-    public static <T> T unmarshal(final String xmlData,
-            final XmlAdapter<?, ?>[] adapters,
+    public static <T> T unmarshal(final String xmlData, final XmlAdapter<?, ?>[] adapters,
             @NotNull final Class<?>... classesToBeBound) {
         return JaxbUtils.unmarshal(xmlData, adapters, classesToBeBound);
     }
 
     /**
-     * Unmarshals the given data using a given context. A <code>null</code> XML
-     * data argument returns <code>null</code>.
+     * Unmarshals the given data using a given context. A <code>null</code> XML data argument returns
+     * <code>null</code>.
      * 
      * @param ctx
      *            Context to use.
      * @param xmlData
      *            XML data or <code>null</code>.
      * @param adapters
-     *            Adapters to associate with the unmarshaller or
-     *            <code>null</code>.
+     *            Adapters to associate with the unmarshaller or <code>null</code>.
      * 
      * @return Data or <code>null</code>.
      * 
      * @param <T>
      *            Type of the expected data.
      * 
-     * @deprecated Use
-     *             {@link JaxbUtils#unmarshal(JAXBContext, String, XmlAdapter[])}
+     * @deprecated Use {@link JaxbUtils#unmarshal(JAXBContext, String, XmlAdapter[])}
      */
     @Deprecated
-    public static <T> T unmarshal(@NotNull final JAXBContext ctx,
-            final String xmlData, final XmlAdapter<?, ?>[] adapters) {
+    public static <T> T unmarshal(@NotNull final JAXBContext ctx, final String xmlData,
+            final XmlAdapter<?, ?>[] adapters) {
         return JaxbUtils.unmarshal(ctx, xmlData, adapters);
     }
 
@@ -270,15 +256,14 @@ public final class Units4JUtils {
      * @param value
      *            Value to set for the attribute.
      */
-    public static void setPrivateField(final Object obj, final String name,
-            final Object value) {
+    public static void setPrivateField(final Object obj, final String name, final Object value) {
         try {
             final Field field = obj.getClass().getDeclaredField(name);
             field.setAccessible(true);
             field.set(obj, value);
         } catch (final Exception ex) {
-            throw new RuntimeException("Couldn't set field '" + name
-                    + "' in class '" + obj.getClass() + "'", ex);
+            throw new RuntimeException("Couldn't set field '" + name + "' in class '" + obj.getClass() + "'",
+                    ex);
         }
     }
 
@@ -290,27 +275,23 @@ public final class Units4JUtils {
      * @param expectedMessage
      *            Message of the cause.
      */
-    public static void assertCauseMessage(final Throwable ex,
-            final String expectedMessage) {
+    public static void assertCauseMessage(final Throwable ex, final String expectedMessage) {
         assertThat(ex.getCause()).isNotNull();
         assertThat(ex.getCause().getMessage()).isEqualTo(expectedMessage);
     }
 
     /**
-     * Verifies that the cause of a cause of an exception contains an expected
-     * message.
+     * Verifies that the cause of a cause of an exception contains an expected message.
      * 
      * @param ex
      *            Exception with the cause/cause to check,
      * @param expectedMessage
      *            Message of the cause/cause.
      */
-    public static void assertCauseCauseMessage(final Throwable ex,
-            final String expectedMessage) {
+    public static void assertCauseCauseMessage(final Throwable ex, final String expectedMessage) {
         assertThat(ex.getCause()).isNotNull();
         assertThat(ex.getCause().getCause()).isNotNull();
-        assertThat(ex.getCause().getCause().getMessage()).isEqualTo(
-                expectedMessage);
+        assertThat(ex.getCause().getCause().getMessage()).isEqualTo(expectedMessage);
     }
 
     /**
@@ -323,8 +304,7 @@ public final class Units4JUtils {
      * 
      * @return Constraint violations.
      */
-    public static Set<ConstraintViolation<Object>> validate(final Object obj,
-            final Class<?>... scopes) {
+    public static Set<ConstraintViolation<Object>> validate(final Object obj, final Class<?>... scopes) {
         if (scopes == null) {
             return validator().validate(obj, Default.class);
         }
@@ -337,9 +317,79 @@ public final class Units4JUtils {
      * @return New validator instance.
      */
     public static Validator validator() {
-        final ValidatorFactory factory = Validation
-                .buildDefaultValidatorFactory();
+        final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         return factory.getValidator();
+    }
+
+    /**
+     * Returns a list of files with a given extension.
+     * 
+     * @param dir
+     *            Directory and it's subdirectories to inspect.
+     * @param extension
+     *            Extension to find (like "txt" or "class") without the ".".
+     * 
+     * @return List fo files.
+     */
+    public static List<File> findFilesRecursive(final File dir, final String extension) {
+        final String dotExtension = "." + extension;
+        final List<File> files = new ArrayList<>();
+        final FileProcessor fileProcessor = new FileProcessor(new FileHandler() {
+            @Override
+            public final FileHandlerResult handleFile(final File file) {
+                // Directory
+                if (file.isDirectory()) {
+                    return FileHandlerResult.CONTINUE;
+                }
+                // File
+                final String name = file.getName();
+                if (name.endsWith(dotExtension)) {
+                    files.add(file);
+                }
+                return FileHandlerResult.CONTINUE;
+            }
+        });
+
+        fileProcessor.process(dir);
+        return files;
+    }
+
+    /**
+     * Returns a list of class files in the directory and it's sub directories.
+     * 
+     * @param dir
+     *            Directory to inspect.
+     * 
+     * @return List of class files.
+     */
+    public static List<File> findAllClasses(final File dir) {
+        return findFilesRecursive(dir, "class");
+    }
+
+    /**
+     * Creates an index for all class files in the given list.
+     * 
+     * @param classFiles
+     *            List of ".class" files.
+     * 
+     * @return Index.
+     */
+    public static final Index indexAllClasses(final List<File> classFiles) {
+        final Indexer indexer = new Indexer();
+        classFiles.forEach(file -> {
+            try {
+                final InputStream in = new FileInputStream(file);
+                try {
+                    indexer.index(in);
+                } finally {
+                    in.close();
+                }
+            } catch (final IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        return indexer.complete();
     }
 
     /**
@@ -366,20 +416,16 @@ public final class Units4JUtils {
                 if (pe > -1) {
                     final String str = xml.substring(pa, pe + 1);
                     searchList.add(str);
-                    final String repl = xml.substring(pa, pa + tag.length())
-                            + kv.getValue() + "\"";
+                    final String repl = xml.substring(pa, pa + tag.length()) + kv.getValue() + "\"";
                     replacementList.add(repl);
                 }
                 pa = xml.indexOf(tag, s);
             }
         }
 
-        final String[] searchArray = searchList.toArray(new String[searchList
-                .size()]);
-        final String[] replacementArray = replacementList
-                .toArray(new String[replacementList.size()]);
-        return StringUtils.replaceEachRepeatedly(xml, searchArray,
-                replacementArray);
+        final String[] searchArray = searchList.toArray(new String[searchList.size()]);
+        final String[] replacementArray = replacementList.toArray(new String[replacementList.size()]);
+        return StringUtils.replaceEachRepeatedly(xml, searchArray, replacementArray);
     }
 
     /**

@@ -7,6 +7,7 @@
     <dependsOn package="org.apache.commons"/>
     <dependsOn package="org.assertj"/>
     <dependsOn package="org.jboss.weld.environment.se"/>
+    <dependsOn package="org.jboss.jandex"/>
   </alwaysAllowed>
   
   <alwaysForbidden>
