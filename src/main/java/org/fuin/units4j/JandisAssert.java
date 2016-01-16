@@ -24,7 +24,6 @@ import javax.persistence.Entity;
 import org.assertj.core.api.AbstractAssert;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget;
-import org.jboss.jandex.AnnotationTarget.Kind;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.Index;
@@ -83,14 +82,12 @@ public final class JandisAssert extends AbstractAssert<JandisAssert, Index> {
         final List<AnnotationInstance> annotations = actual.getAnnotations(dotName);
         for (final AnnotationInstance ai : annotations) {
             final AnnotationTarget target = ai.target();
-            if (target.kind() == Kind.CLASS) {
-                final ClassInfo info = target.asClass();
-                final AssertionRules<ClassInfo> rules = new AssertionRules<ClassInfo>(
-                        new RulePublicOrProtectedNoArgConstructor());
-                final AssertionResult result = rules.verify(info);
-                if (!result.isValid()) {
-                    failWithMessage(result.getErrorMessage());
-                }
+            final ClassInfo info = target.asClass();
+            final AssertionRules<ClassInfo> rules = new AssertionRules<ClassInfo>(
+                    new RulePublicOrProtectedNoArgConstructor());
+            final AssertionResult result = rules.verify(info);
+            if (!result.isValid()) {
+                failWithMessage(result.getErrorMessage());
             }
         }
         return this;

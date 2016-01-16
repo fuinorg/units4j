@@ -38,9 +38,6 @@ public final class AssertionRules<T> implements AssertionRule<T> {
     @SafeVarargs
     public AssertionRules(@NotNull final AssertionRule<T>... rules) {
         super();
-        if (rules == null) {
-            throw new IllegalArgumentException("Argument 'rules' cannot be null");
-        }
         if (rules.length == 0) {
             throw new IllegalArgumentException("Argument 'rules' cannot be an empty array");
         }
