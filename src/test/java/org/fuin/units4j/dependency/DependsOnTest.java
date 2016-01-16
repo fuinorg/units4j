@@ -29,6 +29,7 @@ public final class DependsOnTest {
         final String name = "org.fuin.units4j.dependency";
         final DependsOn testee = new DependsOn(name);
         assertThat(testee.getPackageName()).isEqualTo(name);
+        assertThat(testee.toString()).isEqualTo(name);
         assertThat(testee.isIncludeSubPackages()).isTrue();
     }
 
@@ -38,6 +39,7 @@ public final class DependsOnTest {
         final boolean recursive = false;
         final DependsOn testee = new DependsOn(name, recursive);
         assertThat(testee.getPackageName()).isEqualTo(name);
+        assertThat(testee.toString()).isEqualTo(name);
         assertThat(testee.isIncludeSubPackages()).isEqualTo(recursive);
     }
 

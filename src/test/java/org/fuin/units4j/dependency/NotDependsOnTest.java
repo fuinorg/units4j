@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
-// TESTCODE:BEGIN
+// CHECKSTYLE:OFF Test code
 public final class NotDependsOnTest {
 
     @Test
@@ -29,6 +29,7 @@ public final class NotDependsOnTest {
         final String name = "org.fuin.units4j.dependency";
         final NotDependsOn testee = new NotDependsOn(name);
         assertThat(testee.getPackageName()).isEqualTo(name);
+        assertThat(testee.toString()).isEqualTo(name);
         assertThat(testee.getComment()).isNull();
         assertThat(testee.isIncludeSubPackages()).isTrue();
     }
@@ -39,6 +40,7 @@ public final class NotDependsOnTest {
         final String comment = "Whatever";
         final NotDependsOn testee = new NotDependsOn(name, comment);
         assertThat(testee.getPackageName()).isEqualTo(name);
+        assertThat(testee.toString()).isEqualTo(name);
         assertThat(testee.getComment()).isEqualTo(comment);
         assertThat(testee.isIncludeSubPackages()).isTrue();
     }
@@ -55,4 +57,4 @@ public final class NotDependsOnTest {
     }
 
 }
-// TESTCODE:END
+//CHECKSTYLE:ON
