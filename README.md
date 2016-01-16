@@ -81,7 +81,8 @@ File dir = new File("target/classes");
 List<File> classFiles = Units4JUtils.findAllClasses(dir);
 Index index = Units4JUtils.indexAllClasses(classFiles);
 
-// Verify that all classes annotated with [@Entity](https://docs.oracle.com/javaee/6/api/javax/persistence/Entity.html) observe the rules for JPA entities (Class not final + No final methods + ...).
+// Verify that all classes annotated with @Entity observe the rules for JPA entities 
+// (Class not final + No final methods + ...).
 assertThat(index).hasOnlyValidJpaEntities();
 ```
 
