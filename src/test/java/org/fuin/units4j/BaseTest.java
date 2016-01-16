@@ -26,7 +26,7 @@ import org.fuin.units4j.analyzer.EmptyFieldVisitor;
 import org.fuin.units4j.analyzer.EmptyMethodVisitor;
 import org.junit.Test;
 
-//TESTCODE:BEGIN
+//CHECKSTYLE:OFF Test code
 public final class BaseTest {
 
     @Test
@@ -47,4 +47,4 @@ public final class BaseTest {
     }
 
 }
-// TESTCODE:END
+// CHECKSTYLE:ON

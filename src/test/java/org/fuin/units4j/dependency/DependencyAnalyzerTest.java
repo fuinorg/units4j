@@ -26,7 +26,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-// TESTCODE:BEGIN
+// CHECKSTYLE:OFF Test code
 public final class DependencyAnalyzerTest {
 
     @Test
@@ -171,4 +171,4 @@ public final class DependencyAnalyzerTest {
     }
 
 }
-// TESTCODE:END
+// CHECKSTYLE:ON

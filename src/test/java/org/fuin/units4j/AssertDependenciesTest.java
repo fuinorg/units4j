@@ -25,7 +25,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-// TESTCODE:BEGIN
+// CHECKSTYLE:OFF Test code
 public final class AssertDependenciesTest {
 
     private File file;
@@ -62,5 +62,5 @@ public final class AssertDependenciesTest {
     }
 
 }
-// TESTCODE:END
+// CHECKSTYLE:ON
 

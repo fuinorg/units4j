@@ -45,4 +45,4 @@ public final class DependenciesTest {
     }
 
 }
-// TESTCODE:END
+// CHECKSTYLE:ON

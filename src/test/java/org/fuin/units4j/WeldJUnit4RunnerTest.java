@@ -24,7 +24,7 @@ import javax.inject.Inject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-//TESTCODE:BEGIN
+//CHECKSTYLE:OFF Test code
 @RunWith(WeldJUnit4Runner.class)
 public class WeldJUnit4RunnerTest {
 
@@ -37,4 +37,4 @@ public class WeldJUnit4RunnerTest {
     }
 
 }
-// TESTCODE:END
+// CHECKSTYLE:ON

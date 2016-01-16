@@ -25,7 +25,7 @@ import java.math.BigDecimal;
 import org.fuin.units4j.analyzer.MCAMethod;
 import org.junit.Test;
 
-//TESTCODE:BEGIN
+//CHECKSTYLE:OFF Test code
 public final class AssertUsageTest {
 
     @Test
@@ -54,4 +54,4 @@ public final class AssertUsageTest {
     }
 
 }
-// TESTCODE:END
+// CHECKSTYLE:ON

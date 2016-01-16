@@ -23,7 +23,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-// TESTCODE:BEGIN
+// CHECKSTYLE:OFF Test code
 public class AbstractPersistenceTestTest extends AbstractPersistenceTest {
 
     @Test
@@ -58,5 +58,5 @@ public class AbstractPersistenceTestTest extends AbstractPersistenceTest {
     }
 
 }
-// TESTCODE:END
+// CHECKSTYLE:ON
 

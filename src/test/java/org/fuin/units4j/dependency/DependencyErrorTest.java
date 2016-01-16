@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
-// TESTCODE:BEGIN
+// CHECKSTYLE:OFF Test code
 public final class DependencyErrorTest {
 
     @Test
@@ -39,4 +39,4 @@ public final class DependencyErrorTest {
     }
 
 }
-// TESTCODE:END
+// CHECKSTYLE:ON

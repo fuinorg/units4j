@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 
-//TESTCODE:BEGIN
+//CHECKSTYLE:OFF Test code
 public final class PackageTest {
 
     @Test
@@ -37,4 +37,4 @@ public final class PackageTest {
     }
 
 }
-// TESTCODE:END
+// CHECKSTYLE:ON

@@ -29,7 +29,7 @@ import org.junit.Test;
 
 import com.thoughtworks.xstream.XStream;
 
-// TESTCODE:BEGIN
+// CHECKSTYLE:OFF Test code
 public final class UtilsTest {
 
     @Test
@@ -191,4 +191,4 @@ public final class UtilsTest {
     }
 
 }
-// TESTCODE:END
+// CHECKSTYLE:ON

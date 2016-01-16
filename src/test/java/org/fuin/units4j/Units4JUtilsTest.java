@@ -30,7 +30,7 @@ import org.fuin.utils4j.Utils4J;
 import org.junit.ComparisonFailure;
 import org.junit.Test;
 
-// TESTCODE:BEGIN
+// CHECKSTYLE:OFF Test code
 public final class Units4JUtilsTest {
 
     @Test
@@ -165,5 +165,5 @@ public final class Units4JUtilsTest {
     }
 
 }
-// TESTCODE:END
+// CHECKSTYLE:ON
 

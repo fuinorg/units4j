@@ -20,7 +20,7 @@ package org.fuin.units4j.dependency;
 import org.junit.Ignore;
 import org.junit.Test;
 
-//TESTCODE:BEGIN
+//CHECKSTYLE:OFF Test code
 public class DependencyVisitorTest {
 
     @Ignore
@@ -30,4 +30,4 @@ public class DependencyVisitorTest {
     }
 
 }
-// TESTCODE:END
+// CHECKSTYLE:ON

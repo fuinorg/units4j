@@ -35,7 +35,7 @@ import assertcoverage.ExampleClass;
 import assertcoverage.ExampleExcludedClass;
 import assertcoverage.InterfaceExampleClass;
 
-// TESTCODE:BEGIN
+// CHECKSTYLE:OFF Test code
 public final class AssertCoverageTest {
 
     private static final ClassFilter ALWAYS_TRUE = new ClassFilter() {
@@ -214,5 +214,5 @@ public final class AssertCoverageTest {
     }
 
 }
-// TESTCODE:END
+// CHECKSTYLE:ON
 
