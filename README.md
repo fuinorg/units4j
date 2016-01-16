@@ -15,9 +15,10 @@ A home for additional useful unit testing modules for Java.
 
 ##Features
 
-- [Asserting test coverage](###Asserting test coverage)
-- [Asserting package dependencies](###Asserting package dependencies)
-- [Asserting methods are not used](###Asserting methods are **not** used)
+- [Asserting test coverage](#asserting-test-coverage)
+- [Asserting package dependencies](#asserting-package-dependencies)
+- [Asserting methods are not used](#asserting-methods-are-not-used)
+- [Assert that JPA entities are valid](#assert-that-jpa-entities-are-valid)
 
 ###Asserting test coverage
 
@@ -67,6 +68,21 @@ final MCAMethod setScale = new MCAMethod("java.math.BigDecimal",
 
 // Fails if any class calls one of the two methods
 AssertUsage.assertMethodsNotUsed(classesDir, fileFilter, divide, setScale);
+```
+
+###Assert that JPA entities are valid
+Uses JBoss [Jandex](https://github.com/wildfly/jandex) to validate JPA entity classes.
+
+**Work in progress** - See [JavaDoc](src/main/java/org/fuin/units4j/JandexAssert.java) for current feature set
+
+```Java
+// Collect all class files
+File dir = new File("target/classes");
+List<File> classFiles = Units4JUtils.findAllClasses(dir);
+Index index = Units4JUtils.indexAllClasses(classFiles);
+
+// Verify that all classes annotated with [@Entity](https://docs.oracle.com/javaee/6/api/javax/persistence/Entity.html) observe the rules for JPA entities (Class not final + No final methods + ...).
+assertThat(index).hasOnlyValidJpaEntities();
 ```
 
 * * *
