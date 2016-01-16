@@ -15,6 +15,10 @@ A home for additional useful unit testing modules for Java.
 
 ##Features
 
+- [Asserting test coverage](###Asserting test coverage)
+- [Asserting package dependencies](###Asserting package dependencies)
+- [Asserting methods are not used](###Asserting methods are **not** used)
+
 ###Asserting test coverage
 
 A good approach is to have at least one test class for every production class.
