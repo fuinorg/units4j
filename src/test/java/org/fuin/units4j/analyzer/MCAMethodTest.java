@@ -18,6 +18,7 @@
 package org.fuin.units4j.analyzer;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 import org.junit.Test;
 
@@ -49,5 +50,37 @@ public final class MCAMethodTest {
 
     }
 
+    @Test
+    public final void testEqualsHashCode() {
+        
+        EqualsVerifier.forClass(MCAMethod.class).verify();
+        
+    }
+
+    @Test
+    public final void testCompareTo() {
+        
+        // PREPARE
+        final String classNameA = "a.b.c.A";
+        final String methodSignatureA = "int a(java.lang.String)";
+        final MCAMethod methodA = new MCAMethod(classNameA, methodSignatureA);
+
+        final String classNameB = "a.b.c.B";
+        final String methodSignatureB = "int a(java.lang.String)";
+        final MCAMethod methodB = new MCAMethod(classNameB, methodSignatureB);
+
+        final String methodSignatureC = "int b(java.lang.String)";
+        final MCAMethod methodC = new MCAMethod(classNameB, methodSignatureC);
+        
+        // TEST + VERIFY
+        assertThat(methodA.compareTo(methodB)).isEqualTo(-1);
+        assertThat(methodB.compareTo(methodA)).isEqualTo(1);
+        assertThat(methodA.compareTo(methodA)).isEqualTo(0);
+        
+        assertThat(methodB.compareTo(methodC)).isEqualTo(-1);
+        assertThat(methodC.compareTo(methodB)).isEqualTo(1);
+        
+    }
+    
 }
 // CHECKSTYLE:ON
