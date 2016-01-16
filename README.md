@@ -29,7 +29,7 @@ If you have classes this rule-of-thumb does not apply, you can:
 - Use an AssertCoverage.ClassFilter to exclude the classes
 ```Java
 @Test
-public final void testCoverage() {
+public void testCoverage() {
     AssertCoverage.assertEveryClassHasATest(new File("src/main/java"));
 }
 ```
@@ -40,7 +40,7 @@ It's a good practice enforcing package dependencies to avoid high coupling and p
 You simply define a dependency description in your "src/test/resources" folder. For an example see [units4j.xml](https://github.com/fuinorg/units4j/blob/master/src/test/resources/units4j.xml)).
 ```Java
 @Test
-public final void testAssertDependencies() {
+public void testAssertDependencies() {
     AssertDependencies.assertRules(getClass(), "/units4j.xml", new File("target/classes"));
 }
 ```
@@ -49,10 +49,10 @@ public final void testAssertDependencies() {
 Example: Prevent a [java.lang.ArithmeticException](http://docs.oracle.com/javase/8/docs/api/java/lang/ArithmeticException.html) Non-terminating decimal expansion; no exact representable decimal result." caused by calling BigDecimal's divide or setScale without a rounding mode:
 ```Java
 // Path to '*.class' files
-final File classesDir = new File("target/classes");
+File classesDir = new File("target/classes");
 
 // Can be used to exclude some files/packages
-final FileFilter fileFilter = new FileFilter() {
+FileFilter fileFilter = new FileFilter() {
     @Override
     public boolean accept(File file) {
         return !file.getPath().contains("my/pkg/to/exclude");
@@ -60,11 +60,8 @@ final FileFilter fileFilter = new FileFilter() {
 };
 
 // Define methods to find
-final MCAMethod divide = new MCAMethod("java.math.BigDecimal",
-        "java.math.BigDecimal divide(java.math.BigDecimal)");
-
-final MCAMethod setScale = new MCAMethod("java.math.BigDecimal",
-        "java.math.BigDecimal setScale(int)");
+MCAMethod divide = new MCAMethod("java.math.BigDecimal", "java.math.BigDecimal divide(java.math.BigDecimal)");
+MCAMethod setScale = new MCAMethod("java.math.BigDecimal","java.math.BigDecimal setScale(int)");
 
 // Fails if any class calls one of the two methods
 AssertUsage.assertMethodsNotUsed(classesDir, fileFilter, divide, setScale);
