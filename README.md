@@ -75,6 +75,10 @@ Uses JBoss [Jandex](https://github.com/wildfly/jandex) to validate JPA entity cl
 **Work in progress** - See [issue #6](https://github.com/fuinorg/units4j/issues/6)
 
 ```Java
+import static org.fuin.units4j.JandexAssert.assertThat;
+```
+
+```Java
 // Collect all class files
 File dir = new File("target/classes");
 List<File> classFiles = Units4JUtils.findAllClasses(dir);
