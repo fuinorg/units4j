@@ -20,6 +20,8 @@ A home for additional useful unit testing modules for Java.
 - [Asserting methods are not used](#asserting-methods-are-not-used)
 - [Assert that JPA entities are valid](#assert-that-jpa-entities-are-valid)
 
+* * *
+
 ###Asserting test coverage
 
 A good approach is to have at least one test class for every production class.
