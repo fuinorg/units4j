@@ -15,32 +15,41 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fuin.units4j;
+package org.fuin.units4j.assertionrules;
 
 import java.lang.reflect.Modifier;
+import java.util.List;
 
+import org.fuin.units4j.AssertionResult;
+import org.fuin.units4j.AssertionRule;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.MethodInfo;
 
 /**
- * Checks if a class has a public or protected no arg constructor.
+ * Checks if a class has no final methods.
  */
-public final class RulePublicOrProtectedNoArgConstructor implements AssertionRule<ClassInfo> {
+public final class RuleClassHasNoFinalMethods implements AssertionRule<ClassInfo> {
 
     @Override
     public final AssertionResult verify(final ClassInfo info) {
 
-        final MethodInfo method = info.method("<init>");
-        if ((method == null) || !publicOrProtected(method)) {
-            return new AssertionResult("Missing public or protected no arg constructor: " + info.name());
+        boolean ok = true;
+        final StringBuffer sb = new StringBuffer("Class " + info.name() + " has final methods:\n");
+
+        final List<MethodInfo> methodInfos = info.methods();
+        for (final MethodInfo methodInfo : methodInfos) {
+            if (Modifier.isFinal(methodInfo.flags())) {
+                ok = false;
+                sb.append(methodInfo.toString());
+                sb.append("\n");
+            }            
         }
+        
+        if (ok) {
+            return AssertionResult.OK;
+        }
+        return new AssertionResult(sb.toString());
 
-        return AssertionResult.OK;
-
-    }
-
-    private boolean publicOrProtected(final MethodInfo method) {
-        return Modifier.isPublic(method.flags()) || Modifier.isProtected(method.flags());
     }
 
 }

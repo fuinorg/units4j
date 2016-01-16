@@ -43,6 +43,8 @@ import org.fuin.utils4j.Utils4J;
 import org.fuin.utils4j.fileprocessor.FileHandler;
 import org.fuin.utils4j.fileprocessor.FileHandlerResult;
 import org.fuin.utils4j.fileprocessor.FileProcessor;
+import org.jboss.jandex.ClassInfo;
+import org.jboss.jandex.DotName;
 import org.jboss.jandex.Index;
 import org.jboss.jandex.Indexer;
 
@@ -390,6 +392,68 @@ public final class Units4JUtils {
         });
 
         return indexer.complete();
+    }
+
+    /**
+     * Loads a class and creates a Jandex class information for it. Uses the class loader of this utility
+     * class.
+     * 
+     * @param clasz
+     *            Class to load.
+     * 
+     * @return Jandex class information.
+     */
+    public static ClassInfo classInfo(final Class<?> clasz) {
+        return classInfo(Units4JUtils.class.getClassLoader(), clasz);
+    }
+
+    /**
+     * Loads a class and creates a Jandex class information for it.
+     * 
+     * @param cl
+     *            Class loader to use.
+     * @param clasz
+     *            Class to load.
+     * 
+     * @return Jandex class information.
+     */
+    public static ClassInfo classInfo(final ClassLoader cl, final Class<?> clasz) {
+        return classInfo(cl, clasz.getName());
+    }
+
+    /**
+     * Loads a class by it's name and creates a Jandex class information for it. Uses the class loader of this
+     * utility class.
+     * 
+     * @param className
+     *            Full qualified name of the c
+     * 
+     * @return Jandex class information.
+     */
+    public static ClassInfo classInfo(final String className) {
+        return classInfo(Units4JUtils.class.getClassLoader(), className);
+    }
+
+    /**
+     * Loads a class by it's name and creates a Jandex class information for it.
+     * 
+     * @param cl
+     *            Class loader to use.
+     * @param className
+     *            Full qualified name of the c
+     * 
+     * @return Jandex class information.
+     */
+    public static ClassInfo classInfo(final ClassLoader cl, final String className) {
+        final InputStream stream = cl.getResourceAsStream(className.replace('.', '/') + ".class");
+        final Indexer indexer = new Indexer();
+        try {
+            indexer.index(stream);
+        } catch (final IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        final Index index = indexer.complete();
+        return index.getClassByName(DotName.createSimple(className));
     }
 
     /**

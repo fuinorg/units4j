@@ -17,8 +17,9 @@
   <allowed>
     <package name="org.fuin.units4j">
       <dependsOn package="org.fuin.utils4j"/>
-      <dependsOn package="org.fuin.units4j.dependency"/>
       <dependsOn package="org.fuin.units4j.analyzer"/>
+      <dependsOn package="org.fuin.units4j.assertionrules"/>
+      <dependsOn package="org.fuin.units4j.dependency"/>
     </package>
   </allowed>
   

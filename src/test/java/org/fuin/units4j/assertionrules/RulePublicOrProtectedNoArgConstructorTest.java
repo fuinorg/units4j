@@ -15,17 +15,14 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fuin.units4j;
+package org.fuin.units4j.assertionrules;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.fuin.units4j.Units4JUtils.classInfo;
 
 import java.io.IOException;
-import java.io.InputStream;
 
-import org.jboss.jandex.ClassInfo;
-import org.jboss.jandex.DotName;
-import org.jboss.jandex.Index;
-import org.jboss.jandex.Indexer;
+import org.fuin.units4j.AssertionResult;
 import org.junit.Test;
 
 // CHECKSTYLE:OFF Test code
@@ -109,16 +106,6 @@ public class RulePublicOrProtectedNoArgConstructorTest {
         assertThat(result.isValid()).isFalse();
         assertThat(result.getErrorMessage()).startsWith("Missing public or protected no arg constructor:");
 
-    }
-
-    private ClassInfo classInfo(final Class<?> clasz) throws IOException {
-        final String className = clasz.getName();
-        final InputStream stream = getClass().getClassLoader().getResourceAsStream(
-                className.replace('.', '/') + ".class");
-        final Indexer indexer = new Indexer();
-        indexer.index(stream);
-        final Index index = indexer.complete();
-        return index.getClassByName(DotName.createSimple(className));
     }
 
     public static class PublicConstructorClass {

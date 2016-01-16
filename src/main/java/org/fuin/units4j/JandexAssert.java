@@ -17,11 +17,16 @@
  */
 package org.fuin.units4j;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.MappedSuperclass;
 
 import org.assertj.core.api.AbstractAssert;
+import org.fuin.units4j.assertionrules.RuleClassHasNoFinalMethods;
+import org.fuin.units4j.assertionrules.RuleClassNotFinal;
+import org.fuin.units4j.assertionrules.RulePublicOrProtectedNoArgConstructor;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.ClassInfo;
@@ -61,8 +66,8 @@ public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
      * <ul>
      * <li>[OK] The class must have a public or protected, no-argument constructor. The class may have other
      * constructors.</li>
-     * <li>[TODO Implement!] The class must not be declared final. No methods or persistent instance variables
-     * must be declared final.</li>
+     * <li>[OK] The class must not be declared final.</li> 
+     * <li>[OK] No methods or persistent instance variables must be declared final.</li>
      * <li>[TODO Implement!] If an entity instance is passed by value as a detached object, such as through a
      * session bean’s remote business interface, the class must implement the Serializable interface.</li>
      * <li>[TODO Implement!] Entities may extend both entity and non-entity classes, and non-entity classes
@@ -78,13 +83,15 @@ public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
         // Precondition
         isNotNull();
 
-        final DotName dotName = DotName.createSimple(Entity.class.getName());
-        final List<AnnotationInstance> annotations = actual.getAnnotations(dotName);
+        final List<AnnotationInstance> annotations = new ArrayList<>();
+        annotations.addAll(actual.getAnnotations(DotName.createSimple(Entity.class.getName())));
+        annotations.addAll(actual.getAnnotations(DotName.createSimple(MappedSuperclass.class.getName())));
         for (final AnnotationInstance ai : annotations) {
             final AnnotationTarget target = ai.target();
             final ClassInfo info = target.asClass();
             final AssertionRules<ClassInfo> rules = new AssertionRules<ClassInfo>(
-                    new RulePublicOrProtectedNoArgConstructor());
+                    new RulePublicOrProtectedNoArgConstructor(), new RuleClassNotFinal(),
+                    new RuleClassHasNoFinalMethods());
             final AssertionResult result = rules.verify(info);
             if (!result.isValid()) {
                 failWithMessage(result.getErrorMessage());
