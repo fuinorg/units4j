@@ -34,6 +34,8 @@ public @interface TestOmitted {
 
     /**
      * Short description why the test class was not implemented.
+     * 
+     * @return Explanation why the test was skipped
      */
     String value();
 
