@@ -72,7 +72,7 @@ AssertUsage.assertMethodsNotUsed(classesDir, fileFilter, divide, setScale);
 ###Assert that JPA entities are valid
 Uses JBoss [Jandex](https://github.com/wildfly/jandex) to validate JPA entity classes.
 
-**Work in progress** - See [JavaDoc](src/main/java/org/fuin/units4j/JandexAssert.java) for current feature set
+**Work in progress** - See issue #6
 
 ```Java
 // Collect all class files
