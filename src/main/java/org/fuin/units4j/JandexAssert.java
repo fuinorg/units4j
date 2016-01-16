@@ -29,9 +29,9 @@ import org.jboss.jandex.DotName;
 import org.jboss.jandex.Index;
 
 /**
- * Assertion class for JBoss Jandis.
+ * Assertion class for JBoss Jandex.
  */
-public final class JandisAssert extends AbstractAssert<JandisAssert, Index> {
+public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
 
     /**
      * Constructor to build assertion class with the object we want to make assertions on.
@@ -39,8 +39,8 @@ public final class JandisAssert extends AbstractAssert<JandisAssert, Index> {
      * @param actual
      *            Index to use.
      */
-    public JandisAssert(final Index actual) {
-        super(actual, JandisAssert.class);
+    public JandexAssert(final Index actual) {
+        super(actual, JandexAssert.class);
     }
 
     /**
@@ -51,8 +51,8 @@ public final class JandisAssert extends AbstractAssert<JandisAssert, Index> {
      * 
      * @return New assertion instance.
      */
-    public static JandisAssert assertThat(final Index actual) {
-        return new JandisAssert(actual);
+    public static JandexAssert assertThat(final Index actual) {
+        return new JandexAssert(actual);
     }
 
     /**
@@ -74,7 +74,7 @@ public final class JandisAssert extends AbstractAssert<JandisAssert, Index> {
      * 
      * @return Self.
      */
-    public JandisAssert hasOnlyValidJpaEntities() {
+    public JandexAssert hasOnlyValidJpaEntities() {
         // Precondition
         isNotNull();
 

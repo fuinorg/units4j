@@ -18,7 +18,7 @@
 package org.fuin.units4j;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.fuin.units4j.JandisAssert.assertThat;
+import static org.fuin.units4j.JandexAssert.assertThat;
 
 import java.io.File;
 import java.util.List;
@@ -28,10 +28,10 @@ import org.jboss.jandex.Indexer;
 import org.junit.Test;
 
 /**
- * Tests the {@link JandisAssert} class.
+ * Tests the {@link JandexAssert} class.
  */
 // CHECKSTYLE:OFF Test code
-public class JandisAssertTest {
+public class JandexAssertTest {
 
     @Test
     public void testAssertThat() {
@@ -39,7 +39,7 @@ public class JandisAssertTest {
         // TEST
         final Indexer indexer = new Indexer();
         final Index actual = indexer.complete();
-        final JandisAssert result = JandisAssert.assertThat(actual);
+        final JandexAssert result = JandexAssert.assertThat(actual);
         
         // VERIFY
         assertThat(result).isNotNull();
