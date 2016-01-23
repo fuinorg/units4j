@@ -64,17 +64,11 @@ public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
      * Verifies that all class that are annotated with {@link Entity} observe the rules for JPA entities.
      * 
      * <ul>
-     * <li>[OK] The class must have a public or protected, no-argument constructor. The class may have other
+     * <li>The class must have a public or protected, no-argument constructor. The class may have other
      * constructors.</li>
-     * <li>[OK] The class must not be declared final.</li> 
-     * <li>[OK] No methods or persistent instance variables must be declared final.</li>
-     * <li>[TODO Implement!] If an entity instance is passed by value as a detached object, such as through a
-     * session bean’s remote business interface, the class must implement the Serializable interface.</li>
-     * <li>[TODO Implement!] Entities may extend both entity and non-entity classes, and non-entity classes
-     * may extend entity classes.</li>
-     * <li>[TODO Implement!] Persistent instance variables must be declared private, protected, or
-     * package-private and can be accessed directly only by the entity class’s methods. Clients must access
-     * the entity’s state through accessor or business methods.</li>
+     * <li>The class must not be declared final.</li>
+     * <li>No methods or persistent instance variables must be declared final.</li>
+     * <li>Persistent instance variables must be declared private, protected, or package-private.</li>
      * </ul>
      * 
      * @return Self.
