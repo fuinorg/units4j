@@ -18,6 +18,7 @@
 package org.fuin.units4j.dependency;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 import org.junit.Test;
 
@@ -33,6 +34,13 @@ public final class PackageTest {
         assertThat(testee.getName()).isEqualTo(name);
         assertThat(testee.getComment()).isEqualTo(comment);
         assertThat(testee.getDependencies()).isEmpty();
+
+    }
+
+    @Test
+    public final void testEqualsHashCode() {
+
+        EqualsVerifier.forClass(Package.class).verify();
 
     }
 

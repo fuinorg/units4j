@@ -18,6 +18,7 @@
 package org.fuin.units4j.dependency;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 import org.junit.Test;
 
@@ -42,6 +43,11 @@ public final class DependsOnTest {
         assertThat(testee.toString()).isEqualTo(name);
         assertThat(testee.isIncludeSubPackages()).isEqualTo(recursive);
     }
+    
+    @Test
+    public final void testEqualsHashCode() {
+        EqualsVerifier.forClass(DependsOn.class).withRedefinedSuperclass().verify();
+    }    
 
 }
 // CHECKSTYLE:ON

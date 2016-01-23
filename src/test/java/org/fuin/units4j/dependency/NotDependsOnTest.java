@@ -18,6 +18,7 @@
 package org.fuin.units4j.dependency;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 import org.junit.Test;
 
@@ -56,5 +57,10 @@ public final class NotDependsOnTest {
         assertThat(testee.getComment()).isEqualTo(comment);
     }
 
+    @Test
+    public final void testEqualsHashCode() {
+        EqualsVerifier.forClass(NotDependsOn.class).withRedefinedSuperclass().verify();
+    }
+
 }
-//CHECKSTYLE:ON
+// CHECKSTYLE:ON
