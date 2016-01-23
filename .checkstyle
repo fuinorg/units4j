@@ -5,11 +5,7 @@
     <property name="checkstyle.header.file" value="${basedir}/required-header.txt"/>
     <additional-data name="protect-config-file" value="false"/>
   </local-check-config>
-  <fileset name="all" enabled="true" check-config-name="Standard" local="true">
+  <fileset name="all" enabled="true" check-config-name="fuin-2015-09-12" local="false">
     <file-match-pattern match-pattern="." include-pattern="true"/>
   </fileset>
-  <filter name="FileTypesFilter" enabled="true">
-    <filter-data value="java"/>
-  </filter>
-  <filter name="NonSrcDirs" enabled="true"/>
 </fileset-config>
