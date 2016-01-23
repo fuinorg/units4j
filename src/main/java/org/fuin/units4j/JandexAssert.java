@@ -26,6 +26,7 @@ import javax.persistence.MappedSuperclass;
 import org.assertj.core.api.AbstractAssert;
 import org.fuin.units4j.assertionrules.RuleClassHasNoFinalMethods;
 import org.fuin.units4j.assertionrules.RuleClassNotFinal;
+import org.fuin.units4j.assertionrules.RulePersistentInstanceFieldVisibility;
 import org.fuin.units4j.assertionrules.RulePublicOrProtectedNoArgConstructor;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget;
@@ -85,13 +86,16 @@ public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
             final ClassInfo info = target.asClass();
             final AssertionRules<ClassInfo> rules = new AssertionRules<ClassInfo>(
                     new RulePublicOrProtectedNoArgConstructor(), new RuleClassNotFinal(),
-                    new RuleClassHasNoFinalMethods());
+                    new RuleClassHasNoFinalMethods(),
+                    new RulePersistentInstanceFieldVisibility());
             final AssertionResult result = rules.verify(info);
             if (!result.isValid()) {
                 failWithMessage(result.getErrorMessage());
             }
         }
+        
         return this;
+        
     }
 
 }

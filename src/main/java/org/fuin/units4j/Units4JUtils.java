@@ -440,11 +440,26 @@ public final class Units4JUtils {
      * @param cl
      *            Class loader to use.
      * @param className
-     *            Full qualified name of the c
+     *            Full qualified name of the class.
      * 
      * @return Jandex class information.
      */
     public static ClassInfo classInfo(final ClassLoader cl, final String className) {
+        final Index index = index(cl, className);
+        return index.getClassByName(DotName.createSimple(className));
+    }
+
+    /**
+     * Returns a Jandex index for a class by it's name.
+     * 
+     * @param cl
+     *            Class loader to use.
+     * @param className
+     *            Full qualified name of the class.
+     * 
+     * @return Jandex index.
+     */
+    public static Index index(final ClassLoader cl, final String className) {
         final InputStream stream = cl.getResourceAsStream(className.replace('.', '/') + ".class");
         final Indexer indexer = new Indexer();
         try {
@@ -453,9 +468,9 @@ public final class Units4JUtils {
             throw new RuntimeException(ex);
         }
         final Index index = indexer.complete();
-        return index.getClassByName(DotName.createSimple(className));
+        return index;
     }
-
+    
     /**
      * Replaces the content of one or more XML attributes.
      * 

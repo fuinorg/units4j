@@ -19,9 +19,16 @@ package org.fuin.units4j;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.fuin.units4j.JandexAssert.assertThat;
+import static org.fuin.units4j.Units4JUtils.index;
 
-import java.io.File;
-import java.util.List;
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.jboss.jandex.Index;
 import org.jboss.jandex.Indexer;
@@ -47,18 +54,51 @@ public class JandexAssertTest {
     }
     
     @Test
-    public void testHasOnlyValidJpaEntities() {
+    public void testHasOnlyValidJpaEntitiesTrue() {
 
         // PREPARE
-        final File dir = new File("target/test-classes");
-        final List<File> classFiles = Units4JUtils.findAllClasses(dir);
-        final Index index = Units4JUtils.indexAllClasses(classFiles);
-
+        final Index index = index(getClass().getClassLoader(), MyTestClass.class.getName());
+        
         // TEST + VERIFY
+        assertThat(index).isNotNull();
+        assertThat(index).hasOnlyValidJpaEntities();
+        
+    }
+
+    @Test(expected = AssertionError.class)
+    public void testHasOnlyValidJpaEntitiesFalse() {
+
+        // PREPARE
+        final Index index = index(getClass().getClassLoader(), MyInvalidEntity.class.getName());
+        
+        // TEST + VERIFY
+        assertThat(index).isNotNull();
         assertThat(index).hasOnlyValidJpaEntities();
         
     }
     
+
+    @Entity
+    @Table(name = "INVALID_TABLE")
+    public static class MyInvalidEntity implements Serializable {
+
+        private static final long serialVersionUID = 1L;
+
+        @Id
+        @Min(1)
+        @NotNull
+        @Column(name = "ID", nullable = false)
+        private Integer id;
+
+        @NotNull
+        @Column(name = "NAME", length = 50, nullable = false)
+        public String name; // public field is not allowed for JPA entities
+        
+        public MyInvalidEntity() {
+            super();
+        }
+        
+    }    
     
 }
 // CHECKSTYLE:ON
