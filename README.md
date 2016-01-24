@@ -88,6 +88,9 @@ assertThat(index).hasOnlyValidJpaEntities();
 ```
 
 ###Assert that methods have information if null is allowed or not
+
+**WORK IN PROGRESS** See [Issue #7](https://github.com/fuinorg/units4j/issues/7) and [Issue #8](https://github.com/fuinorg/units4j/issues/8)
+
 It's a good style to define a [precondition](https://en.wikipedia.org/wiki/Precondition) for method arguments 
 and [postconditions](https://en.wikipedia.org/wiki/Postcondition) for return values of externally used methods.
 Especially the questions "Can I pass null?" or "Does the method return null values?" is a common source of confusion.
