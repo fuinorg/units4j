@@ -29,8 +29,8 @@ import org.jboss.jandex.Type.Kind;
 
 /**
  * Checks if a method defines nullability for all public, protected and package visible methods. This means it
- * has {@link javax.validation.constraints.NotNull} or {@link org.fuin.objects4j.common.Nullable} annotations
- * for parameters and return values.
+ * has <code>javax.validation.constraints.NotNull</code> or <code>org.fuin.objects4j.common.Nullable</code>
+ * annotations for parameters and return values.
  */
 public final class RuleMethodHasNullabilityInfo implements AssertionRule<MethodInfo> {
 

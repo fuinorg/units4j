@@ -102,8 +102,8 @@ public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
 
     /**
      * Checks if all public, protected and package visible methods define nullability. This means they have
-     * either {@link javax.validation.constraints.NotNull} or {@link org.fuin.objects4j.common.Nullable}
-     * annotations for parameters and return values.
+     * either <code>javax.validation.constraints.NotNull</code> or
+     * <code>org.fuin.objects4j.common.Nullable</code> annotations for parameters and return values.
      * 
      * @return Self.
      */
