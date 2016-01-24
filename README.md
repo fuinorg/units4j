@@ -88,7 +88,10 @@ assertThat(index).hasOnlyValidJpaEntities();
 ```
 
 ###Assert that methods have information if null is allowed or not
-Assert that all return values and parameters of all public, protected and package-private methods have either 
+It's a good style to define a [precondition](https://en.wikipedia.org/wiki/Precondition) for method arguments  
+and [postconditions](https://en.wikipedia.org/wiki/Postcondition) for return values of externally used methods.
+Especially the questions "Can I pass null?" or "Does the method return null values?" is a common source of confusion.
+This assertion makes sure that all return values and parameters of all public, protected and package-private methods have either 
 a [@NotNull](https://docs.oracle.com/javaee/6/api/javax/validation/constraints/NotNull.html) or 
 a [@Nullable](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/common/Nullable.java) annotation.
 
