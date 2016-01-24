@@ -21,7 +21,6 @@ import static org.fuin.units4j.assertionrules.Visibility.PACKAGE;
 import static org.fuin.units4j.assertionrules.Visibility.PRIVATE;
 import static org.fuin.units4j.assertionrules.Visibility.PROTECTED;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
 import java.util.List;
 
@@ -29,9 +28,7 @@ import javax.persistence.Transient;
 
 import org.fuin.units4j.AssertionResult;
 import org.fuin.units4j.AssertionRule;
-import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.ClassInfo;
-import org.jboss.jandex.DotName;
 import org.jboss.jandex.FieldInfo;
 
 /**
@@ -60,7 +57,7 @@ public final class RulePersistentInstanceFieldVisibility implements AssertionRul
             // Every non-static non-final entity field is persistent by default unless
             // explicitly specified otherwise (e.g. by using the @Transient annotation)
             if (!Modifier.isStatic(field.flags()) && !Modifier.isFinal(field.flags())
-                    && !hasAnnotation(field, Transient.class)) {
+                    && !Utils.hasAnnotation(field.annotations(), Transient.class.getName())) {
                 final AssertionResult fieldResult = fieldRule.verify(field);
                 if (!fieldResult.isValid()) {
                     ok = false;
@@ -76,17 +73,6 @@ public final class RulePersistentInstanceFieldVisibility implements AssertionRul
         }
         return new AssertionResult(sb.toString());
 
-    }
-
-    private boolean hasAnnotation(final FieldInfo field, final Class<? extends Annotation> annotationClasz) {
-        final DotName annotationName = DotName.createSimple(annotationClasz.getName());
-        final List<AnnotationInstance> annotations = field.annotations();
-        for (final AnnotationInstance annotation : annotations) {
-            if (annotation.name().equals(annotationName)) {
-                return true;
-            }
-        }
-        return false;
     }
 
 }

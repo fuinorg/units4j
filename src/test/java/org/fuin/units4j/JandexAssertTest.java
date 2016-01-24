@@ -42,41 +42,74 @@ public class JandexAssertTest {
 
     @Test
     public void testAssertThat() {
-        
+
         // TEST
         final Indexer indexer = new Indexer();
         final Index actual = indexer.complete();
         final JandexAssert result = JandexAssert.assertThat(actual);
-        
+
         // VERIFY
         assertThat(result).isNotNull();
-        
+
     }
-    
+
     @Test
     public void testHasOnlyValidJpaEntitiesTrue() {
 
         // PREPARE
         final Index index = index(getClass().getClassLoader(), MyTestClass.class.getName());
-        
+
         // TEST + VERIFY
-        assertThat(index).isNotNull();
         assertThat(index).hasOnlyValidJpaEntities();
-        
+
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void testHasOnlyValidJpaEntitiesFalse() {
 
         // PREPARE
         final Index index = index(getClass().getClassLoader(), MyInvalidEntity.class.getName());
-        
+
         // TEST + VERIFY
-        assertThat(index).isNotNull();
+        try {
         assertThat(index).hasOnlyValidJpaEntities();
-        
+        } catch (final AssertionError ex) {
+            assertThat(ex.getMessage())
+                    .isEqualTo("Public visibility is not allowed for: org.fuin.units4j.JandexAssertTest$MyInvalidEntity.name\n");
+        }
     }
-    
+
+    @Test
+    public void testHasNullabilityInfoOnAllMethodsTrue() {
+
+        // PREPARE
+        final Index index = index(getClass().getClassLoader(), ValidNullabilityClass.class.getName());
+
+        // TEST + VERIFY
+        assertThat(index).hasNullabilityInfoOnAllMethods();
+
+    }
+
+    @Test
+    public void testHasNullabilityInfoOnAllMethodsFalse() {
+
+        // PREPARE
+        final Index index = index(getClass().getClassLoader(), InvalidNullabilityClass.class.getName());
+
+        // TEST + VERIFY
+        try {
+            assertThat(index).hasNullabilityInfoOnAllMethods();
+        } catch (final AssertionError ex) {
+            assertThat(ex.getMessage())
+                    .isEqualTo(
+                            "A parameter or the return value has neither a @NotNull nor a @Nullable annotation:\n"
+                                    + "org.fuin.units4j.JandexAssertTest$InvalidNullabilityClass\tvoid <init>(java.lang.String)\tParameter #0 (java.lang.String)\n"
+                                    + "org.fuin.units4j.JandexAssertTest$InvalidNullabilityClass\tvoid b(java.lang.String)\tParameter #0 (java.lang.String)\n"
+                                    + "org.fuin.units4j.JandexAssertTest$InvalidNullabilityClass\tjava.lang.String c(java.lang.String)\tReturn type (java.lang.String)\n"
+                                    + "org.fuin.units4j.JandexAssertTest$InvalidNullabilityClass\tjava.lang.String c(java.lang.String)\tParameter #0 (java.lang.String)\n");
+        }
+
+    }
 
     @Entity
     @Table(name = "INVALID_TABLE")
@@ -93,12 +126,49 @@ public class JandexAssertTest {
         @NotNull
         @Column(name = "NAME", length = 50, nullable = false)
         public String name; // public field is not allowed for JPA entities
-        
+
         public MyInvalidEntity() {
             super();
         }
-        
-    }    
-    
+
+    }
+
+    public static class ValidNullabilityClass {
+
+        public ValidNullabilityClass(@NotNull final String xyz) {
+            super();
+        }
+
+        public void a() {
+        }
+
+        public void b(@NotNull final String b) {
+        }
+
+        @NotNull
+        public String c(@NotNull final String c) {
+            return null;
+        }
+
+    }
+
+    public static class InvalidNullabilityClass {
+
+        public InvalidNullabilityClass(final String xyz) {
+            super();
+        }
+
+        public void a() {
+        }
+
+        public void b(final String b) {
+        }
+
+        public String c(final String c) {
+            return null;
+        }
+
+    }
+
 }
 // CHECKSTYLE:ON

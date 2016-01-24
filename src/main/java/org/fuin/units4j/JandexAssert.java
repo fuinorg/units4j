@@ -18,6 +18,7 @@
 package org.fuin.units4j;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -26,6 +27,7 @@ import javax.persistence.MappedSuperclass;
 import org.assertj.core.api.AbstractAssert;
 import org.fuin.units4j.assertionrules.RuleClassHasNoFinalMethods;
 import org.fuin.units4j.assertionrules.RuleClassNotFinal;
+import org.fuin.units4j.assertionrules.RuleMethodHasNullabilityInfo;
 import org.fuin.units4j.assertionrules.RulePersistentInstanceFieldVisibility;
 import org.fuin.units4j.assertionrules.RulePublicOrProtectedNoArgConstructor;
 import org.jboss.jandex.AnnotationInstance;
@@ -33,6 +35,7 @@ import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.Index;
+import org.jboss.jandex.MethodInfo;
 
 /**
  * Assertion class for JBoss Jandex.
@@ -86,16 +89,51 @@ public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
             final ClassInfo info = target.asClass();
             final AssertionRules<ClassInfo> rules = new AssertionRules<ClassInfo>(
                     new RulePublicOrProtectedNoArgConstructor(), new RuleClassNotFinal(),
-                    new RuleClassHasNoFinalMethods(),
-                    new RulePersistentInstanceFieldVisibility());
+                    new RuleClassHasNoFinalMethods(), new RulePersistentInstanceFieldVisibility());
             final AssertionResult result = rules.verify(info);
             if (!result.isValid()) {
                 failWithMessage(result.getErrorMessage());
             }
         }
-        
+
         return this;
-        
+
+    }
+
+    /**
+     * Checks if all public, protected and package visible methods define nullability. This means they have
+     * either {@link javax.validation.constraints.NotNull} or {@link org.fuin.objects4j.common.Nullable}
+     * annotations for parameters and return values.
+     * 
+     * @return Self.
+     */
+    public JandexAssert hasNullabilityInfoOnAllMethods() {
+        // Precondition
+        isNotNull();
+
+        final RuleMethodHasNullabilityInfo rule = new RuleMethodHasNullabilityInfo();
+
+        final StringBuilder sb = new StringBuilder();
+        boolean ok = true;
+
+        final Collection<ClassInfo> classes = actual.getKnownClasses();
+        for (final ClassInfo clasz : classes) {
+            final List<MethodInfo> methods = clasz.methods();
+            for (final MethodInfo method : methods) {
+                final AssertionResult result = rule.verify(method);
+                if (!result.isValid()) {
+                    ok = false;
+                    sb.append(result.getErrorMessage());
+                }
+            }
+        }
+
+        if (!ok) {
+            failWithMessage("A parameter or the return value has neither a "
+                    + "@NotNull nor a @Nullable annotation:\n" + sb.toString());
+        }
+
+        return this;
     }
 
 }

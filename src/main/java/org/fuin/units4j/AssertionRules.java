@@ -57,8 +57,11 @@ public final class AssertionRules<T> implements AssertionRule<T> {
             final AssertionResult result = rule.verify(obj);
             if (!result.isValid()) {
                 ok = false;
-                sb.append(result.getErrorMessage());
-                sb.append("\n");
+                final String msg = result.getErrorMessage();
+                sb.append(msg);
+                if (!msg.endsWith("\n")) {
+                    sb.append("\n");
+                }
             }
         }
         if (ok) {

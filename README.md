@@ -19,6 +19,7 @@ A home for additional useful unit testing modules for Java.
 - [Asserting package dependencies](#asserting-package-dependencies)
 - [Asserting methods are not used](#asserting-methods-are-not-used)
 - [Assert that JPA entities are valid](#assert-that-jpa-entities-are-valid)
+- [Assert that methods have information if null is allowed or not](#assert-that-methods-have-information-if-null-is-allowed-or-not)
 
 * * *
 
@@ -75,7 +76,6 @@ Uses JBoss [Jandex](https://github.com/wildfly/jandex) to validate JPA entity cl
 ```Java
 import static org.fuin.units4j.JandexAssert.assertThat;
 ```
-
 ```Java
 // Collect all class files
 File dir = new File("target/classes");
@@ -85,6 +85,24 @@ Index index = Units4JUtils.indexAllClasses(classFiles);
 // Verify that all classes annotated with @Entity or @MappedSuperclass observe 
 // the rules for JPA entities (Class not final + No final methods + ...).
 assertThat(index).hasOnlyValidJpaEntities();
+```
+
+###Assert that methods have information if null is allowed or not
+Assert that all return values and parameters of all public, protected and package-private methods have either 
+a [@NotNull](https://docs.oracle.com/javaee/6/api/javax/validation/constraints/NotNull.html) or 
+a [@Nullable](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/common/Nullable.java) annotation.
+
+```Java
+import static org.fuin.units4j.JandexAssert.assertThat;
+```
+```Java
+// Collect all class files
+File dir = new File("target/classes");
+List<File> classFiles = Units4JUtils.findAllClasses(dir);
+Index index = Units4JUtils.indexAllClasses(classFiles);
+
+// Verify that all methods make a statement if null is allowed or not 
+assertThat(index).hasNullabilityInfoOnAllMethods();
 ```
 
 * * *
