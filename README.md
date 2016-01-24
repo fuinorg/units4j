@@ -92,6 +92,25 @@ Assert that all return values and parameters of all public, protected and packag
 a [@NotNull](https://docs.oracle.com/javaee/6/api/javax/validation/constraints/NotNull.html) or 
 a [@Nullable](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/common/Nullable.java) annotation.
 
+Example:
+```Java
+public class MyClass {
+    
+    // Post condition says the return value is never null
+    @NotNull
+    public Boolean myMethodA();
+    
+    // Pre condition says the first value cannot be null, but it's OK for the second argument
+    public void myMethodB(@NotNull Integer abc, @Nullable String def);
+
+    // Post condition says the return value may be null
+    @Nullable
+    public Long myMethodC();
+    
+}   
+```
+
+Test:
 ```Java
 import static org.fuin.units4j.JandexAssert.assertThat;
 ```
