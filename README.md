@@ -94,7 +94,7 @@ a [@Nullable](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org
 
 Example:
 ```Java
-public class MyClass {
+public interface MyInterface {
     
     // Post condition says the return value is never null
     @NotNull
