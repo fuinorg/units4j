@@ -111,6 +111,17 @@ public class JandexAssertTest {
 
     }
 
+    @Test
+    public void testHasNullabilityInfoOnAllMethodsInterface() {
+
+        // PREPARE
+        final Index index = index(getClass().getClassLoader(), ValidNullabilityInterface.class.getName());
+
+        // TEST + VERIFY
+        assertThat(index).hasNullabilityInfoOnAllMethods();
+
+    }
+    
     @Entity
     @Table(name = "INVALID_TABLE")
     public static class MyInvalidEntity implements Serializable {
@@ -170,5 +181,21 @@ public class JandexAssertTest {
 
     }
 
+    public static interface ValidNullabilityInterface {
+        
+        public void okMethod1();
+
+        public boolean okMethod2();
+
+        @NotNull
+        public Boolean okMethod3();
+        
+        public void okMethod4(int abc);
+
+        public void okMethod5(@NotNull Integer abc);
+        
+    }   
+
+    
 }
 // CHECKSTYLE:ON
