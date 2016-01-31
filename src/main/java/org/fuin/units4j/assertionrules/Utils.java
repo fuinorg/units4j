@@ -24,9 +24,12 @@ import java.util.Map;
 
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget;
+import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
+import org.jboss.jandex.Index;
 import org.jboss.jandex.MethodInfo;
 import org.jboss.jandex.MethodParameterInfo;
+import org.jboss.jandex.Type;
 
 /**
  * Utilities for the package.
@@ -70,7 +73,8 @@ public final class Utils {
      * 
      * @return Map with parameter index (key) and list of annotations (value).
      */
-    public static Map<Integer, List<AnnotationInstance>> createParameterAnnotationMap(final MethodInfo method) {
+    public static Map<Integer, List<AnnotationInstance>> createParameterAnnotationMap(
+            final MethodInfo method) {
         final Map<Integer, List<AnnotationInstance>> result = new HashMap<>();
         for (AnnotationInstance ai : method.annotations()) {
             final AnnotationTarget at = ai.target();
@@ -105,6 +109,46 @@ public final class Utils {
             }
         }
         return result;
+    }
+
+    /**
+     * Returns a list of all methods the given one overrides. Such methods can be found in interfaces and
+     * super classes.
+     * 
+     * @param index
+     *            Index with all known classes.
+     * @param method
+     *            Method signature to find.
+     * 
+     * @return List of methods the given one overrides.
+     */
+    public static List<MethodInfo> findOverrideMethods(final Index index, final MethodInfo method) {
+
+        final List<MethodInfo> methods = new ArrayList<>();
+
+        // Check interfaces
+        final ClassInfo clasz = method.declaringClass();
+        final List<DotName> interfaceNames = clasz.interfaceNames();
+        for (final DotName interfaceName : interfaceNames) {
+            final ClassInfo intf = index.getClassByName(interfaceName);
+            final MethodInfo intfMethod = intf.method(method.name(),
+                    method.parameters().toArray(new Type[method.parameters().size()]));
+            if (intfMethod != null) {
+                methods.add(intfMethod);
+            }
+        }
+
+        // Check super class
+        final DotName superName = clasz.superName();
+        final ClassInfo superClass = index.getClassByName(superName);
+        final MethodInfo superMethod = superClass.method(method.name(),
+                method.parameters().toArray(new Type[method.parameters().size()]));
+        if (superMethod != null) {
+            methods.add(superMethod);
+        }
+
+        return methods;
+
     }
 
 }
