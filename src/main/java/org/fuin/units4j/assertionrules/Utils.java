@@ -124,34 +124,59 @@ public final class Utils {
      */
     public static List<MethodInfo> findOverrideMethods(final Index index, final MethodInfo method) {
 
+        return findOverrideMethods(index, method.declaringClass(), method, 0);
+
+    }
+
+    private static List<MethodInfo> findOverrideMethods(final Index index, final ClassInfo clasz,
+            final MethodInfo methodToFind, final int level) {
+
         final List<MethodInfo> methods = new ArrayList<>();
-
-        // Check interfaces
-        final ClassInfo clasz = method.declaringClass();
-        final List<DotName> interfaceNames = clasz.interfaceNames();
-        for (final DotName interfaceName : interfaceNames) {
-            final ClassInfo intf = index.getClassByName(interfaceName);
-            if (intf != null) {
-                final MethodInfo intfMethod = intf.method(method.name(),
-                        method.parameters().toArray(new Type[method.parameters().size()]));
-                if (intfMethod != null) {
-                    methods.add(intfMethod);
-                }
+        if (clasz != null) {
+            
+            // Super classes
+            if (level > 0) {
+                addIfFound(index, clasz, methodToFind, methods);
             }
-        }
-
-        // Check super class
-        final DotName superName = clasz.superName();
-        final ClassInfo superClass = index.getClassByName(superName);
-        if (superClass != null) {
-            final MethodInfo superMethod = superClass.method(method.name(),
-                    method.parameters().toArray(new Type[method.parameters().size()]));
-            if (superMethod != null) {
-                methods.add(superMethod);
-            }
+            
+            // Check interfaces
+            methods.addAll(findInterfaceMethods(index, clasz, methodToFind));
+    
+            // Check super class
+            final DotName superName = clasz.superName();
+            final ClassInfo superClass = index.getClassByName(superName);            
+            methods.addAll(findOverrideMethods(index, superClass, methodToFind, (level + 1)));
+            
         }
         return methods;
 
+    }
+
+    private static List<MethodInfo> findInterfaceMethods(final Index index, final ClassInfo clasz,
+            final MethodInfo methodToFind) {
+
+        final List<MethodInfo> methods = new ArrayList<>();
+        if (clasz != null) {
+            final List<DotName> interfaceNames = clasz.interfaceNames();
+            for (final DotName interfaceName : interfaceNames) {
+                final ClassInfo intf = index.getClassByName(interfaceName);
+                addIfFound(index, intf, methodToFind, methods);
+                // Check extended super interfaces
+                methods.addAll(findInterfaceMethods(index, intf, methodToFind));
+            }
+        }
+        return methods;
+    }
+
+    private static void addIfFound(final Index index, final ClassInfo clasz, final MethodInfo methodToFind,
+            final List<MethodInfo> methods) {
+        if (clasz != null) {
+            final MethodInfo foundMethod = clasz.method(methodToFind.name(), methodToFind.parameters()
+                    .toArray(new Type[methodToFind.parameters().size()]));
+            if (foundMethod != null) {
+                methods.add(foundMethod);
+            }
+        }
     }
 
 }

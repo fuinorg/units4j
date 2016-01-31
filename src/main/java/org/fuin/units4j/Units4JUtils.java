@@ -378,6 +378,19 @@ public final class Units4JUtils {
      */
     public static final Index indexAllClasses(final List<File> classFiles) {
         final Indexer indexer = new Indexer();
+        indexAllClasses(indexer, classFiles);
+        return indexer.complete();
+    }
+
+    /**
+     * Index all class files in the given list.
+     * 
+     * @param indexer
+     *            Indexer to use.
+     * @param classFiles
+     *            List of ".class" files.
+     */
+    public static final void indexAllClasses(final Indexer indexer, final List<File> classFiles) {
         classFiles.forEach(file -> {
             try {
                 final InputStream in = new FileInputStream(file);
@@ -390,8 +403,6 @@ public final class Units4JUtils {
                 throw new RuntimeException(ex);
             }
         });
-
-        return indexer.complete();
     }
 
     /**
@@ -460,17 +471,30 @@ public final class Units4JUtils {
      * @return Jandex index.
      */
     public static Index index(final ClassLoader cl, final String className) {
-        final InputStream stream = cl.getResourceAsStream(className.replace('.', '/') + ".class");
         final Indexer indexer = new Indexer();
+        index(indexer, cl, className);
+        return indexer.complete();
+    }
+
+    /**
+     * Indexes a class by it's name.
+     * 
+     * @param indexer
+     *            Indexer to use.
+     * @param cl
+     *            Class loader to use.
+     * @param className
+     *            Full qualified name of the class.
+     */
+    public static void index(final Indexer indexer, final ClassLoader cl, final String className) {
+        final InputStream stream = cl.getResourceAsStream(className.replace('.', '/') + ".class");
         try {
             indexer.index(stream);
         } catch (final IOException ex) {
             throw new RuntimeException(ex);
         }
-        final Index index = indexer.complete();
-        return index;
     }
-    
+
     /**
      * Replaces the content of one or more XML attributes.
      * 

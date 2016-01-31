@@ -17,6 +17,7 @@
  */
 package org.fuin.units4j;
 
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -30,6 +31,7 @@ import org.fuin.units4j.assertionrules.RuleClassNotFinal;
 import org.fuin.units4j.assertionrules.RuleMethodHasNullabilityInfo;
 import org.fuin.units4j.assertionrules.RulePersistentInstanceFieldVisibility;
 import org.fuin.units4j.assertionrules.RulePublicOrProtectedNoArgConstructor;
+import org.fuin.units4j.assertionrules.Utils;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.ClassInfo;
@@ -42,6 +44,9 @@ import org.jboss.jandex.MethodInfo;
  */
 public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
 
+    private static final int SYNTHETIC = 0x1000;
+    private static final int BRIDGE    = 0x0040;
+    
     /**
      * Constructor to build assertion class with the object we want to make assertions on.
      * 
@@ -120,10 +125,16 @@ public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
         for (final ClassInfo clasz : classes) {
             final List<MethodInfo> methods = clasz.methods();
             for (final MethodInfo method : methods) {
-                final AssertionResult result = rule.verify(method);
-                if (!result.isValid()) {
-                    ok = false;
-                    sb.append(result.getErrorMessage());
+                if (!ignored(method) && !Modifier.isPrivate(method.flags())) {
+                    final List<MethodInfo> overrideMethods = Utils.findOverrideMethods(actual, method);
+                    if (overrideMethods.size() == 0) {
+                        // Only check methods that DON'T override an interface or super method
+                        final AssertionResult result = rule.verify(method);
+                        if (!result.isValid()) {
+                            ok = false;
+                            sb.append(result.getErrorMessage());
+                        }
+                    }
                 }
             }
         }
@@ -136,4 +147,48 @@ public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
         return this;
     }
 
+    @SuppressWarnings("checkstyle:cyclomaticcomplexity")
+    private boolean ignored(final MethodInfo method) {
+        if (isSynthetic(method.flags()) || isBridge(method.flags())) {
+            return true;
+        }
+        if (method.name().startsWith("access$")) {
+            return true;
+        }
+        if (method.name().equals("equals") && (method.parameters().size() == 1)) {
+            return true;
+        }
+        if (method.name().equals("compareTo") && (method.parameters().size() == 1)) {
+            return true;
+        }
+        if (method.name().equals("toString") && (method.parameters().size() == 0)) {
+            return true;
+        }
+        if (method.declaringClass().superName().toString().equals(Enum.class.getName())) {
+            if (method.name().equals("values")) {
+                return true;
+            }
+            if (method.name().equals("valueOf") && (method.parameters().size() == 1)) {
+                return true;
+            }
+        }
+        if (method.declaringClass().name().toString().contains("$") && method.name().equals("get")
+                && (method.parameters().size() == 0)) {
+            return true;
+        }
+        if (method.declaringClass().name().toString().contains("$") && method.name().equals("<init>")
+                && method.declaringClass().flags() == 32) {
+            return true;
+        }
+        return false;
+    }
+    
+    private boolean isSynthetic(final short flags) {
+        return (flags & SYNTHETIC) > 0;
+    }
+
+    private boolean isBridge(final short flags) {
+        return (flags & BRIDGE) > 0;
+    }
+    
 }
