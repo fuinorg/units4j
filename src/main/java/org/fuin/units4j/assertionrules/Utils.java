@@ -131,22 +131,25 @@ public final class Utils {
         final List<DotName> interfaceNames = clasz.interfaceNames();
         for (final DotName interfaceName : interfaceNames) {
             final ClassInfo intf = index.getClassByName(interfaceName);
-            final MethodInfo intfMethod = intf.method(method.name(),
-                    method.parameters().toArray(new Type[method.parameters().size()]));
-            if (intfMethod != null) {
-                methods.add(intfMethod);
+            if (intf != null) {
+                final MethodInfo intfMethod = intf.method(method.name(),
+                        method.parameters().toArray(new Type[method.parameters().size()]));
+                if (intfMethod != null) {
+                    methods.add(intfMethod);
+                }
             }
         }
 
         // Check super class
         final DotName superName = clasz.superName();
         final ClassInfo superClass = index.getClassByName(superName);
-        final MethodInfo superMethod = superClass.method(method.name(),
-                method.parameters().toArray(new Type[method.parameters().size()]));
-        if (superMethod != null) {
-            methods.add(superMethod);
+        if (superClass != null) {
+            final MethodInfo superMethod = superClass.method(method.name(),
+                    method.parameters().toArray(new Type[method.parameters().size()]));
+            if (superMethod != null) {
+                methods.add(superMethod);
+            }
         }
-
         return methods;
 
     }
