@@ -97,7 +97,7 @@ public final class RuleMethodHasNullabilityInfo implements AssertionRule<MethodI
             final Type param = params.get(i);
             if (param.kind() != Kind.PRIMITIVE) {
                 final List<AnnotationInstance> annotations = map.get(i);
-                if ((annotations == null) || !hasNotNullOrNullable(annotations, notNullFqn, nullableFqn)) {
+                if ((annotations == null) || !contains(annotations, notNullFqn, nullableFqn)) {
                     ok = false;
                     sb.append(method.declaringClass());
                     sb.append("\t");
@@ -114,7 +114,7 @@ public final class RuleMethodHasNullabilityInfo implements AssertionRule<MethodI
     private boolean validReturnType(final MethodInfo method, final StringBuilder sb) {
         if ((method.returnType().kind() != Kind.VOID) && method.returnType().kind() != Kind.PRIMITIVE) {
             final List<AnnotationInstance> list = Utils.createMethodAnnotationList(method);
-            if (!hasNotNullOrNullable(list, notNullFqn, nullableFqn)) {
+            if (!contains(list, notNullFqn, nullableFqn)) {
                 sb.append(method.declaringClass());
                 sb.append("\t");
                 sb.append(method);
@@ -126,7 +126,7 @@ public final class RuleMethodHasNullabilityInfo implements AssertionRule<MethodI
         return true;
     }
 
-    private boolean hasNotNullOrNullable(final List<AnnotationInstance> annotations, final String notNullFqn,
+    private boolean contains(final List<AnnotationInstance> annotations, final String notNullFqn,
             final String nullableFqn) {
         return Utils.hasAnnotation(annotations, notNullFqn) || Utils.hasAnnotation(annotations, nullableFqn);
     }
