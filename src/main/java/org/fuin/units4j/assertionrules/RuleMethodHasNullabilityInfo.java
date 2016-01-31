@@ -34,9 +34,46 @@ import org.jboss.jandex.Type.Kind;
  */
 public final class RuleMethodHasNullabilityInfo implements AssertionRule<MethodInfo> {
 
-    private static final String NOT_NULL = "javax.validation.constraints.NotNull";
+    private final String notNullFqn;
 
-    private static final String NULLABLE = "org.fuin.objects4j.common.Nullable";
+    private final String nullableFqn;
+
+    /**
+     * Constructor that defaults to annotations "javax.validation.constraints.NotNull" and
+     * "org.fuin.objects4j.common.Nullable".
+     */
+    public RuleMethodHasNullabilityInfo() {
+        this("javax.validation.constraints.NotNull", "org.fuin.objects4j.common.Nullable");
+    }
+
+    /**
+     * Constructor with annotation class names.
+     * 
+     * @param notNullFqn
+     *            Full qualified class name of the @NotNull annotation.
+     * @param nullableFqn
+     *            Full qualified class name of the @Nullable annotation.
+     */
+    public RuleMethodHasNullabilityInfo(final String notNullFqn, final String nullableFqn) {
+        super();
+        if (notNullFqn == null) {
+            throw new IllegalArgumentException("Argument 'notNullFqn' cannot be null");
+        }
+        if (nullableFqn == null) {
+            throw new IllegalArgumentException("Argument 'nullableFqn' cannot be null");
+        }
+
+        this.notNullFqn = notNullFqn.trim();
+        this.nullableFqn = nullableFqn.trim();
+
+        if (this.notNullFqn.length() == 0) {
+            throw new IllegalArgumentException("Argument 'notNullFqn' cannot be empty");
+        }
+        if (this.nullableFqn.length() == 0) {
+            throw new IllegalArgumentException("Argument 'nullableFqn' cannot be empty");
+        }
+
+    }
 
     @Override
     public final AssertionResult verify(final MethodInfo method) {
@@ -60,7 +97,7 @@ public final class RuleMethodHasNullabilityInfo implements AssertionRule<MethodI
             final Type param = params.get(i);
             if (param.kind() != Kind.PRIMITIVE) {
                 final List<AnnotationInstance> annotations = map.get(i);
-                if ((annotations == null) || !hasNotNullOrNullable(annotations)) {
+                if ((annotations == null) || !hasNotNullOrNullable(annotations, notNullFqn, nullableFqn)) {
                     ok = false;
                     sb.append(method.declaringClass());
                     sb.append("\t");
@@ -77,7 +114,7 @@ public final class RuleMethodHasNullabilityInfo implements AssertionRule<MethodI
     private boolean validReturnType(final MethodInfo method, final StringBuilder sb) {
         if ((method.returnType().kind() != Kind.VOID) && method.returnType().kind() != Kind.PRIMITIVE) {
             final List<AnnotationInstance> list = Utils.createMethodAnnotationList(method);
-            if (!hasNotNullOrNullable(list)) {
+            if (!hasNotNullOrNullable(list, notNullFqn, nullableFqn)) {
                 sb.append(method.declaringClass());
                 sb.append("\t");
                 sb.append(method);
@@ -89,8 +126,9 @@ public final class RuleMethodHasNullabilityInfo implements AssertionRule<MethodI
         return true;
     }
 
-    private boolean hasNotNullOrNullable(final List<AnnotationInstance> annotations) {
-        return Utils.hasAnnotation(annotations, NOT_NULL) || Utils.hasAnnotation(annotations, NULLABLE);
+    private boolean hasNotNullOrNullable(final List<AnnotationInstance> annotations, final String notNullFqn,
+            final String nullableFqn) {
+        return Utils.hasAnnotation(annotations, notNullFqn) || Utils.hasAnnotation(annotations, nullableFqn);
     }
 
 }
