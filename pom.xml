@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>org.fuin</groupId>
 		<artifactId>pom</artifactId>
-		<version>1.2.0</version>
+		<version>1.4.0</version>
 	</parent>
 
 	<artifactId>units4j</artifactId>
 	<packaging>jar</packaging>
-	<version>0.8.2-SNAPSHOT</version>
+	<version>0.8.2</version>
 	<name>Units4J</name>
 	<description>A home for additional useful unit testing modules for Java.</description>
 	<url>http://www.fuin.org/units4j/</url>
@@ -186,6 +186,14 @@
 					<maxmem>256m</maxmem>
 					<aggregate>true</aggregate>
 				</configuration>
+			    <executions>
+			        <execution>
+			            <phase>package</phase>			
+			            <goals>
+			                <goal>cobertura</goal>
+			            </goals>
+			        </execution>
+			    </executions>
 			</plugin>
 
 			<plugin>
