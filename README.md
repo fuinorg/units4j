@@ -14,7 +14,7 @@ A home for additional useful unit testing modules for Java.
 
 * * *
 
-##Features
+## Features
 
 - [Asserting test coverage](#asserting-test-coverage)
 - [Asserting package dependencies](#asserting-package-dependencies)
@@ -24,7 +24,7 @@ A home for additional useful unit testing modules for Java.
 
 * * *
 
-###Asserting test coverage
+### Asserting test coverage
 
 A good approach is to have at least one test class for every production class.
 
@@ -38,7 +38,7 @@ public void testCoverage() {
 }
 ```
 
-###Asserting package dependencies
+### Asserting package dependencies
 It's a good practice enforcing package dependencies to avoid high coupling and package cycles.
  
 You simply define a dependency description in your "src/test/resources" folder. For an example see [units4j.xml](https://github.com/fuinorg/units4j/blob/master/src/test/resources/units4j.xml)).
@@ -49,7 +49,7 @@ public void testAssertDependencies() {
 }
 ```
 
-###Asserting methods are **not** used
+### Asserting methods are **not** used
 Example: Prevent a [java.lang.ArithmeticException](http://docs.oracle.com/javase/8/docs/api/java/lang/ArithmeticException.html) Non-terminating decimal expansion; no exact representable decimal result." caused by calling BigDecimal's divide or setScale without a rounding mode:
 ```Java
 // Path to '*.class' files
@@ -71,7 +71,7 @@ MCAMethod setScale = new MCAMethod("java.math.BigDecimal","java.math.BigDecimal 
 AssertUsage.assertMethodsNotUsed(classesDir, fileFilter, divide, setScale);
 ```
 
-###Assert that JPA entities are valid
+### Assert that JPA entities are valid
 Uses JBoss [Jandex](https://github.com/wildfly/jandex) to validate JPA entity classes.
 
 ```Java
@@ -88,7 +88,7 @@ Index index = Units4JUtils.indexAllClasses(classFiles);
 assertThat(index).hasOnlyValidJpaEntities();
 ```
 
-###Assert that methods have information if null is allowed or not
+### Assert that methods have information if null is allowed or not
 
 **WORK IN PROGRESS** See [Issue #9](https://github.com/fuinorg/units4j/issues/9)
 
@@ -133,7 +133,7 @@ assertThat(index).hasNullabilityInfoOnAllMethods();
 
 * * *
 
-###Snapshots
+### Snapshots
 
 Snapshots can be found on the [OSS Sonatype Snapshots Repository](http://oss.sonatype.org/content/repositories/snapshots/org/fuin "Snapshot Repository"). 
 
