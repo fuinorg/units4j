@@ -79,8 +79,9 @@ public final class RuleMethodHasNullabilityInfo implements AssertionRule<MethodI
     public final AssertionResult verify(final MethodInfo method) {
 
         final StringBuilder sb = new StringBuilder();
-        final boolean ok = validReturnType(method, sb) && validParameters(method, sb);
-        if (ok) {
+        final boolean returnTypeOk = validReturnType(method, sb);
+        final boolean parametersOk = validParameters(method, sb);
+        if (returnTypeOk && parametersOk) {
             return AssertionResult.OK;
         }
         return new AssertionResult(sb.toString());
