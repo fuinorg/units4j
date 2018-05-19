@@ -40,7 +40,7 @@ public final class PackageTest {
     @Test
     public final void testEqualsHashCode() {
 
-        EqualsVerifier.forClass(Package.class).verify();
+        EqualsVerifier.forClass(Package.class).withIgnoredFields("comment", "dependencies").verify();
 
     }
 

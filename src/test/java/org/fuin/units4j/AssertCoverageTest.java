@@ -25,7 +25,7 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.fuin.units4j.AssertCoverage.ClassFilter;
-import org.fuin.utils4j.Utils4J;
+import org.fuin.utils4j.PropertiesUtils;
 import org.junit.Test;
 
 import assertcoverage.AbstractExampleClass;
@@ -169,7 +169,7 @@ public final class AssertCoverageTest {
     @Test
     public final void testExcludeListClassFilterProperties() {
 
-        final Properties excludes = Utils4J.loadProperties(
+        final Properties excludes = PropertiesUtils.loadProperties(
                 ExampleExcludedClass.class, "excludeClasses.properties");
         final Set<Object> keySet = excludes.keySet();
         final String[] fqnClassNames = keySet

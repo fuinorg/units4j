@@ -37,7 +37,7 @@ import javax.validation.groups.Default;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.fuin.utils4j.JaxbUtils;
 import org.fuin.utils4j.Utils4J;
 import org.fuin.utils4j.fileprocessor.FileHandler;

@@ -53,7 +53,7 @@ public final class MCAMethodTest {
     @Test
     public final void testEqualsHashCode() {
         
-        EqualsVerifier.forClass(MCAMethod.class).verify();
+        EqualsVerifier.forClass(MCAMethod.class).withIgnoredFields("method").verify();
         
     }
 
