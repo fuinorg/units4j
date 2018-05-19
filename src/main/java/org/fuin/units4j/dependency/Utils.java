@@ -42,8 +42,8 @@ public final class Utils {
      * Private default constructor.
      */
     private Utils() {
-        throw new UnsupportedOperationException(
-                "This utility class is not intended to be instanciated!");
+	throw new UnsupportedOperationException(
+		"This utility class is not intended to be instanciated!");
     }
 
     /**
@@ -52,19 +52,24 @@ public final class Utils {
      * @return New XStream instance.
      */
     public static XStream createXStream() {
-        final XStream xstream = new XStream();
-        xstream.alias("dependencies", Dependencies.class);
-        xstream.alias("package", Package.class);
-        xstream.alias("dependsOn", DependsOn.class);
-        xstream.alias("notDependsOn", NotDependsOn.class);
-        xstream.aliasField("package", Dependency.class, "packageName");
-        xstream.useAttributeFor(Package.class, "name");
-        xstream.useAttributeFor(Package.class, "comment");
-        xstream.useAttributeFor(Dependency.class, "packageName");
-        xstream.useAttributeFor(Dependency.class, "includeSubPackages");
-        xstream.useAttributeFor(NotDependsOn.class, "comment");
-        xstream.addImplicitCollection(Package.class, "dependencies");
-        return xstream;
+	final Class<?>[] classes = new Class[] { Dependencies.class,
+		Package.class, DependsOn.class, NotDependsOn.class,
+		Dependency.class };
+	final XStream xstream = new XStream();
+	XStream.setupDefaultSecurity(xstream);
+	xstream.allowTypes(classes);
+	xstream.alias("dependencies", Dependencies.class);
+	xstream.alias("package", Package.class);
+	xstream.alias("dependsOn", DependsOn.class);
+	xstream.alias("notDependsOn", NotDependsOn.class);
+	xstream.aliasField("package", Dependency.class, "packageName");
+	xstream.useAttributeFor(Package.class, "name");
+	xstream.useAttributeFor(Package.class, "comment");
+	xstream.useAttributeFor(Dependency.class, "packageName");
+	xstream.useAttributeFor(Dependency.class, "includeSubPackages");
+	xstream.useAttributeFor(NotDependsOn.class, "comment");
+	xstream.addImplicitCollection(Package.class, "dependencies");
+	return xstream;
     }
 
     /**
@@ -77,19 +82,19 @@ public final class Utils {
      * @return New dependencies instance.
      */
     public static Dependencies load(final File file) {
-        Utils4J.checkNotNull("file", file);
-        Utils4J.checkValidFile(file);
-        try {
-            final InputStream inputStream = new BufferedInputStream(
-                    new FileInputStream(file));
-            try {
-                return load(inputStream);
-            } finally {
-                inputStream.close();
-            }
-        } catch (final IOException ex) {
-            throw new RuntimeException(ex);
-        }
+	Utils4J.checkNotNull("file", file);
+	Utils4J.checkValidFile(file);
+	try {
+	    final InputStream inputStream = new BufferedInputStream(
+		    new FileInputStream(file));
+	    try {
+		return load(inputStream);
+	    } finally {
+		inputStream.close();
+	    }
+	} catch (final IOException ex) {
+	    throw new RuntimeException(ex);
+	}
     }
 
     /**
@@ -101,10 +106,10 @@ public final class Utils {
      * @return New dependencies instance.
      */
     public static Dependencies load(final InputStream inputStream) {
-        Utils4J.checkNotNull("inputStream", inputStream);
-        final XStream xstream = createXStream();
-        final Reader reader = new InputStreamReader(inputStream);
-        return (Dependencies) xstream.fromXML(reader);
+	Utils4J.checkNotNull("inputStream", inputStream);
+	final XStream xstream = createXStream();
+	final Reader reader = new InputStreamReader(inputStream);
+	return (Dependencies) xstream.fromXML(reader);
     }
 
     /**
@@ -120,25 +125,25 @@ public final class Utils {
      * @return New dependencies instance.
      */
     public static Dependencies load(final Class<?> clasz,
-            final String resourcePathAndName) {
-        Utils4J.checkNotNull("clasz", clasz);
-        Utils4J.checkNotNull("resourcePathAndName", resourcePathAndName);
+	    final String resourcePathAndName) {
+	Utils4J.checkNotNull("clasz", clasz);
+	Utils4J.checkNotNull("resourcePathAndName", resourcePathAndName);
 
-        try {
-            final URL url = clasz.getResource(resourcePathAndName);
-            if (url == null) {
-                throw new RuntimeException("Resource '" + resourcePathAndName
-                        + "' not found!");
-            }
-            final InputStream in = url.openStream();
-            try {
-                return load(in);
-            } finally {
-                in.close();
-            }
-        } catch (final IOException ex) {
-            throw new RuntimeException(ex);
-        }
+	try {
+	    final URL url = clasz.getResource(resourcePathAndName);
+	    if (url == null) {
+		throw new RuntimeException(
+			"Resource '" + resourcePathAndName + "' not found!");
+	    }
+	    final InputStream in = url.openStream();
+	    try {
+		return load(in);
+	    } finally {
+		in.close();
+	    }
+	} catch (final IOException ex) {
+	    throw new RuntimeException(ex);
+	}
 
     }
 
@@ -152,19 +157,19 @@ public final class Utils {
      *            Dependencies to save.
      */
     public static void save(final File file, final Dependencies dependencies) {
-        Utils4J.checkNotNull("file", file);
-        Utils4J.checkValidFile(file);
-        final XStream xstream = createXStream();
-        try {
-            final Writer writer = new FileWriter(file);
-            try {
-                xstream.toXML(dependencies, writer);
-            } finally {
-                writer.close();
-            }
-        } catch (final IOException ex) {
-            throw new RuntimeException(ex);
-        }
+	Utils4J.checkNotNull("file", file);
+	Utils4J.checkValidFile(file);
+	final XStream xstream = createXStream();
+	try {
+	    final Writer writer = new FileWriter(file);
+	    try {
+		xstream.toXML(dependencies, writer);
+	    } finally {
+		writer.close();
+	    }
+	} catch (final IOException ex) {
+	    throw new RuntimeException(ex);
+	}
     }
 
     /**
@@ -178,24 +183,24 @@ public final class Utils {
      * @return Entry or <code>null</code> if nothing was found.
      */
     public static DependsOn findAllowedByName(final List<DependsOn> allowed,
-            final String pkgName) {
-        if (allowed == null) {
-            return null;
-        }
-        Utils4J.checkNotNull("pkgName", pkgName);
-        for (int i = 0; i < allowed.size(); i++) {
-            final DependsOn dep = allowed.get(i);
-            if (pkgName.startsWith(dep.getPackageName())) {
-                if (dep.isIncludeSubPackages()) {
-                    return dep;
-                } else {
-                    if (pkgName.equals(dep.getPackageName())) {
-                        return dep;
-                    }
-                }
-            }
-        }
-        return null;
+	    final String pkgName) {
+	if (allowed == null) {
+	    return null;
+	}
+	Utils4J.checkNotNull("pkgName", pkgName);
+	for (int i = 0; i < allowed.size(); i++) {
+	    final DependsOn dep = allowed.get(i);
+	    if (pkgName.startsWith(dep.getPackageName())) {
+		if (dep.isIncludeSubPackages()) {
+		    return dep;
+		} else {
+		    if (pkgName.equals(dep.getPackageName())) {
+			return dep;
+		    }
+		}
+	    }
+	}
+	return null;
     }
 
     /**
@@ -209,24 +214,24 @@ public final class Utils {
      * @return Entry or <code>null</code> if nothing was found.
      */
     public static NotDependsOn findForbiddenByName(
-            final List<NotDependsOn> forbidden, final String pkgName) {
-        if (forbidden == null) {
-            return null;
-        }
-        Utils4J.checkNotNull("pkgName", pkgName);
-        for (int i = 0; i < forbidden.size(); i++) {
-            final NotDependsOn dep = forbidden.get(i);
-            if (pkgName.startsWith(dep.getPackageName())) {
-                if (dep.isIncludeSubPackages()) {
-                    return dep;
-                } else {
-                    if (pkgName.equals(dep.getPackageName())) {
-                        return dep;
-                    }
-                }
-            }
-        }
-        return null;
+	    final List<NotDependsOn> forbidden, final String pkgName) {
+	if (forbidden == null) {
+	    return null;
+	}
+	Utils4J.checkNotNull("pkgName", pkgName);
+	for (int i = 0; i < forbidden.size(); i++) {
+	    final NotDependsOn dep = forbidden.get(i);
+	    if (pkgName.startsWith(dep.getPackageName())) {
+		if (dep.isIncludeSubPackages()) {
+		    return dep;
+		} else {
+		    if (pkgName.equals(dep.getPackageName())) {
+			return dep;
+		    }
+		}
+	    }
+	}
+	return null;
     }
 
 }
