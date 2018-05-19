@@ -60,10 +60,10 @@ public final class DependenciesTest {
 	final Dependencies copy = Utils4J.deserialize(data); 
 	
 	// VERIFY
-        assertThat(testee.getAlwaysAllowed()).isEmpty();
-        assertThat(testee.getAlwaysForbidden()).isEmpty();
-        assertThat(testee.getAllowed()).containsExactly(abc);
-        assertThat(testee.getForbidden()).containsExactly(def);
+        assertThat(copy.getAlwaysAllowed()).isEmpty();
+        assertThat(copy.getAlwaysForbidden()).isEmpty();
+        assertThat(copy.getAllowed()).containsExactly(abc);
+        assertThat(copy.getForbidden()).containsExactly(def);
 	
     }
     

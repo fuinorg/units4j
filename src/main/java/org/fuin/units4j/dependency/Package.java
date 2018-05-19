@@ -17,6 +17,7 @@
  */
 package org.fuin.units4j.dependency;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -35,7 +36,9 @@ import org.fuin.utils4j.Utils4J;
  */
 // CHECKSTYLE:ON
 public final class Package<DEP_TYPE extends Dependency> implements
-        ToDebugStringCapable {
+        ToDebugStringCapable, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private final String name;
 
