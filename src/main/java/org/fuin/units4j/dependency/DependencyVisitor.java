@@ -202,7 +202,10 @@ public class DependencyVisitor extends ClassVisitor {
         case Type.OBJECT:
             addName(t.getInternalName());
             break;
-        }
+        default: 
+	    // do nothing
+            break;
+	}
     }
 
     private void addSignature(final String signature) {
