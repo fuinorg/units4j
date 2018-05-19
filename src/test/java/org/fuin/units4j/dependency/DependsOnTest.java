@@ -18,6 +18,9 @@
 package org.fuin.units4j.dependency;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
+import org.fuin.utils4j.Utils4J;
+
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 import org.junit.Test;
@@ -50,5 +53,23 @@ public final class DependsOnTest {
 		.withIgnoredFields("includeSubPackages").verify();
     }
 
+    @Test
+    public final void testSerDeserialize() {
+	
+	// PREPARE
+	final String name = "org.fuin.units4j.dependency";
+	final DependsOn testee = new DependsOn(name);
+	
+	// TEST
+	final byte[] data = Utils4J.serialize(testee);
+	final DependsOn copy = Utils4J.deserialize(data); 
+	
+	// VERIFY
+	assertThat(copy.getPackageName()).isEqualTo(name);
+	assertThat(copy.toString()).isEqualTo(name);
+	assertThat(copy.isIncludeSubPackages()).isTrue();
+	
+    }
+    
 }
 // CHECKSTYLE:ON

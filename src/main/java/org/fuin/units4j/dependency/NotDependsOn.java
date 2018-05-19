@@ -22,6 +22,8 @@ package org.fuin.units4j.dependency;
  */
 public final class NotDependsOn extends Dependency {
 
+    private static final long serialVersionUID = 1L;
+
     private final String comment;
 
     /**

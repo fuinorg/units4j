@@ -17,6 +17,7 @@
  */
 package org.fuin.units4j.dependency;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,7 +25,9 @@ import java.util.List;
 /**
  * Package dependency rules. Caution: A package cannot be in both lists!
  */
-public final class Dependencies {
+public final class Dependencies implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private final List<DependsOn> alwaysAllowed;
 

@@ -17,13 +17,17 @@
  */
 package org.fuin.units4j.dependency;
 
+import java.io.Serializable;
+
 import org.fuin.utils4j.ToDebugStringCapable;
 import org.fuin.utils4j.Utils4J;
 
 /**
  * A dependency to a package.
  */
-public abstract class Dependency implements ToDebugStringCapable {
+public abstract class Dependency implements ToDebugStringCapable, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private final String packageName;
 

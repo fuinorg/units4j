@@ -19,6 +19,7 @@ package org.fuin.units4j.dependency;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.fuin.utils4j.Utils4J;
 import org.junit.Test;
 
 // CHECKSTYLE:OFF Test code
@@ -43,6 +44,29 @@ public final class DependenciesTest {
         testee.validate();
 
     }
+    
+    @Test
+    public final void testSerDeserialize() {
+	
+	// PREPARE
+        final Dependencies testee = new Dependencies();
+        final Package<DependsOn> abc = new Package<DependsOn>("a.b.c");
+	testee.getAllowed().add(abc);
+        final Package<NotDependsOn> def = new Package<NotDependsOn>("d.e.f");
+	testee.getForbidden().add(def);
+	
+	// TEST
+	final byte[] data = Utils4J.serialize(testee);
+	final Dependencies copy = Utils4J.deserialize(data); 
+	
+	// VERIFY
+        assertThat(testee.getAlwaysAllowed()).isEmpty();
+        assertThat(testee.getAlwaysForbidden()).isEmpty();
+        assertThat(testee.getAllowed()).containsExactly(abc);
+        assertThat(testee.getForbidden()).containsExactly(def);
+	
+    }
+    
 
 }
 // CHECKSTYLE:ON
