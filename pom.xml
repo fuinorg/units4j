@@ -11,7 +11,7 @@
 
 	<artifactId>units4j</artifactId>
 	<packaging>jar</packaging>
-	<version>0.8.3</version>
+	<version>0.8.4-SNAPSHOT</version>
 	<name>Units4J</name>
 	<description>A home for additional useful unit testing modules for Java.</description>
 	<url>http://www.fuin.org/units4j/</url>
