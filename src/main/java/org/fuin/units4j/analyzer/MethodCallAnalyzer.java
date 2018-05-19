@@ -87,8 +87,7 @@ public final class MethodCallAnalyzer {
     public final void findCallingMethodsInJar(final File file)
             throws IOException {
 
-        final JarFile jarFile = new JarFile(file);
-        try {
+        try (final JarFile jarFile = new JarFile(file)) {
             
             final Enumeration<JarEntry> entries = jarFile.entries();
     
@@ -106,8 +105,6 @@ public final class MethodCallAnalyzer {
                 }
             }
             
-        } finally {
-            jarFile.close();
         }
     }
 
