@@ -20,6 +20,7 @@ package org.fuin.units4j;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
@@ -81,7 +82,9 @@ public abstract class AbstractPersistenceTest {
         }
         try {
             if (connection != null) {
-                connection.createStatement().execute("SHUTDOWN");
+                try (final Statement stmt = connection.createStatement()) {
+                    stmt.execute("SHUTDOWN");
+                }
             }
         } catch (final SQLException ex) {
             throw new RuntimeException(ex);
