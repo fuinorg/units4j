@@ -550,10 +550,10 @@ public final class Units4JUtils {
          */
         public KV(@NotNull final String key, @NotNull final String value) {
             super();
-            if (key == null) {
+            if (key == null) { //NOSONAR
                 throw new IllegalArgumentException("Key cannot be null");
             }
-            if (value == null) {
+            if (value == null) { //NOSONAR
                 throw new IllegalArgumentException("Value cannot be null");
             }
             this.key = key;
