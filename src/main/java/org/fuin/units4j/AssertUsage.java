@@ -84,7 +84,7 @@ public final class AssertUsage {
 
         final List<MCAMethodCall> methodCalls = analyzer.getMethodCalls();
         if (methodCalls.size() > 0) {
-            final StringBuffer sb = new StringBuffer(
+            final StringBuilder sb = new StringBuilder(
                     "Illegal method call(s) found:");
             for (final MCAMethodCall methodCall : methodCalls) {
                 sb.append("\n");

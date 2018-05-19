@@ -52,7 +52,7 @@ public final class AssertionRules<T> implements AssertionRule<T> {
     @Override
     public final AssertionResult verify(final T obj) {
         boolean ok = true;
-        final StringBuffer sb = new StringBuffer();
+        final StringBuilder sb = new StringBuilder();
         for (final AssertionRule<T> rule : rules) {
             final AssertionResult result = rule.verify(obj);
             if (!result.isValid()) {

@@ -154,7 +154,7 @@ public final class Package<DEP_TYPE extends Dependency> implements
      * {@inheritDoc}
      */
     public String toDebugString() {
-        final StringBuffer sb = new StringBuffer();
+        final StringBuilder sb = new StringBuilder();
         sb.append("name=" + name + ", ");
         sb.append("comment=" + comment + ", ");
         sb.append("dependencies={");

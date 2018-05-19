@@ -46,7 +46,7 @@ public final class AssertDependencies {
         final List<DependencyError> dependencyErrors = analyzer
                 .getDependencyErrors();
         if (dependencyErrors.size() > 0) {
-            final StringBuffer sb = new StringBuffer();
+            final StringBuilder sb = new StringBuilder();
             for (int i = 0; i < dependencyErrors.size(); i++) {
                 sb.append("\n");
                 sb.append(dependencyErrors.get(i));

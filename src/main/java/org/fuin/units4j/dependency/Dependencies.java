@@ -142,7 +142,7 @@ public final class Dependencies implements Serializable {
     public final void validate() throws InvalidDependenciesDefinitionException {
 
         int errorCount = 0;
-        final StringBuffer sb = new StringBuffer(
+        final StringBuilder sb = new StringBuilder(
                 "Duplicate package entries in 'allowed' and 'forbidden': ");
         final List<Package<NotDependsOn>> list = getForbidden();
         for (int i = 0; i < list.size(); i++) {

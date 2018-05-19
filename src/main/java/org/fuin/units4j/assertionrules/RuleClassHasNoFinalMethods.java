@@ -34,7 +34,7 @@ public final class RuleClassHasNoFinalMethods implements AssertionRule<ClassInfo
     public final AssertionResult verify(final ClassInfo info) {
 
         boolean ok = true;
-        final StringBuffer sb = new StringBuffer("Class " + info.name() + " has final methods:\n");
+        final StringBuilder sb = new StringBuilder("Class " + info.name() + " has final methods:\n");
 
         final List<MethodInfo> methodInfos = info.methods();
         for (final MethodInfo methodInfo : methodInfos) {

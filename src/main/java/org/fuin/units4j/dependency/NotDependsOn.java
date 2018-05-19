@@ -92,7 +92,7 @@ public final class NotDependsOn extends Dependency {
      * {@inheritDoc}
      */
     public final String toDebugString() {
-        final StringBuffer sb = new StringBuffer();
+        final StringBuilder sb = new StringBuilder();
         sb.append("packageName=" + getPackageName() + ", ");
         sb.append("includeSubPackages=" + isIncludeSubPackages() + ", ");
         sb.append("comment=" + comment);

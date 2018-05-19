@@ -61,7 +61,7 @@ public final class DependsOn extends Dependency {
      * {@inheritDoc}
      */
     public final String toDebugString() {
-        final StringBuffer sb = new StringBuffer();
+        final StringBuilder sb = new StringBuilder();
         sb.append("packageName=" + getPackageName() + ", ");
         sb.append("includeSubPackages=" + isIncludeSubPackages() + ", ");
         return sb.toString();

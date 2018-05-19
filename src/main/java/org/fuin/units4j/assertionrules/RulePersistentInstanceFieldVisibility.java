@@ -49,7 +49,7 @@ public final class RulePersistentInstanceFieldVisibility implements AssertionRul
     @Override
     public final AssertionResult verify(final ClassInfo info) {
 
-        final StringBuffer sb = new StringBuffer();
+        final StringBuilder sb = new StringBuilder();
         boolean ok = true;
 
         final List<FieldInfo> fields = info.fields();

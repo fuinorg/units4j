@@ -59,7 +59,7 @@ public final class AssertCoverage {
             final Set<Class<?>> classes) {
         Utils4J.checkNotNull("classes", classes);
 
-        final StringBuffer sb = new StringBuffer();
+        final StringBuilder sb = new StringBuilder();
 
         for (final Class<?> clasz : classes) {
             final String testClassName = clasz.getName() + "Test";
