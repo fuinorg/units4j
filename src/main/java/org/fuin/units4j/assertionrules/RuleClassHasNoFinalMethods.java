@@ -42,9 +42,9 @@ public final class RuleClassHasNoFinalMethods implements AssertionRule<ClassInfo
                 ok = false;
                 sb.append(methodInfo.toString());
                 sb.append("\n");
-            }            
+            }
         }
-        
+
         if (ok) {
             return AssertionResult.OK;
         }

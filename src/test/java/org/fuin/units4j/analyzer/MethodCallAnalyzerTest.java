@@ -40,8 +40,7 @@ public final class MethodCallAnalyzerTest {
     public final void testArrayConstructor() {
 
         // PREPARE & TEST
-        final MCAMethod setScale = new MCAMethod(BigDecimal.class.getName(),
-                BigDecimal.class.getName() + " setScale(int)");
+        final MCAMethod setScale = new MCAMethod(BigDecimal.class.getName(), BigDecimal.class.getName() + " setScale(int)");
         final MethodCallAnalyzer testee = new MethodCallAnalyzer(setScale);
 
         // VERIFY
@@ -54,8 +53,7 @@ public final class MethodCallAnalyzerTest {
     public final void testListConstructor() {
 
         // PREPARE & TEST
-        final MCAMethod setScale = new MCAMethod(BigDecimal.class.getName(),
-                BigDecimal.class.getName() + " setScale(int)");
+        final MCAMethod setScale = new MCAMethod(BigDecimal.class.getName(), BigDecimal.class.getName() + " setScale(int)");
         final List<MCAMethod> methodsToFind = new ArrayList<MCAMethod>();
         methodsToFind.add(setScale);
         final MethodCallAnalyzer testee = new MethodCallAnalyzer(methodsToFind);
@@ -72,17 +70,12 @@ public final class MethodCallAnalyzerTest {
         // PREPARE
         final File binDir = new File("target/test-classes");
 
-        final MCAMethod setScale = new MCAMethod(BigDecimal.class.getName(),
-                BigDecimal.class.getName() + " setScale(int)");
+        final MCAMethod setScale = new MCAMethod(BigDecimal.class.getName(), BigDecimal.class.getName() + " setScale(int)");
         final MCAMethod divide = new MCAMethod(BigDecimal.class.getName(),
-                BigDecimal.class.getName() + " divide("
-                        + BigDecimal.class.getName() + ")");
-        final MCAMethod superCall = new MCAMethod(
-                "org.fuin.units4j.analyzer.FindMethodCallExampleClasz",
-                "void <init>()");
+                BigDecimal.class.getName() + " divide(" + BigDecimal.class.getName() + ")");
+        final MCAMethod superCall = new MCAMethod("org.fuin.units4j.analyzer.FindMethodCallExampleClasz", "void <init>()");
 
-        final MethodCallAnalyzer testee = new MethodCallAnalyzer(setScale,
-                divide, superCall);
+        final MethodCallAnalyzer testee = new MethodCallAnalyzer(setScale, divide, superCall);
 
         // TEST
         testee.findCallingMethodsInDir(binDir);
@@ -93,14 +86,13 @@ public final class MethodCallAnalyzerTest {
             list.add(call.toString());
         }
         Collections.sort(list);
-        assertThat(list)
-                .containsOnly(
-                        "Source='FindMethodCallExampleClasz.java', Line=12, Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz, Method='void <clinit>()' ==CALLS==> Class='java.math.BigDecimal, Method='java.math.BigDecimal setScale(int)'",
-                        "Source='FindMethodCallExampleClasz.java', Line=17, Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz, Method='void <init>()' ==CALLS==> Class='java.math.BigDecimal, Method='java.math.BigDecimal divide(java.math.BigDecimal)'",
-                        "Source='FindMethodCallExampleClasz.java', Line=21, Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz, Method='void a()' ==CALLS==> Class='java.math.BigDecimal, Method='java.math.BigDecimal setScale(int)'",
-                        "Source='FindMethodCallExampleClasz.java', Line=25, Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz, Method='boolean b(java.lang.Integer, java.lang.Boolean, java.lang.String)' ==CALLS==> Class='java.math.BigDecimal, Method='java.math.BigDecimal setScale(int)'",
-                        "Source='FindMethodCallExampleClasz.java', Line=28, Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz$InnerExampleClasz, Method='void <init>()' ==CALLS==> Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz, Method='void <init>()'",
-                        "Source='FindMethodCallExampleClasz.java', Line=32, Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz$InnerExampleClasz, Method='void a()' ==CALLS==> Class='java.math.BigDecimal, Method='java.math.BigDecimal setScale(int)'");
+        assertThat(list).containsOnly(
+                "Source='FindMethodCallExampleClasz.java', Line=12, Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz, Method='void <clinit>()' ==CALLS==> Class='java.math.BigDecimal, Method='java.math.BigDecimal setScale(int)'",
+                "Source='FindMethodCallExampleClasz.java', Line=17, Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz, Method='void <init>()' ==CALLS==> Class='java.math.BigDecimal, Method='java.math.BigDecimal divide(java.math.BigDecimal)'",
+                "Source='FindMethodCallExampleClasz.java', Line=21, Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz, Method='void a()' ==CALLS==> Class='java.math.BigDecimal, Method='java.math.BigDecimal setScale(int)'",
+                "Source='FindMethodCallExampleClasz.java', Line=25, Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz, Method='boolean b(java.lang.Integer, java.lang.Boolean, java.lang.String)' ==CALLS==> Class='java.math.BigDecimal, Method='java.math.BigDecimal setScale(int)'",
+                "Source='FindMethodCallExampleClasz.java', Line=28, Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz$InnerExampleClasz, Method='void <init>()' ==CALLS==> Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz, Method='void <init>()'",
+                "Source='FindMethodCallExampleClasz.java', Line=32, Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz$InnerExampleClasz, Method='void a()' ==CALLS==> Class='java.math.BigDecimal, Method='java.math.BigDecimal setScale(int)'");
 
     }
 
@@ -109,21 +101,15 @@ public final class MethodCallAnalyzerTest {
 
         // PREPARE
         final File binDir = new File("target/test-classes");
-        final File zipFile = File.createTempFile("MethodCallAnalyzerTest-",
-                ".jar");
+        final File zipFile = File.createTempFile("MethodCallAnalyzerTest-", ".jar");
         Utils4J.zipDir(binDir, null, zipFile);
 
-        final MCAMethod setScale = new MCAMethod(BigDecimal.class.getName(),
-                BigDecimal.class.getName() + " setScale(int)");
+        final MCAMethod setScale = new MCAMethod(BigDecimal.class.getName(), BigDecimal.class.getName() + " setScale(int)");
         final MCAMethod divide = new MCAMethod(BigDecimal.class.getName(),
-                BigDecimal.class.getName() + " divide("
-                        + BigDecimal.class.getName() + ")");
-        final MCAMethod superCall = new MCAMethod(
-                "org.fuin.units4j.analyzer.FindMethodCallExampleClasz",
-                "void <init>()");
+                BigDecimal.class.getName() + " divide(" + BigDecimal.class.getName() + ")");
+        final MCAMethod superCall = new MCAMethod("org.fuin.units4j.analyzer.FindMethodCallExampleClasz", "void <init>()");
 
-        final MethodCallAnalyzer testee = new MethodCallAnalyzer(setScale,
-                divide, superCall);
+        final MethodCallAnalyzer testee = new MethodCallAnalyzer(setScale, divide, superCall);
 
         // TEST
         testee.findCallingMethodsInJar(zipFile);
@@ -134,14 +120,13 @@ public final class MethodCallAnalyzerTest {
             list.add(call.toString());
         }
         Collections.sort(list);
-        assertThat(list)
-                .containsOnly(
-                        "Source='FindMethodCallExampleClasz.java', Line=12, Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz, Method='void <clinit>()' ==CALLS==> Class='java.math.BigDecimal, Method='java.math.BigDecimal setScale(int)'",
-                        "Source='FindMethodCallExampleClasz.java', Line=17, Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz, Method='void <init>()' ==CALLS==> Class='java.math.BigDecimal, Method='java.math.BigDecimal divide(java.math.BigDecimal)'",
-                        "Source='FindMethodCallExampleClasz.java', Line=21, Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz, Method='void a()' ==CALLS==> Class='java.math.BigDecimal, Method='java.math.BigDecimal setScale(int)'",
-                        "Source='FindMethodCallExampleClasz.java', Line=25, Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz, Method='boolean b(java.lang.Integer, java.lang.Boolean, java.lang.String)' ==CALLS==> Class='java.math.BigDecimal, Method='java.math.BigDecimal setScale(int)'",
-                        "Source='FindMethodCallExampleClasz.java', Line=28, Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz$InnerExampleClasz, Method='void <init>()' ==CALLS==> Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz, Method='void <init>()'",
-                        "Source='FindMethodCallExampleClasz.java', Line=32, Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz$InnerExampleClasz, Method='void a()' ==CALLS==> Class='java.math.BigDecimal, Method='java.math.BigDecimal setScale(int)'");
+        assertThat(list).containsOnly(
+                "Source='FindMethodCallExampleClasz.java', Line=12, Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz, Method='void <clinit>()' ==CALLS==> Class='java.math.BigDecimal, Method='java.math.BigDecimal setScale(int)'",
+                "Source='FindMethodCallExampleClasz.java', Line=17, Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz, Method='void <init>()' ==CALLS==> Class='java.math.BigDecimal, Method='java.math.BigDecimal divide(java.math.BigDecimal)'",
+                "Source='FindMethodCallExampleClasz.java', Line=21, Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz, Method='void a()' ==CALLS==> Class='java.math.BigDecimal, Method='java.math.BigDecimal setScale(int)'",
+                "Source='FindMethodCallExampleClasz.java', Line=25, Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz, Method='boolean b(java.lang.Integer, java.lang.Boolean, java.lang.String)' ==CALLS==> Class='java.math.BigDecimal, Method='java.math.BigDecimal setScale(int)'",
+                "Source='FindMethodCallExampleClasz.java', Line=28, Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz$InnerExampleClasz, Method='void <init>()' ==CALLS==> Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz, Method='void <init>()'",
+                "Source='FindMethodCallExampleClasz.java', Line=32, Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz$InnerExampleClasz, Method='void a()' ==CALLS==> Class='java.math.BigDecimal, Method='java.math.BigDecimal setScale(int)'");
 
     }
 

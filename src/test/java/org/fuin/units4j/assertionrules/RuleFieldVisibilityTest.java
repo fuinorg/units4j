@@ -45,24 +45,22 @@ public class RuleFieldVisibilityTest {
         final AssertionResult resultProtected = testee.verify(CLASS_INFO.field("protectedField"));
         assertThat(resultProtected).isNotNull();
         assertThat(resultProtected.isValid()).isFalse();
-        assertThat(resultProtected.getErrorMessage()).isEqualTo(
-                "Protected visibility is not allowed for: " + MyClass.class.getName() + ".protectedField");
+        assertThat(resultProtected.getErrorMessage())
+                .isEqualTo("Protected visibility is not allowed for: " + MyClass.class.getName() + ".protectedField");
 
         // TEST + VERIFY
         final AssertionResult resultPrivate = testee.verify(CLASS_INFO.field("privateField"));
         assertThat(resultPrivate).isNotNull();
         assertThat(resultPrivate.isValid()).isFalse();
-        assertThat(resultPrivate.getErrorMessage()).isEqualTo(
-                "Private visibility is not allowed for: " + MyClass.class.getName() + ".privateField");
+        assertThat(resultPrivate.getErrorMessage())
+                .isEqualTo("Private visibility is not allowed for: " + MyClass.class.getName() + ".privateField");
 
         // TEST + VERIFY
         final AssertionResult resultPackage = testee.verify(CLASS_INFO.field("packageField"));
         assertThat(resultPackage).isNotNull();
         assertThat(resultPackage.isValid()).isFalse();
         assertThat(resultPackage.getErrorMessage())
-                .isEqualTo(
-                        "Package-private visibility is not allowed for: " + MyClass.class.getName()
-                                + ".packageField");
+                .isEqualTo("Package-private visibility is not allowed for: " + MyClass.class.getName() + ".packageField");
 
     }
 
@@ -76,8 +74,8 @@ public class RuleFieldVisibilityTest {
         final AssertionResult resultPublic = testee.verify(CLASS_INFO.field("publicField"));
         assertThat(resultPublic).isNotNull();
         assertThat(resultPublic.isValid()).isFalse();
-        assertThat(resultPublic.getErrorMessage()).isEqualTo(
-                "Public visibility is not allowed for: " + MyClass.class.getName() + ".publicField");
+        assertThat(resultPublic.getErrorMessage())
+                .isEqualTo("Public visibility is not allowed for: " + MyClass.class.getName() + ".publicField");
 
         // TEST + VERIFY
         final AssertionResult resultProtected = testee.verify(CLASS_INFO.field("protectedField"));
@@ -89,17 +87,15 @@ public class RuleFieldVisibilityTest {
         final AssertionResult resultPrivate = testee.verify(CLASS_INFO.field("privateField"));
         assertThat(resultPrivate).isNotNull();
         assertThat(resultPrivate.isValid()).isFalse();
-        assertThat(resultPrivate.getErrorMessage()).isEqualTo(
-                "Private visibility is not allowed for: " + MyClass.class.getName() + ".privateField");
+        assertThat(resultPrivate.getErrorMessage())
+                .isEqualTo("Private visibility is not allowed for: " + MyClass.class.getName() + ".privateField");
 
         // TEST + VERIFY
         final AssertionResult resultPackage = testee.verify(CLASS_INFO.field("packageField"));
         assertThat(resultPackage).isNotNull();
         assertThat(resultPackage.isValid()).isFalse();
         assertThat(resultPackage.getErrorMessage())
-                .isEqualTo(
-                        "Package-private visibility is not allowed for: " + MyClass.class.getName()
-                                + ".packageField");
+                .isEqualTo("Package-private visibility is not allowed for: " + MyClass.class.getName() + ".packageField");
 
     }
 
@@ -113,15 +109,15 @@ public class RuleFieldVisibilityTest {
         final AssertionResult resultPublic = testee.verify(CLASS_INFO.field("publicField"));
         assertThat(resultPublic).isNotNull();
         assertThat(resultPublic.isValid()).isFalse();
-        assertThat(resultPublic.getErrorMessage()).isEqualTo(
-                "Public visibility is not allowed for: " + MyClass.class.getName() + ".publicField");
+        assertThat(resultPublic.getErrorMessage())
+                .isEqualTo("Public visibility is not allowed for: " + MyClass.class.getName() + ".publicField");
 
         // TEST + VERIFY
         final AssertionResult resultProtected = testee.verify(CLASS_INFO.field("protectedField"));
         assertThat(resultProtected).isNotNull();
         assertThat(resultProtected.isValid()).isFalse();
-        assertThat(resultProtected.getErrorMessage()).isEqualTo(
-                "Protected visibility is not allowed for: " + MyClass.class.getName() + ".protectedField");
+        assertThat(resultProtected.getErrorMessage())
+                .isEqualTo("Protected visibility is not allowed for: " + MyClass.class.getName() + ".protectedField");
 
         // TEST + VERIFY
         final AssertionResult resultPrivate = testee.verify(CLASS_INFO.field("privateField"));
@@ -134,9 +130,7 @@ public class RuleFieldVisibilityTest {
         assertThat(resultPackage).isNotNull();
         assertThat(resultPackage.isValid()).isFalse();
         assertThat(resultPackage.getErrorMessage())
-                .isEqualTo(
-                        "Package-private visibility is not allowed for: " + MyClass.class.getName()
-                                + ".packageField");
+                .isEqualTo("Package-private visibility is not allowed for: " + MyClass.class.getName() + ".packageField");
 
     }
 
@@ -150,22 +144,22 @@ public class RuleFieldVisibilityTest {
         final AssertionResult resultPublic = testee.verify(CLASS_INFO.field("publicField"));
         assertThat(resultPublic).isNotNull();
         assertThat(resultPublic.isValid()).isFalse();
-        assertThat(resultPublic.getErrorMessage()).isEqualTo(
-                "Public visibility is not allowed for: " + MyClass.class.getName() + ".publicField");
+        assertThat(resultPublic.getErrorMessage())
+                .isEqualTo("Public visibility is not allowed for: " + MyClass.class.getName() + ".publicField");
 
         // TEST + VERIFY
         final AssertionResult resultProtected = testee.verify(CLASS_INFO.field("protectedField"));
         assertThat(resultProtected).isNotNull();
         assertThat(resultProtected.isValid()).isFalse();
-        assertThat(resultProtected.getErrorMessage()).isEqualTo(
-                "Protected visibility is not allowed for: " + MyClass.class.getName() + ".protectedField");
+        assertThat(resultProtected.getErrorMessage())
+                .isEqualTo("Protected visibility is not allowed for: " + MyClass.class.getName() + ".protectedField");
 
         // TEST + VERIFY
         final AssertionResult resultPrivate = testee.verify(CLASS_INFO.field("privateField"));
         assertThat(resultPrivate).isNotNull();
         assertThat(resultPrivate.isValid()).isFalse();
-        assertThat(resultPrivate.getErrorMessage()).isEqualTo(
-                "Private visibility is not allowed for: " + MyClass.class.getName() + ".privateField");
+        assertThat(resultPrivate.getErrorMessage())
+                .isEqualTo("Private visibility is not allowed for: " + MyClass.class.getName() + ".privateField");
 
         // TEST + VERIFY
         final AssertionResult resultPackage = testee.verify(CLASS_INFO.field("packageField"));

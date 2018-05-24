@@ -49,8 +49,7 @@ public final class Dependencies implements Serializable {
     }
 
     /**
-     * Returns a list of packages like "java.lang" that are always Ok to depend
-     * on.
+     * Returns a list of packages like "java.lang" that are always Ok to depend on.
      * 
      * @return List of packages.
      */
@@ -81,8 +80,7 @@ public final class Dependencies implements Serializable {
      * @param packageName
      *            Name of the package to check.
      * 
-     * @return If the package is always allowed <code>true</code> else
-     *         <code>false</code>.
+     * @return If the package is always allowed <code>true</code> else <code>false</code>.
      */
     public final boolean isAlwaysAllowed(final String packageName) {
         if (packageName.equals("java.lang")) {
@@ -97,8 +95,7 @@ public final class Dependencies implements Serializable {
      * @param packageName
      *            Name of the package to check.
      * 
-     * @return If the package is always forbidden <code>true</code> else
-     *         <code>false</code>.
+     * @return If the package is always forbidden <code>true</code> else <code>false</code>.
      */
     public final boolean isAlwaysForbidden(final String packageName) {
         return Utils.findForbiddenByName(getAlwaysForbidden(), packageName) != null;
@@ -107,8 +104,7 @@ public final class Dependencies implements Serializable {
     /**
      * Returns the list of allowed package dependencies.
      * 
-     * @return List of explicit allowed dependencies - All other dependencies
-     *         are considered to be an error.
+     * @return List of explicit allowed dependencies - All other dependencies are considered to be an error.
      */
     public final List<Package<DependsOn>> getAllowed() {
         if (allowed == null) {
@@ -121,8 +117,7 @@ public final class Dependencies implements Serializable {
     /**
      * Returns the list of forbidden package dependencies.
      * 
-     * @return List of explicit forbidden dependencies - All other dependencies
-     *         are considered to be valid.
+     * @return List of explicit forbidden dependencies - All other dependencies are considered to be valid.
      */
     public final List<Package<NotDependsOn>> getForbidden() {
         if (forbidden == null) {
@@ -133,8 +128,7 @@ public final class Dependencies implements Serializable {
     }
 
     /**
-     * Checks if the definition is valid - Especially if no package is in both
-     * lists.
+     * Checks if the definition is valid - Especially if no package is in both lists.
      * 
      * @throws InvalidDependenciesDefinitionException
      *             This instance is invalid.
@@ -142,8 +136,7 @@ public final class Dependencies implements Serializable {
     public final void validate() throws InvalidDependenciesDefinitionException {
 
         int errorCount = 0;
-        final StringBuilder sb = new StringBuilder(
-                "Duplicate package entries in 'allowed' and 'forbidden': ");
+        final StringBuilder sb = new StringBuilder("Duplicate package entries in 'allowed' and 'forbidden': ");
         final List<Package<NotDependsOn>> list = getForbidden();
         for (int i = 0; i < list.size(); i++) {
             final String name = list.get(i).getName();
@@ -157,8 +150,7 @@ public final class Dependencies implements Serializable {
             }
         }
         if (errorCount > 0) {
-            throw new InvalidDependenciesDefinitionException(this,
-                    sb.toString());
+            throw new InvalidDependenciesDefinitionException(this, sb.toString());
         }
     }
 
@@ -168,8 +160,7 @@ public final class Dependencies implements Serializable {
      * @param packageName
      *            Name to find.
      * 
-     * @return Package or <code>null</code> if no entry with the given name was
-     *         found.
+     * @return Package or <code>null</code> if no entry with the given name was found.
      */
     public final Package<DependsOn> findAllowedByName(final String packageName) {
         final List<Package<DependsOn>> list = getAllowed();
@@ -187,11 +178,9 @@ public final class Dependencies implements Serializable {
      * @param packageName
      *            Name to find.
      * 
-     * @return Package or <code>null</code> if no entry with the given name was
-     *         found.
+     * @return Package or <code>null</code> if no entry with the given name was found.
      */
-    public final Package<NotDependsOn> findForbiddenByName(
-            final String packageName) {
+    public final Package<NotDependsOn> findForbiddenByName(final String packageName) {
         final List<Package<NotDependsOn>> list = getForbidden();
         for (final Package<NotDependsOn> pkg : list) {
             if (pkg.getName().equals(packageName)) {

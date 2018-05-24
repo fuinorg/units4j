@@ -42,24 +42,22 @@ public final class MCAMethodTest {
         // VERIFY
         assertThat(testee.getClassName()).isEqualTo(className);
         assertThat(testee.getMethod().getName()).isEqualTo("myMethod");
-        assertThat(testee.getMethod().getReturnType().getClassName())
-                .isEqualTo("int");
+        assertThat(testee.getMethod().getReturnType().getClassName()).isEqualTo("int");
         assertThat(testee.getMethod().getArgumentTypes()).hasSize(1);
-        assertThat(testee.getMethod().getArgumentTypes()[0].getClassName())
-                .isEqualTo("java.lang.String");
+        assertThat(testee.getMethod().getArgumentTypes()[0].getClassName()).isEqualTo("java.lang.String");
 
     }
 
     @Test
     public final void testEqualsHashCode() {
-        
+
         EqualsVerifier.forClass(MCAMethod.class).withIgnoredFields("method").verify();
-        
+
     }
 
     @Test
     public final void testCompareTo() {
-        
+
         // PREPARE
         final String classNameA = "a.b.c.A";
         final String methodSignatureA = "int a(java.lang.String)";
@@ -71,16 +69,16 @@ public final class MCAMethodTest {
 
         final String methodSignatureC = "int b(java.lang.String)";
         final MCAMethod methodC = new MCAMethod(classNameB, methodSignatureC);
-        
+
         // TEST + VERIFY
         assertThat(methodA.compareTo(methodB)).isEqualTo(-1);
         assertThat(methodB.compareTo(methodA)).isEqualTo(1);
         assertThat(methodA.compareTo(methodA)).isEqualTo(0);
-        
+
         assertThat(methodB.compareTo(methodC)).isEqualTo(-1);
         assertThat(methodC.compareTo(methodB)).isEqualTo(1);
-        
+
     }
-    
+
 }
 // CHECKSTYLE:ON

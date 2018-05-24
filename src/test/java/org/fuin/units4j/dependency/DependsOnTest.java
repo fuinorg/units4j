@@ -30,46 +30,45 @@ public final class DependsOnTest {
 
     @Test
     public final void testConstructionString() {
-	final String name = "org.fuin.units4j.dependency";
-	final DependsOn testee = new DependsOn(name);
-	assertThat(testee.getPackageName()).isEqualTo(name);
-	assertThat(testee.toString()).isEqualTo(name);
-	assertThat(testee.isIncludeSubPackages()).isTrue();
+        final String name = "org.fuin.units4j.dependency";
+        final DependsOn testee = new DependsOn(name);
+        assertThat(testee.getPackageName()).isEqualTo(name);
+        assertThat(testee.toString()).isEqualTo(name);
+        assertThat(testee.isIncludeSubPackages()).isTrue();
     }
 
     @Test
     public final void testConstructionStringBoolean() {
-	final String name = "org.fuin.units4j.dependency";
-	final boolean recursive = false;
-	final DependsOn testee = new DependsOn(name, recursive);
-	assertThat(testee.getPackageName()).isEqualTo(name);
-	assertThat(testee.toString()).isEqualTo(name);
-	assertThat(testee.isIncludeSubPackages()).isEqualTo(recursive);
+        final String name = "org.fuin.units4j.dependency";
+        final boolean recursive = false;
+        final DependsOn testee = new DependsOn(name, recursive);
+        assertThat(testee.getPackageName()).isEqualTo(name);
+        assertThat(testee.toString()).isEqualTo(name);
+        assertThat(testee.isIncludeSubPackages()).isEqualTo(recursive);
     }
 
     @Test
     public final void testEqualsHashCode() {
-	EqualsVerifier.forClass(DependsOn.class).withRedefinedSuperclass()
-		.withIgnoredFields("includeSubPackages").verify();
+        EqualsVerifier.forClass(DependsOn.class).withRedefinedSuperclass().withIgnoredFields("includeSubPackages").verify();
     }
 
     @Test
     public final void testSerDeserialize() {
-	
-	// PREPARE
-	final String name = "org.fuin.units4j.dependency";
-	final DependsOn testee = new DependsOn(name);
-	
-	// TEST
-	final byte[] data = Utils4J.serialize(testee);
-	final DependsOn copy = Utils4J.deserialize(data); 
-	
-	// VERIFY
-	assertThat(copy.getPackageName()).isEqualTo(name);
-	assertThat(copy.toString()).isEqualTo(name);
-	assertThat(copy.isIncludeSubPackages()).isTrue();
-	
+
+        // PREPARE
+        final String name = "org.fuin.units4j.dependency";
+        final DependsOn testee = new DependsOn(name);
+
+        // TEST
+        final byte[] data = Utils4J.serialize(testee);
+        final DependsOn copy = Utils4J.deserialize(data);
+
+        // VERIFY
+        assertThat(copy.getPackageName()).isEqualTo(name);
+        assertThat(copy.toString()).isEqualTo(name);
+        assertThat(copy.isIncludeSubPackages()).isTrue();
+
     }
-    
+
 }
 // CHECKSTYLE:ON

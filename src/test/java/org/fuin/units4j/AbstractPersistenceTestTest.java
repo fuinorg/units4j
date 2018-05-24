@@ -46,9 +46,7 @@ public class AbstractPersistenceTestTest extends AbstractPersistenceTest {
 
         // VERIFY
         beginTransaction();
-        final List<MyTestClass> resultList = getEm().createQuery(
-                "select t from MyTestClass t", MyTestClass.class)
-                .getResultList();
+        final List<MyTestClass> resultList = getEm().createQuery("select t from MyTestClass t", MyTestClass.class).getResultList();
         assertThat(resultList).isNotNull();
         assertThat(resultList).hasSize(1);
         assertThat(resultList.get(0).getId()).isEqualTo(Integer.valueOf(1));
@@ -59,4 +57,3 @@ public class AbstractPersistenceTestTest extends AbstractPersistenceTest {
 
 }
 // CHECKSTYLE:ON
-

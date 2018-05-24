@@ -37,23 +37,20 @@ public final class AssertUsage {
      * Private default constructor.
      */
     private AssertUsage() {
-        throw new UnsupportedOperationException(
-                "This utility class is not intended to be instanciated!");
+        throw new UnsupportedOperationException("This utility class is not intended to be instanciated!");
     }
 
     /**
      * Asserts that a set of methods is not used.
      * 
      * @param classesDir
-     *            Directory with the ".class" files to check - Cannot be
-     *            <code>null</code> and must be a valid directory.
+     *            Directory with the ".class" files to check - Cannot be <code>null</code> and must be a valid directory.
      * @param filter
      *            File filter or NULL (process all '*.class' files).
      * @param methodsToFind
      *            List of methods to find.
      */
-    public static final void assertMethodsNotUsed(final File classesDir,
-            final FileFilter filter, final MCAMethod... methodsToFind) {
+    public static final void assertMethodsNotUsed(final File classesDir, final FileFilter filter, final MCAMethod... methodsToFind) {
 
         Utils4J.checkNotNull("methodsToFind", methodsToFind);
         assertMethodsNotUsed(classesDir, filter, Arrays.asList(methodsToFind));
@@ -64,28 +61,24 @@ public final class AssertUsage {
      * Asserts that a set of methods is not used.
      * 
      * @param classesDir
-     *            Directory with the ".class" files to check - Cannot be
-     *            <code>null</code> and must be a valid directory.
+     *            Directory with the ".class" files to check - Cannot be <code>null</code> and must be a valid directory.
      * @param filter
      *            File filter or NULL (process all '*.class' files).
      * @param methodsToFind
      *            List of methods to find - Cannot be NULL.
      */
-    public static final void assertMethodsNotUsed(final File classesDir,
-            final FileFilter filter, final List<MCAMethod> methodsToFind) {
+    public static final void assertMethodsNotUsed(final File classesDir, final FileFilter filter, final List<MCAMethod> methodsToFind) {
 
         Utils4J.checkNotNull("classesDir", classesDir);
         Utils4J.checkValidDir(classesDir);
         Utils4J.checkNotNull("methodsToFind", methodsToFind);
 
-        final MethodCallAnalyzer analyzer = new MethodCallAnalyzer(
-                methodsToFind);
+        final MethodCallAnalyzer analyzer = new MethodCallAnalyzer(methodsToFind);
         analyzer.findCallingMethodsInDir(classesDir, filter);
 
         final List<MCAMethodCall> methodCalls = analyzer.getMethodCalls();
         if (methodCalls.size() > 0) {
-            final StringBuilder sb = new StringBuilder(
-                    "Illegal method call(s) found:");
+            final StringBuilder sb = new StringBuilder("Illegal method call(s) found:");
             for (final MCAMethodCall methodCall : methodCalls) {
                 sb.append("\n");
                 sb.append(methodCall);

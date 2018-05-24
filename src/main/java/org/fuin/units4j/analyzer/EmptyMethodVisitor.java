@@ -18,8 +18,7 @@ public class EmptyMethodVisitor extends MethodVisitor {
     }
 
     @Override
-    public AnnotationVisitor visitAnnotation(final String desc,
-            final boolean visible) {
+    public AnnotationVisitor visitAnnotation(final String desc, final boolean visible) {
         return an;
     }
 
@@ -29,8 +28,7 @@ public class EmptyMethodVisitor extends MethodVisitor {
     }
 
     @Override
-    public AnnotationVisitor visitParameterAnnotation(final int parameter,
-            final String desc, final boolean visible) {
+    public AnnotationVisitor visitParameterAnnotation(final int parameter, final String desc, final boolean visible) {
         return an;
     }
 

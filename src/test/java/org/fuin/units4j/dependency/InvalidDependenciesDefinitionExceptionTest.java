@@ -28,8 +28,7 @@ public final class InvalidDependenciesDefinitionExceptionTest {
     public final void testConstruction() {
         final String message = "A message";
         final Dependencies dependencies = new Dependencies();
-        final InvalidDependenciesDefinitionException testee = new InvalidDependenciesDefinitionException(
-                dependencies, message);
+        final InvalidDependenciesDefinitionException testee = new InvalidDependenciesDefinitionException(dependencies, message);
         assertThat(testee.getMessage()).isEqualTo(message);
         assertThat(testee.getDependencies()).isSameAs(dependencies);
     }

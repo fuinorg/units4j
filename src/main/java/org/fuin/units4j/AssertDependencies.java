@@ -36,15 +36,12 @@ public final class AssertDependencies {
      * Private default constructor.
      */
     private AssertDependencies() {
-        throw new UnsupportedOperationException(
-                "This utility class is not intended to be instanciated!");
+        throw new UnsupportedOperationException("This utility class is not intended to be instanciated!");
     }
 
-    private static void assertIntern(final File classesDir,
-            final DependencyAnalyzer analyzer) {
+    private static void assertIntern(final File classesDir, final DependencyAnalyzer analyzer) {
         analyzer.analyze(classesDir);
-        final List<DependencyError> dependencyErrors = analyzer
-                .getDependencyErrors();
+        final List<DependencyError> dependencyErrors = analyzer.getDependencyErrors();
         if (dependencyErrors.size() > 0) {
             final StringBuilder sb = new StringBuilder();
             for (int i = 0; i < dependencyErrors.size(); i++) {
@@ -59,20 +56,16 @@ public final class AssertDependencies {
      * Asserts that a set of dependency rules is kept.
      * 
      * @param dependencies
-     *            Definition of allowed or forbidden dependencies - Cannot be
-     *            <code>null</code>.
+     *            Definition of allowed or forbidden dependencies - Cannot be <code>null</code>.
      * @param classesDir
-     *            Directory with the ".class" files to check - Cannot be
-     *            <code>null</code> and must be a valid directory.
+     *            Directory with the ".class" files to check - Cannot be <code>null</code> and must be a valid directory.
      */
-    public static final void assertRules(final Dependencies dependencies,
-            final File classesDir) {
+    public static final void assertRules(final Dependencies dependencies, final File classesDir) {
         Utils4J.checkNotNull("dependencies", dependencies);
         Utils4J.checkNotNull("classesDir", classesDir);
         Utils4J.checkValidDir(classesDir);
         try {
-            final DependencyAnalyzer analyzer = new DependencyAnalyzer(
-                    dependencies);
+            final DependencyAnalyzer analyzer = new DependencyAnalyzer(dependencies);
             assertIntern(classesDir, analyzer);
         } catch (final InvalidDependenciesDefinitionException ex) {
             throw new RuntimeException(ex);
@@ -83,11 +76,9 @@ public final class AssertDependencies {
      * Asserts that a set of dependency rules is kept.
      * 
      * @param file
-     *            The XML rules file - Cannot be <code>null</code> and must be a
-     *            valid file.
+     *            The XML rules file - Cannot be <code>null</code> and must be a valid file.
      * @param classesDir
-     *            Directory with the ".class" files to check - Cannot be
-     *            <code>null</code> and must be a valid directory.
+     *            Directory with the ".class" files to check - Cannot be <code>null</code> and must be a valid directory.
      */
     public static final void assertRules(final File file, final File classesDir) {
         Utils4J.checkNotNull("file", file);
@@ -106,24 +97,18 @@ public final class AssertDependencies {
      * Asserts that a set of dependency rules is kept.
      * 
      * @param clasz
-     *            Class to use for loading the resource - Cannot be
-     *            <code>null</code>.
+     *            Class to use for loading the resource - Cannot be <code>null</code>.
      * @param dependenciesFilePathAndName
-     *            XML resource (path/name) with allowed or forbidden
-     *            dependencies - Cannot be <code>null</code>.
+     *            XML resource (path/name) with allowed or forbidden dependencies - Cannot be <code>null</code>.
      * @param classesDir
-     *            Directory with the ".class" files to check - Cannot be
-     *            <code>null</code> and must be a valid directory.
+     *            Directory with the ".class" files to check - Cannot be <code>null</code> and must be a valid directory.
      */
-    public static final void assertRules(final Class<?> clasz,
-            final String dependenciesFilePathAndName, final File classesDir) {
+    public static final void assertRules(final Class<?> clasz, final String dependenciesFilePathAndName, final File classesDir) {
         Utils4J.checkNotNull("clasz", clasz);
-        Utils4J.checkNotNull("dependenciesFilePathAndName",
-                dependenciesFilePathAndName);
+        Utils4J.checkNotNull("dependenciesFilePathAndName", dependenciesFilePathAndName);
         Utils4J.checkNotNull("classesDir", classesDir);
         try {
-            final DependencyAnalyzer analyzer = new DependencyAnalyzer(clasz,
-                    dependenciesFilePathAndName);
+            final DependencyAnalyzer analyzer = new DependencyAnalyzer(clasz, dependenciesFilePathAndName);
             assertIntern(classesDir, analyzer);
         } catch (final InvalidDependenciesDefinitionException ex) {
             throw new RuntimeException(ex);

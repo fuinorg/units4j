@@ -94,8 +94,7 @@ public final class Units4JUtilsTest {
             fail();
         } catch (final ComparisonFailure f) {
             // OK
-            assertThat(f.getMessage()).isEqualTo(
-                    "expected:<\"[xxx]\"> but was:<\"[second]\">");
+            assertThat(f.getMessage()).isEqualTo("expected:<\"[xxx]\"> but was:<\"[second]\">");
         }
 
     }
@@ -115,8 +114,7 @@ public final class Units4JUtilsTest {
             fail();
         } catch (final ComparisonFailure f) {
             // OK
-            assertThat(f.getMessage()).isEqualTo(
-                    "expected:<\"[xxx]\"> but was:<\"[third]\">");
+            assertThat(f.getMessage()).isEqualTo("expected:<\"[xxx]\"> but was:<\"[third]\">");
         }
 
     }
@@ -128,8 +126,7 @@ public final class Units4JUtilsTest {
         final MyTestClass obj = new MyTestClass(0, null);
 
         // TEST
-        final Set<ConstraintViolation<Object>> result = Units4JUtils
-                .validate(obj);
+        final Set<ConstraintViolation<Object>> result = Units4JUtils.validate(obj);
 
         // VERIFY
         assertThat(result).isNotNull();
@@ -154,8 +151,7 @@ public final class Units4JUtilsTest {
         final String name = "Changed";
 
         // TEST
-        final String changed = Units4JUtils.replaceXmlAttr(xml, new KV("id", ""
-                + id), new KV("name", name));
+        final String changed = Units4JUtils.replaceXmlAttr(xml, new KV("id", "" + id), new KV("name", name));
 
         // VERIFY
         final MyTestClass copy = JaxbUtils.unmarshal(changed, MyTestClass.class);
@@ -166,4 +162,3 @@ public final class Units4JUtilsTest {
 
 }
 // CHECKSTYLE:ON
-

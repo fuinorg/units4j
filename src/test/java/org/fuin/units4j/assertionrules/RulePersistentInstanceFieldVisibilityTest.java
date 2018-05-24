@@ -61,15 +61,15 @@ public class RulePersistentInstanceFieldVisibilityTest {
         final AssertionResult resultEntity = testee.verify(classInfo(InvalidEntity.class));
         assertThat(resultEntity).isNotNull();
         assertThat(resultEntity.isValid()).isFalse();
-        assertThat(resultEntity.getErrorMessage()).isEqualTo(
-                "Public visibility is not allowed for: " + InvalidEntity.class.getName() + ".publicField\n");
+        assertThat(resultEntity.getErrorMessage())
+                .isEqualTo("Public visibility is not allowed for: " + InvalidEntity.class.getName() + ".publicField\n");
 
         // TEST + VERIFY
         final AssertionResult resultSuper = testee.verify(classInfo(InvalidSuper.class));
         assertThat(resultSuper).isNotNull();
         assertThat(resultSuper.isValid()).isFalse();
-        assertThat(resultSuper.getErrorMessage()).isEqualTo(
-                "Public visibility is not allowed for: " + InvalidSuper.class.getName() + ".publicField\n");
+        assertThat(resultSuper.getErrorMessage())
+                .isEqualTo("Public visibility is not allowed for: " + InvalidSuper.class.getName() + ".publicField\n");
 
     }
 

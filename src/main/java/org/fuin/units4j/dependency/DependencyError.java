@@ -34,16 +34,13 @@ public final class DependencyError {
      * Constructor with all data.
      * 
      * @param className
-     *            Name of the class that has an invalid reference to another
-     *            package.
+     *            Name of the class that has an invalid reference to another package.
      * @param referencedPackage
      *            The package referenced by the class.
      * @param comment
-     *            Comment describing why the dependency is not OK or
-     *            <code>null</code>.
+     *            Comment describing why the dependency is not OK or <code>null</code>.
      */
-    public DependencyError(final String className,
-            final String referencedPackage, final String comment) {
+    public DependencyError(final String className, final String referencedPackage, final String comment) {
         super();
         Utils4J.checkNotNull("className", className);
         Utils4J.checkNotNull("referencedPackage", referencedPackage);
@@ -53,8 +50,7 @@ public final class DependencyError {
     }
 
     /**
-     * Returns the name of the class that has an invalid reference to another
-     * package.
+     * Returns the name of the class that has an invalid reference to another package.
      * 
      * @return Full qualified class name.
      */

@@ -42,21 +42,18 @@ public final class AssertCoverage {
      * Private default constructor.
      */
     private AssertCoverage() {
-        throw new UnsupportedOperationException(
-                "This utility class is not intended to be instanciated!");
+        throw new UnsupportedOperationException("This utility class is not intended to be instanciated!");
     }
 
     /**
-     * Asserts that a every class has at least one test class. It's assumed that
-     * the name of the test class follows the pattern <code>XxxxxTest</code>,
-     * where <code>Xxxxx</code> is the name of the class that is tested. The
-     * class must contain at least one method annotated with {@link Test}.
+     * Asserts that a every class has at least one test class. It's assumed that the name of the test class follows the pattern
+     * <code>XxxxxTest</code>, where <code>Xxxxx</code> is the name of the class that is tested. The class must contain at least one method
+     * annotated with {@link Test}.
      * 
      * @param classes
      *            Set of classes - Cannot be <code>null</code>.
      */
-    public static final void assertEveryClassHasATest(
-            final Set<Class<?>> classes) {
+    public static final void assertEveryClassHasATest(final Set<Class<?>> classes) {
         Utils4J.checkNotNull("classes", classes);
 
         final StringBuilder sb = new StringBuilder();
@@ -66,8 +63,7 @@ public final class AssertCoverage {
             try {
                 final Class<?> testClass = Class.forName(testClassName);
                 if (!hasTestMethod(testClass)) {
-                    sb.append("\nThe test class '" + testClassName
-                            + "' contains no methods annotated with @Test");
+                    sb.append("\nThe test class '" + testClassName + "' contains no methods annotated with @Test");
                 }
             } catch (final ClassNotFoundException ex) {
                 sb.append("\nNo test class found for '" + clasz.getName() + "'");
@@ -82,11 +78,9 @@ public final class AssertCoverage {
     }
 
     /**
-     * Asserts that a every class in the directory (or it's sub directories) has
-     * at least one test class. It's assumed that the name of the test class
-     * follows the pattern <code>XxxxxTest</code>, where <code>Xxxxx</code> is
-     * the name of the class that is tested. The class must contain at least one
-     * method annotated with {@link Test}. No special class filter applies.
+     * Asserts that a every class in the directory (or it's sub directories) has at least one test class. It's assumed that the name of the
+     * test class follows the pattern <code>XxxxxTest</code>, where <code>Xxxxx</code> is the name of the class that is tested. The class
+     * must contain at least one method annotated with {@link Test}. No special class filter applies.
      * 
      * @param baseDir
      *            Root source directory like ("src/main/java").
@@ -100,37 +94,30 @@ public final class AssertCoverage {
     }
 
     /**
-     * Asserts that a every class in the directory (or it's sub directories) has
-     * at least one test class. It's assumed that the name of the test class
-     * follows the pattern <code>XxxxxTest</code>, where <code>Xxxxx</code> is
-     * the name of the class that is tested. The class must contain at least one
-     * method annotated with {@link Test}.
+     * Asserts that a every class in the directory (or it's sub directories) has at least one test class. It's assumed that the name of the
+     * test class follows the pattern <code>XxxxxTest</code>, where <code>Xxxxx</code> is the name of the class that is tested. The class
+     * must contain at least one method annotated with {@link Test}.
      * 
      * @param baseDir
      *            Root source directory like ("src/main/java").
      * @param classFilter
-     *            Filter that decides if a class should have a corresponding
-     *            test or not.
+     *            Filter that decides if a class should have a corresponding test or not.
      */
-    public static final void assertEveryClassHasATest(final File baseDir,
-            final ClassFilter classFilter) {
+    public static final void assertEveryClassHasATest(final File baseDir, final ClassFilter classFilter) {
         assertEveryClassHasATest(baseDir, true, classFilter);
     }
 
     /**
-     * Asserts that a every class in the directory (or it's sub directories) has
-     * at least one test class. It's assumed that the name of the test class
-     * follows the pattern <code>XxxxxTest</code>, where <code>Xxxxx</code> is
-     * the name of the class that is tested. The class must contain at least one
-     * method annotated with {@link Test}. No special class filter applies.
+     * Asserts that a every class in the directory (or it's sub directories) has at least one test class. It's assumed that the name of the
+     * test class follows the pattern <code>XxxxxTest</code>, where <code>Xxxxx</code> is the name of the class that is tested. The class
+     * must contain at least one method annotated with {@link Test}. No special class filter applies.
      * 
      * @param baseDir
      *            Root source directory like ("src/main/java").
      * @param recursive
      *            Should sub directories be included?
      */
-    public static final void assertEveryClassHasATest(final File baseDir,
-            final boolean recursive) {
+    public static final void assertEveryClassHasATest(final File baseDir, final boolean recursive) {
         assertEveryClassHasATest(baseDir, recursive, new ClassFilter() {
             public final boolean isIncludeClass(final Class<?> clasz) {
                 return true;
@@ -139,22 +126,18 @@ public final class AssertCoverage {
     }
 
     /**
-     * Asserts that a every class in the directory (or it's sub directories) has
-     * at least one test class. It's assumed that the name of the test class
-     * follows the pattern <code>XxxxxTest</code>, where <code>Xxxxx</code> is
-     * the name of the class that is tested. The class must contain at least one
-     * method annotated with {@link Test}.
+     * Asserts that a every class in the directory (or it's sub directories) has at least one test class. It's assumed that the name of the
+     * test class follows the pattern <code>XxxxxTest</code>, where <code>Xxxxx</code> is the name of the class that is tested. The class
+     * must contain at least one method annotated with {@link Test}.
      * 
      * @param baseDir
      *            Root source directory like ("src/main/java").
      * @param recursive
      *            Should sub directories be included?
      * @param classFilter
-     *            Filter that decides if a class should have a corresponding
-     *            test or not.
+     *            Filter that decides if a class should have a corresponding test or not.
      */
-    public static final void assertEveryClassHasATest(final File baseDir,
-            final boolean recursive, final ClassFilter classFilter) {
+    public static final void assertEveryClassHasATest(final File baseDir, final boolean recursive, final ClassFilter classFilter) {
         Utils4J.checkNotNull("baseDir", baseDir);
         final Set<Class<?>> classes = new HashSet<Class<?>>();
         analyzeDir(classes, baseDir, baseDir, recursive, classFilter);
@@ -162,57 +145,46 @@ public final class AssertCoverage {
     }
 
     /**
-     * Populates a list of classes from a given java source directory. All
-     * source files must have a ".class" file in the class path.
+     * Populates a list of classes from a given java source directory. All source files must have a ".class" file in the class path.
      * 
      * @param classes
      *            Set to populate.
      * @param baseDir
      *            Root directory like "src/main/java".
      * @param srcDir
-     *            A directory inside the root directory like "a/b/c" (path of
-     *            the package "a.b.c").
+     *            A directory inside the root directory like "a/b/c" (path of the package "a.b.c").
      * @param recursive
-     *            If sub directories should be included <code>true</code> else
-     *            <code>false</code>.
+     *            If sub directories should be included <code>true</code> else <code>false</code>.
      * @param classFilter
-     *            Filter that decides if a class should have a corresponding
-     *            test or not.
+     *            Filter that decides if a class should have a corresponding test or not.
      */
-    static void analyzeDir(final Set<Class<?>> classes, final File baseDir,
-            final File srcDir, final boolean recursive,
+    static void analyzeDir(final Set<Class<?>> classes, final File baseDir, final File srcDir, final boolean recursive,
             final ClassFilter classFilter) {
 
-        final FileProcessor fileProcessor = new FileProcessor(
-                new FileHandler() {
-                    @Override
-                    public final FileHandlerResult handleFile(final File file) {
-                        if (file.isDirectory()) {
-                            // Directory
-                            if (recursive) {
-                                return FileHandlerResult.CONTINUE;
-                            }
-                            return FileHandlerResult.SKIP_SUBDIRS;
-                        }
-                        // File
-                        final String name = file.getName();
-                        if (name.endsWith(".java")
-                                && !name.equals("package-info.java")) {
-                            final String packageName = Utils4J.getRelativePath(
-                                    baseDir, file.getParentFile()).replace(
-                                    File.separatorChar, '.');
-                            final String simpleName = name.substring(0,
-                                    name.length() - 5);
-                            final String className = packageName + "."
-                                    + simpleName;
-                            final Class<?> clasz = classForName(className);
-                            if (isInclude(clasz, classFilter)) {
-                                classes.add(clasz);
-                            }
-                        }
+        final FileProcessor fileProcessor = new FileProcessor(new FileHandler() {
+            @Override
+            public final FileHandlerResult handleFile(final File file) {
+                if (file.isDirectory()) {
+                    // Directory
+                    if (recursive) {
                         return FileHandlerResult.CONTINUE;
                     }
-                });
+                    return FileHandlerResult.SKIP_SUBDIRS;
+                }
+                // File
+                final String name = file.getName();
+                if (name.endsWith(".java") && !name.equals("package-info.java")) {
+                    final String packageName = Utils4J.getRelativePath(baseDir, file.getParentFile()).replace(File.separatorChar, '.');
+                    final String simpleName = name.substring(0, name.length() - 5);
+                    final String className = packageName + "." + simpleName;
+                    final Class<?> clasz = classForName(className);
+                    if (isInclude(clasz, classFilter)) {
+                        classes.add(clasz);
+                    }
+                }
+                return FileHandlerResult.CONTINUE;
+            }
+        });
 
         fileProcessor.process(srcDir);
 
@@ -245,20 +217,17 @@ public final class AssertCoverage {
      */
     static boolean isInclude(final Class<?> clasz, final ClassFilter classFilter) {
         final int modifiers = clasz.getModifiers();
-        return classFilter.isIncludeClass(clasz) && !clasz.isAnnotation()
-                && !clasz.isEnum() && !clasz.isInterface()
+        return classFilter.isIncludeClass(clasz) && !clasz.isAnnotation() && !clasz.isEnum() && !clasz.isInterface()
                 && !Modifier.isAbstract(modifiers);
     }
 
     /**
-     * Checks if a given class has at least one method annotated with
-     * {@link Test}.
+     * Checks if a given class has at least one method annotated with {@link Test}.
      * 
      * @param testClass
      *            Class to check.
      * 
-     * @return If there is a test method <code>true</code> else
-     *         <code>false</code>.
+     * @return If there is a test method <code>true</code> else <code>false</code>.
      */
     static boolean hasTestMethod(final Class<?> testClass) {
         if (testClass.getAnnotation(TestOmitted.class) != null) {
@@ -282,8 +251,7 @@ public final class AssertCoverage {
     public static interface ClassFilter {
 
         /**
-         * Determines if the class should be included in the list of relevant
-         * classes.
+         * Determines if the class should be included in the list of relevant classes.
          * 
          * @param clasz
          *            Class to check.
@@ -364,13 +332,10 @@ public final class AssertCoverage {
         public AndClassFilter(final ClassFilter... classFilters) {
             super();
             if (classFilters == null) {
-                throw new IllegalArgumentException(
-                        "Argument 'classFilters' cannot be null");
+                throw new IllegalArgumentException("Argument 'classFilters' cannot be null");
             }
             if (classFilters.length < 2) {
-                throw new IllegalArgumentException(
-                        "Argument 'classFilters' is less than two: "
-                                + classFilters.length);
+                throw new IllegalArgumentException("Argument 'classFilters' is less than two: " + classFilters.length);
             }
             this.classFilters = classFilters;
         }

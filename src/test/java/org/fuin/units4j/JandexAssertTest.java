@@ -72,7 +72,7 @@ public class JandexAssertTest {
 
         // TEST + VERIFY
         try {
-        assertThat(index).hasOnlyValidJpaEntities();
+            assertThat(index).hasOnlyValidJpaEntities();
         } catch (final AssertionError ex) {
             assertThat(ex.getMessage())
                     .isEqualTo("Public visibility is not allowed for: org.fuin.units4j.JandexAssertTest$MyInvalidEntity.name\n");
@@ -100,13 +100,11 @@ public class JandexAssertTest {
         try {
             assertThat(index).hasNullabilityInfoOnAllMethods();
         } catch (final AssertionError ex) {
-            assertThat(ex.getMessage())
-                    .isEqualTo(
-                            "A parameter or the return value has neither a @NotNull nor a @Nullable annotation:\n"
-                                    + "org.fuin.units4j.JandexAssertTest$InvalidNullabilityClass\tvoid <init>(java.lang.String)\tParameter #0 (java.lang.String)\n"
-                                    + "org.fuin.units4j.JandexAssertTest$InvalidNullabilityClass\tvoid b(java.lang.String)\tParameter #0 (java.lang.String)\n"
-                                    + "org.fuin.units4j.JandexAssertTest$InvalidNullabilityClass\tjava.lang.String c(java.lang.String)\tReturn type (java.lang.String)\n"
-                                    + "org.fuin.units4j.JandexAssertTest$InvalidNullabilityClass\tjava.lang.String c(java.lang.String)\tParameter #0 (java.lang.String)\n");
+            assertThat(ex.getMessage()).isEqualTo("A parameter or the return value has neither a @NotNull nor a @Nullable annotation:\n"
+                    + "org.fuin.units4j.JandexAssertTest$InvalidNullabilityClass\tvoid <init>(java.lang.String)\tParameter #0 (java.lang.String)\n"
+                    + "org.fuin.units4j.JandexAssertTest$InvalidNullabilityClass\tvoid b(java.lang.String)\tParameter #0 (java.lang.String)\n"
+                    + "org.fuin.units4j.JandexAssertTest$InvalidNullabilityClass\tjava.lang.String c(java.lang.String)\tReturn type (java.lang.String)\n"
+                    + "org.fuin.units4j.JandexAssertTest$InvalidNullabilityClass\tjava.lang.String c(java.lang.String)\tParameter #0 (java.lang.String)\n");
         }
 
     }
@@ -121,7 +119,7 @@ public class JandexAssertTest {
         assertThat(index).hasNullabilityInfoOnAllMethods();
 
     }
-    
+
     @Entity
     @Table(name = "INVALID_TABLE")
     public static class MyInvalidEntity implements Serializable {
@@ -182,20 +180,19 @@ public class JandexAssertTest {
     }
 
     public static interface ValidNullabilityInterface {
-        
+
         public void okMethod1();
 
         public boolean okMethod2();
 
         @NotNull
         public Boolean okMethod3();
-        
+
         public void okMethod4(int abc);
 
         public void okMethod5(@NotNull Integer abc);
-        
-    }   
 
-    
+    }
+
 }
 // CHECKSTYLE:ON

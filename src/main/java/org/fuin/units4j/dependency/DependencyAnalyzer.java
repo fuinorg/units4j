@@ -48,14 +48,12 @@ public final class DependencyAnalyzer {
      * Constructor with XML file.
      * 
      * @param dependenciesFile
-     *            XML file with allowed or forbidden dependencies - Cannot be
-     *            <code>null</code>.
+     *            XML file with allowed or forbidden dependencies - Cannot be <code>null</code>.
      * 
      * @throws InvalidDependenciesDefinitionException
      *             Formal correct (XML) but invalid dependency definition.
      */
-    public DependencyAnalyzer(final File dependenciesFile)
-            throws InvalidDependenciesDefinitionException {
+    public DependencyAnalyzer(final File dependenciesFile) throws InvalidDependenciesDefinitionException {
         this(Utils.load(dependenciesFile));
     }
 
@@ -63,17 +61,14 @@ public final class DependencyAnalyzer {
      * Constructor with XML resource.
      * 
      * @param clasz
-     *            Class to use for loading the resource - Cannot be
-     *            <code>null</code>.
+     *            Class to use for loading the resource - Cannot be <code>null</code>.
      * @param dependenciesFilePathAndName
-     *            XML resource (path/name) with allowed or forbidden
-     *            dependencies - Cannot be <code>null</code>.
+     *            XML resource (path/name) with allowed or forbidden dependencies - Cannot be <code>null</code>.
      * 
      * @throws InvalidDependenciesDefinitionException
      *             Formal correct (XML) but invalid dependency definition.
      */
-    public DependencyAnalyzer(final Class<?> clasz,
-            final String dependenciesFilePathAndName)
+    public DependencyAnalyzer(final Class<?> clasz, final String dependenciesFilePathAndName)
             throws InvalidDependenciesDefinitionException {
         this(Utils.load(clasz, dependenciesFilePathAndName));
     }
@@ -82,14 +77,12 @@ public final class DependencyAnalyzer {
      * Constructor with dependency definition.
      * 
      * @param dependencies
-     *            Definition of allowed or forbidden dependencies - Cannot be
-     *            <code>null</code>.
+     *            Definition of allowed or forbidden dependencies - Cannot be <code>null</code>.
      * 
      * @throws InvalidDependenciesDefinitionException
      *             Formal correct (XML) but invalid dependency definition.
      */
-    public DependencyAnalyzer(final Dependencies dependencies)
-            throws InvalidDependenciesDefinitionException {
+    public DependencyAnalyzer(final Dependencies dependencies) throws InvalidDependenciesDefinitionException {
         super();
         Utils4J.checkNotNull("dependencies", dependencies);
         this.dependencies = dependencies;
@@ -109,22 +102,18 @@ public final class DependencyAnalyzer {
      * 
      * @return List of errors - may be empty but is never <code>null</code>.
      */
-    private List<DependencyError> checkAllowedSection(
-            final Dependencies dependencies,
-            final Package<DependsOn> allowedPkg, final ClassInfo classInfo) {
+    private List<DependencyError> checkAllowedSection(final Dependencies dependencies, final Package<DependsOn> allowedPkg,
+            final ClassInfo classInfo) {
 
         final List<DependencyError> errors = new ArrayList<DependencyError>();
 
         final Iterator<String> it = classInfo.getImports().iterator();
         while (it.hasNext()) {
             final String importedPkg = it.next();
-            if (!importedPkg.equals(allowedPkg.getName())
-                    && !dependencies.isAlwaysAllowed(importedPkg)) {
-                final DependsOn dep = Utils.findAllowedByName(
-                        allowedPkg.getDependencies(), importedPkg);
+            if (!importedPkg.equals(allowedPkg.getName()) && !dependencies.isAlwaysAllowed(importedPkg)) {
+                final DependsOn dep = Utils.findAllowedByName(allowedPkg.getDependencies(), importedPkg);
                 if (dep == null) {
-                    errors.add(new DependencyError(classInfo.getName(),
-                            importedPkg, allowedPkg.getComment()));
+                    errors.add(new DependencyError(classInfo.getName(), importedPkg, allowedPkg.getComment()));
                 }
             }
         }
@@ -144,9 +133,8 @@ public final class DependencyAnalyzer {
      * 
      * @return List of errors - may be empty but is never <code>null</code>.
      */
-    private static List<DependencyError> checkForbiddenSection(
-            final Dependencies dependencies,
-            final Package<NotDependsOn> forbiddenPkg, final ClassInfo classInfo) {
+    private static List<DependencyError> checkForbiddenSection(final Dependencies dependencies, final Package<NotDependsOn> forbiddenPkg,
+            final ClassInfo classInfo) {
 
         final List<DependencyError> errors = new ArrayList<DependencyError>();
 
@@ -154,14 +142,11 @@ public final class DependencyAnalyzer {
         while (it.hasNext()) {
             final String importedPkg = it.next();
             if (!importedPkg.equals(classInfo.getPackageName())) {
-                final NotDependsOn ndo = Utils.findForbiddenByName(
-                        dependencies.getAlwaysForbidden(), importedPkg);
+                final NotDependsOn ndo = Utils.findForbiddenByName(dependencies.getAlwaysForbidden(), importedPkg);
                 if (ndo != null) {
-                    errors.add(new DependencyError(classInfo.getName(),
-                            importedPkg, ndo.getComment()));
+                    errors.add(new DependencyError(classInfo.getName(), importedPkg, ndo.getComment()));
                 } else {
-                    final NotDependsOn dep = Utils.findForbiddenByName(
-                            forbiddenPkg.getDependencies(), importedPkg);
+                    final NotDependsOn dep = Utils.findForbiddenByName(forbiddenPkg.getDependencies(), importedPkg);
                     if (dep != null) {
                         final String comment;
                         if (dep.getComment() == null) {
@@ -169,8 +154,7 @@ public final class DependencyAnalyzer {
                         } else {
                             comment = dep.getComment();
                         }
-                        errors.add(new DependencyError(classInfo.getName(),
-                                importedPkg, comment));
+                        errors.add(new DependencyError(classInfo.getName(), importedPkg, comment));
                     }
                 }
             }
@@ -204,20 +188,16 @@ public final class DependencyAnalyzer {
      * 
      * @return List of errors - may be empty but is never <code>null</code>.
      */
-    private static List<DependencyError> checkAlwaysForbiddenSection(
-            final Dependencies dependencies, final ClassInfo classInfo) {
+    private static List<DependencyError> checkAlwaysForbiddenSection(final Dependencies dependencies, final ClassInfo classInfo) {
 
         final List<DependencyError> errors = new ArrayList<DependencyError>();
 
-        final Iterator<String> importedPackages = classInfo.getImports()
-                .iterator();
+        final Iterator<String> importedPackages = classInfo.getImports().iterator();
         while (importedPackages.hasNext()) {
             final String importedPackage = importedPackages.next();
-            final NotDependsOn ndo = Utils.findForbiddenByName(
-                    dependencies.getAlwaysForbidden(), importedPackage);
+            final NotDependsOn ndo = Utils.findForbiddenByName(dependencies.getAlwaysForbidden(), importedPackage);
             if (ndo != null) {
-                errors.add(new DependencyError(classInfo.getName(),
-                        importedPackage, ndo.getComment()));
+                errors.add(new DependencyError(classInfo.getName(), importedPackage, ndo.getComment()));
             }
         }
 
@@ -225,56 +205,41 @@ public final class DependencyAnalyzer {
     }
 
     /**
-     * Analyze the dependencies for all classes in the directory and it's sub
-     * directories.
+     * Analyze the dependencies for all classes in the directory and it's sub directories.
      * 
      * @param classesDir
-     *            Directory where the "*.class" files are located (something
-     *            like "bin" or "classes").
+     *            Directory where the "*.class" files are located (something like "bin" or "classes").
      */
     public final void analyze(final File classesDir) {
 
-        final FileProcessor fileProcessor = new FileProcessor(
-                new FileHandler() {
-                    @Override
-                    public final FileHandlerResult handleFile(
-                            final File classFile) {
-                        if (!classFile.getName().endsWith(".class")) {
-                            return FileHandlerResult.CONTINUE;
+        final FileProcessor fileProcessor = new FileProcessor(new FileHandler() {
+            @Override
+            public final FileHandlerResult handleFile(final File classFile) {
+                if (!classFile.getName().endsWith(".class")) {
+                    return FileHandlerResult.CONTINUE;
+                }
+                try {
+                    final ClassInfo classInfo = new ClassInfo(classFile);
+
+                    final Package<DependsOn> allowedPkg = dependencies.findAllowedByName(classInfo.getPackageName());
+                    if (allowedPkg == null) {
+                        final Package<NotDependsOn> forbiddenPkg = dependencies.findForbiddenByName(classInfo.getPackageName());
+                        if (forbiddenPkg == null) {
+                            dependencyErrors.addAll(checkAlwaysForbiddenSection(dependencies, classInfo));
+                        } else {
+                            dependencyErrors.addAll(checkForbiddenSection(dependencies, forbiddenPkg, classInfo));
                         }
-                        try {
-                            final ClassInfo classInfo = new ClassInfo(classFile);
-
-                            final Package<DependsOn> allowedPkg = dependencies
-                                    .findAllowedByName(classInfo
-                                            .getPackageName());
-                            if (allowedPkg == null) {
-                                final Package<NotDependsOn> forbiddenPkg = dependencies
-                                        .findForbiddenByName(classInfo
-                                                .getPackageName());
-                                if (forbiddenPkg == null) {
-                                    dependencyErrors
-                                            .addAll(checkAlwaysForbiddenSection(
-                                                    dependencies, classInfo));
-                                } else {
-                                    dependencyErrors
-                                            .addAll(checkForbiddenSection(
-                                                    dependencies, forbiddenPkg,
-                                                    classInfo));
-                                }
-                            } else {
-                                dependencyErrors.addAll(checkAllowedSection(
-                                        dependencies, allowedPkg, classInfo));
-                            }
-                        } catch (final IOException ex) {
-                            throw new RuntimeException("Error handling file: "
-                                    + classFile, ex);
-                        }
-
-                        return FileHandlerResult.CONTINUE;
-
+                    } else {
+                        dependencyErrors.addAll(checkAllowedSection(dependencies, allowedPkg, classInfo));
                     }
-                });
+                } catch (final IOException ex) {
+                    throw new RuntimeException("Error handling file: " + classFile, ex);
+                }
+
+                return FileHandlerResult.CONTINUE;
+
+            }
+        });
 
         dependencyErrors.clear();
         fileProcessor.process(classesDir);
@@ -282,8 +247,7 @@ public final class DependencyAnalyzer {
     }
 
     /**
-     * Returns the list of dependency errors from last call to
-     * {@link #analyze(File)}.
+     * Returns the list of dependency errors from last call to {@link #analyze(File)}.
      * 
      * @return List of errors - Always non-<code>null</code> but may be empty.
      */
@@ -294,8 +258,7 @@ public final class DependencyAnalyzer {
     /**
      * Returns the dependency definition.
      * 
-     * @return Definition of allowed or forbidden dependencies - Never
-     *         <code>null</code>.
+     * @return Definition of allowed or forbidden dependencies - Never <code>null</code>.
      */
     public final Dependencies getDependencies() {
         return dependencies;
@@ -322,13 +285,11 @@ public final class DependencyAnalyzer {
          *             Error reading the file.
          */
         public ClassInfo(final File classFile) throws IOException {
-            final InputStream in = new BufferedInputStream(new FileInputStream(
-                    classFile));
+            final InputStream in = new BufferedInputStream(new FileInputStream(classFile));
             try {
                 final DependencyVisitor visitor = new DependencyVisitor();
                 new ClassReader(in).accept(visitor, 0);
-                final Map<String, Map<String, Integer>> globals = visitor
-                        .getGlobals();
+                final Map<String, Map<String, Integer>> globals = visitor.getGlobals();
                 final Set<String> jarPackages = globals.keySet();
                 packageName = jarPackages.iterator().next().replace('/', '.');
                 simpleName = nameOnly(classFile.getName());

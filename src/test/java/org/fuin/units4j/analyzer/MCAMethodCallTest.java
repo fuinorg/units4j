@@ -34,20 +34,17 @@ public final class MCAMethodCallTest {
         // PREPARE
         final String calledClassName = "a.b.c.MyClass";
         final String calledMethodSignature = "int myMethod(java.lang.String)";
-        final MCAMethod called = new MCAMethod(calledClassName,
-                calledMethodSignature);
+        final MCAMethod called = new MCAMethod(calledClassName, calledMethodSignature);
 
         final String callerClassName = "a.b.c.A";
         final String callerMethodSignature = "void a()";
         final String callerSourceFileName = "A.java";
         final int callerLine = 123;
-        final MCAMethod caller = new MCAMethod(callerClassName,
-                callerMethodSignature);
+        final MCAMethod caller = new MCAMethod(callerClassName, callerMethodSignature);
 
         // TEST
 
-        final MCAMethodCall testee = new MCAMethodCall(called, callerClassName,
-                "a", "()V", callerSourceFileName, callerLine);
+        final MCAMethodCall testee = new MCAMethodCall(called, callerClassName, "a", "()V", callerSourceFileName, callerLine);
 
         // VERIFY
         assertThat(testee.getCalled()).isEqualTo(called);

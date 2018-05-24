@@ -50,16 +50,14 @@ public final class MCAClassVisitor extends ClassVisitor {
     public MCAClassVisitor(final List<MCAMethod> methodsToFind) {
         super(Opcodes.ASM5, new EmptyClassVisitor());
         if (methodsToFind == null) {
-            throw new IllegalArgumentException(
-                    "Argument 'methodsToFind' canot be NULL");
+            throw new IllegalArgumentException("Argument 'methodsToFind' canot be NULL");
         }
         calls = new ArrayList<MCAMethodCall>();
         methodVisitor = new MCAMethodVisitor(this, methodsToFind);
     }
 
     @Override
-    public final void visit(final int version, final int access,
-            final String name, final String signature, final String superName,
+    public final void visit(final int version, final int access, final String name, final String signature, final String superName,
             final String[] interfaces) {
         className = name;
     }
@@ -70,8 +68,8 @@ public final class MCAClassVisitor extends ClassVisitor {
     }
 
     @Override
-    public final MethodVisitor visitMethod(final int access, final String name,
-            final String desc, final String signature, final String[] exceptions) {
+    public final MethodVisitor visitMethod(final int access, final String name, final String desc, final String signature,
+            final String[] exceptions) {
 
         methodName = name;
         methodDescr = desc;
@@ -88,8 +86,7 @@ public final class MCAClassVisitor extends ClassVisitor {
      *            Line number of the call.
      */
     public final void addCall(final MCAMethod found, final int line) {
-        calls.add(new MCAMethodCall(found, className, methodName, methodDescr,
-                source, line));
+        calls.add(new MCAMethodCall(found, className, methodName, methodDescr, source, line));
     }
 
     /**

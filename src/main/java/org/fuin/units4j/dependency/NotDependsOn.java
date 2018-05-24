@@ -30,8 +30,7 @@ public final class NotDependsOn extends Dependency {
      * Constructor with name. Sub package dependencies are included.
      * 
      * @param packageName
-     *            Full qualified name of the package - Cannot be
-     *            <code>null</code>.
+     *            Full qualified name of the package - Cannot be <code>null</code>.
      */
     public NotDependsOn(final String packageName) {
         super(packageName);
@@ -39,12 +38,10 @@ public final class NotDependsOn extends Dependency {
     }
 
     /**
-     * Constructor with package name and comment. Sub package dependencies are
-     * included.
+     * Constructor with package name and comment. Sub package dependencies are included.
      * 
      * @param packageName
-     *            Full qualified name of the package - Cannot be
-     *            <code>null</code>.
+     *            Full qualified name of the package - Cannot be <code>null</code>.
      * @param comment
      *            Comment why the dependency is OK or not - May be null.
      */
@@ -57,16 +54,13 @@ public final class NotDependsOn extends Dependency {
      * Constructor with all possible arguments.
      * 
      * @param packageName
-     *            Full qualified name of the package - Cannot be
-     *            <code>null</code>.
+     *            Full qualified name of the package - Cannot be <code>null</code>.
      * @param includeSubPackages
-     *            If sub package dependencies are included <code>true</code>
-     *            else <code>false</code>.
+     *            If sub package dependencies are included <code>true</code> else <code>false</code>.
      * @param comment
      *            Comment why the dependency is OK or not - May be null.
      */
-    public NotDependsOn(final String packageName,
-            final boolean includeSubPackages, final String comment) {
+    public NotDependsOn(final String packageName, final boolean includeSubPackages, final String comment) {
         super(packageName, includeSubPackages);
         this.comment = comment;
     }

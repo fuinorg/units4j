@@ -55,8 +55,7 @@ public class UtilsTest {
 
         // PREPARE
         final ClassInfo implClass = index.getClassByName(DotName.createSimple(MyClass.class.getName()));
-        final MethodInfo implMethod = implClass.method("methodX",
-                Type.create(DotName.createSimple(String.class.getName()), Kind.CLASS));
+        final MethodInfo implMethod = implClass.method("methodX", Type.create(DotName.createSimple(String.class.getName()), Kind.CLASS));
 
         // TEST
         final List<MethodInfo> intfMethods = Utils.findOverrideMethods(index, implMethod);
@@ -80,8 +79,7 @@ public class UtilsTest {
         // VERIFY
         assertThat(intfMethods).hasSize(1);
         assertThat(intfMethods.get(0).name()).isEqualTo("methodMyBaseClass1");
-        assertThat(intfMethods.get(0).declaringClass().name().toString()).isEqualTo(
-                MyBaseClass1.class.getName());
+        assertThat(intfMethods.get(0).declaringClass().name().toString()).isEqualTo(MyBaseClass1.class.getName());
 
     }
 
@@ -99,8 +97,7 @@ public class UtilsTest {
         // VERIFY
         assertThat(intfMethods).hasSize(1);
         assertThat(intfMethods.get(0).name()).isEqualTo("methodMyInterface1");
-        assertThat(intfMethods.get(0).declaringClass().name().toString()).isEqualTo(
-                MyInterface1.class.getName());
+        assertThat(intfMethods.get(0).declaringClass().name().toString()).isEqualTo(MyInterface1.class.getName());
 
     }
 
@@ -118,8 +115,7 @@ public class UtilsTest {
         // VERIFY
         assertThat(intfMethods).hasSize(1);
         assertThat(intfMethods.get(0).name()).isEqualTo("methodMyInterface2");
-        assertThat(intfMethods.get(0).declaringClass().name().toString()).isEqualTo(
-                MyInterface2.class.getName());
+        assertThat(intfMethods.get(0).declaringClass().name().toString()).isEqualTo(MyInterface2.class.getName());
 
     }
 
@@ -136,11 +132,10 @@ public class UtilsTest {
         // VERIFY
         assertThat(intfMethods).hasSize(1);
         assertThat(intfMethods.get(0).name()).isEqualTo("methodMyInterface3");
-        assertThat(intfMethods.get(0).declaringClass().name().toString()).isEqualTo(
-                MySuperInterface.class.getName());
+        assertThat(intfMethods.get(0).declaringClass().name().toString()).isEqualTo(MySuperInterface.class.getName());
 
     }
-    
+
     @Test
     public void testFindInterface4() {
 
@@ -154,11 +149,10 @@ public class UtilsTest {
         // VERIFY
         assertThat(intfMethods).hasSize(1);
         assertThat(intfMethods.get(0).name()).isEqualTo("methodMyInterface4");
-        assertThat(intfMethods.get(0).declaringClass().name().toString()).isEqualTo(
-                MyInterface4.class.getName());
+        assertThat(intfMethods.get(0).declaringClass().name().toString()).isEqualTo(MyInterface4.class.getName());
 
     }
-    
+
     @Test
     public void testFindAll() {
 
@@ -172,14 +166,11 @@ public class UtilsTest {
         // VERIFY
         assertThat(intfMethods).hasSize(3);
         assertThat(intfMethods.get(0).name()).isEqualTo("all");
-        assertThat(intfMethods.get(0).declaringClass().name().toString()).isEqualTo(
-                MyInterface1.class.getName());
+        assertThat(intfMethods.get(0).declaringClass().name().toString()).isEqualTo(MyInterface1.class.getName());
         assertThat(intfMethods.get(1).name()).isEqualTo("all");
-        assertThat(intfMethods.get(1).declaringClass().name().toString()).isEqualTo(
-                MyInterface2.class.getName());
+        assertThat(intfMethods.get(1).declaringClass().name().toString()).isEqualTo(MyInterface2.class.getName());
         assertThat(intfMethods.get(2).name()).isEqualTo("all");
-        assertThat(intfMethods.get(2).declaringClass().name().toString()).isEqualTo(
-                MyBaseClass1.class.getName());
+        assertThat(intfMethods.get(2).declaringClass().name().toString()).isEqualTo(MyBaseClass1.class.getName());
 
     }
 
@@ -210,7 +201,7 @@ public class UtilsTest {
 
         public void methodMyBaseClass2() {
         }
-        
+
     }
 
     public static abstract class MyBaseClass1 extends MyBaseClass2 {
@@ -222,11 +213,11 @@ public class UtilsTest {
     }
 
     public static abstract class MyBaseClass2 implements MyInterface4 {
-        
+
         public abstract void methodMyBaseClass2();
-        
+
     }
-    
+
     public static interface MyInterface1 {
 
         public Boolean methodMyInterface1(Long b);
@@ -242,8 +233,7 @@ public class UtilsTest {
         public void all();
 
     }
-    
-    
+
     public static interface MyInterface3 extends MySuperInterface {
 
     }
@@ -255,10 +245,10 @@ public class UtilsTest {
     }
 
     public static interface MyInterface4 {
-        
+
         public void methodMyInterface4();
-        
+
     }
-    
+
 }
 // CHECKSTYLE:ON

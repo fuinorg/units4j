@@ -31,19 +31,16 @@ public final class BaseTest {
 
     @Test
     public final void testCoverage() {
-        AssertCoverage.assertEveryClassHasATest(new File("src/main/java"),
-                new ClassFilter() {
-                    @Override
-                    public boolean isIncludeClass(final Class<?> clasz) {
-                        if ((clasz == EmptyClassVisitor.class)
-                                || (clasz == EmptyAnnotationVisitor.class)
-                                || (clasz == EmptyFieldVisitor.class)
-                                || (clasz == EmptyMethodVisitor.class)) {
-                            return false;
-                        }
-                        return true;
-                    }
-                });
+        AssertCoverage.assertEveryClassHasATest(new File("src/main/java"), new ClassFilter() {
+            @Override
+            public boolean isIncludeClass(final Class<?> clasz) {
+                if ((clasz == EmptyClassVisitor.class) || (clasz == EmptyAnnotationVisitor.class) || (clasz == EmptyFieldVisitor.class)
+                        || (clasz == EmptyMethodVisitor.class)) {
+                    return false;
+                }
+                return true;
+            }
+        });
     }
 
 }

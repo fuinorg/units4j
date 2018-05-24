@@ -131,14 +131,12 @@ public final class Units4JUtils {
      * @deprecated Use {@link JaxbUtils#marshal(Object, XmlAdapter[], Class...)}
      */
     @Deprecated
-    public static <T> String marshal(final T data, final XmlAdapter<?, ?>[] adapters,
-            @NotNull final Class<?>... classesToBeBound) {
+    public static <T> String marshal(final T data, final XmlAdapter<?, ?>[] adapters, @NotNull final Class<?>... classesToBeBound) {
         return JaxbUtils.marshal(data, adapters, classesToBeBound);
     }
 
     /**
-     * Marshals the given data using a given context. A <code>null</code> data argument returns
-     * <code>null</code>.
+     * Marshals the given data using a given context. A <code>null</code> data argument returns <code>null</code>.
      * 
      * @param ctx
      *            Context to use.
@@ -158,8 +156,7 @@ public final class Units4JUtils {
     }
 
     /**
-     * Marshals the given data using a given context. A <code>null</code> data argument returns
-     * <code>null</code>.
+     * Marshals the given data using a given context. A <code>null</code> data argument returns <code>null</code>.
      * 
      * @param ctx
      *            Context to use.
@@ -176,8 +173,7 @@ public final class Units4JUtils {
      * @deprecated Use {@link JaxbUtils#marshal(JAXBContext, Object, XmlAdapter[])}
      */
     @Deprecated
-    public static <T> String marshal(@NotNull final JAXBContext ctx, final T data,
-            final XmlAdapter<?, ?>[] adapters) {
+    public static <T> String marshal(@NotNull final JAXBContext ctx, final T data, final XmlAdapter<?, ?>[] adapters) {
         return JaxbUtils.marshal(ctx, data, adapters);
     }
 
@@ -219,14 +215,12 @@ public final class Units4JUtils {
      * @deprecated Use {@link JaxbUtils#unmarshal(String, XmlAdapter[], Class...)}
      */
     @Deprecated
-    public static <T> T unmarshal(final String xmlData, final XmlAdapter<?, ?>[] adapters,
-            @NotNull final Class<?>... classesToBeBound) {
+    public static <T> T unmarshal(final String xmlData, final XmlAdapter<?, ?>[] adapters, @NotNull final Class<?>... classesToBeBound) {
         return JaxbUtils.unmarshal(xmlData, adapters, classesToBeBound);
     }
 
     /**
-     * Unmarshals the given data using a given context. A <code>null</code> XML data argument returns
-     * <code>null</code>.
+     * Unmarshals the given data using a given context. A <code>null</code> XML data argument returns <code>null</code>.
      * 
      * @param ctx
      *            Context to use.
@@ -243,8 +237,7 @@ public final class Units4JUtils {
      * @deprecated Use {@link JaxbUtils#unmarshal(JAXBContext, String, XmlAdapter[])}
      */
     @Deprecated
-    public static <T> T unmarshal(@NotNull final JAXBContext ctx, final String xmlData,
-            final XmlAdapter<?, ?>[] adapters) {
+    public static <T> T unmarshal(@NotNull final JAXBContext ctx, final String xmlData, final XmlAdapter<?, ?>[] adapters) {
         return JaxbUtils.unmarshal(ctx, xmlData, adapters);
     }
 
@@ -264,8 +257,7 @@ public final class Units4JUtils {
             field.setAccessible(true);
             field.set(obj, value);
         } catch (final Exception ex) {
-            throw new RuntimeException("Couldn't set field '" + name + "' in class '" + obj.getClass() + "'",
-                    ex);
+            throw new RuntimeException("Couldn't set field '" + name + "' in class '" + obj.getClass() + "'", ex);
         }
     }
 
@@ -406,8 +398,7 @@ public final class Units4JUtils {
     }
 
     /**
-     * Loads a class and creates a Jandex class information for it. Uses the class loader of this utility
-     * class.
+     * Loads a class and creates a Jandex class information for it. Uses the class loader of this utility class.
      * 
      * @param clasz
      *            Class to load.
@@ -433,8 +424,7 @@ public final class Units4JUtils {
     }
 
     /**
-     * Loads a class by it's name and creates a Jandex class information for it. Uses the class loader of this
-     * utility class.
+     * Loads a class by it's name and creates a Jandex class information for it. Uses the class loader of this utility class.
      * 
      * @param className
      *            Full qualified name of the c
@@ -550,10 +540,10 @@ public final class Units4JUtils {
          */
         public KV(@NotNull final String key, @NotNull final String value) {
             super();
-            if (key == null) { //NOSONAR
+            if (key == null) { // NOSONAR
                 throw new IllegalArgumentException("Key cannot be null");
             }
-            if (value == null) { //NOSONAR
+            if (value == null) { // NOSONAR
                 throw new IllegalArgumentException("Value cannot be null");
             }
             this.key = key;

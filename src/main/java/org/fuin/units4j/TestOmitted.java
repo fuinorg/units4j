@@ -24,8 +24,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * States that the annotated test class contains no tests by intention. This
- * avoids test failures when test coverage checks are done.
+ * States that the annotated test class contains no tests by intention. This avoids test failures when test coverage checks are done.
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

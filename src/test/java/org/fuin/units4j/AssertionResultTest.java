@@ -17,11 +17,10 @@
  */
 package org.fuin.units4j;
 
-
 /**
  * Tests the {@link AssertionResult} class.
  */
 @TestOmitted("Already tested implicitly with other classes")
-public class AssertionResultTest { //NOSONAR
-    
+public class AssertionResultTest { // NOSONAR
+
 }

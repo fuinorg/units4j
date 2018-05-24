@@ -18,8 +18,7 @@ public class EmptyFieldVisitor extends FieldVisitor {
     }
 
     @Override
-    public AnnotationVisitor visitAnnotation(final String desc,
-            final boolean visible) {
+    public AnnotationVisitor visitAnnotation(final String desc, final boolean visible) {
         return an;
     }
 

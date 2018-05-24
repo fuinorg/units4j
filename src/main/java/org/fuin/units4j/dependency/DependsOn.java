@@ -28,8 +28,7 @@ public final class DependsOn extends Dependency {
      * Constructor with name. Sub package dependencies are included.
      * 
      * @param packageName
-     *            Full qualified name of the package - Cannot be
-     *            <code>null</code>.
+     *            Full qualified name of the package - Cannot be <code>null</code>.
      */
     public DependsOn(final String packageName) {
         super(packageName);
@@ -39,11 +38,9 @@ public final class DependsOn extends Dependency {
      * Constructor with name.
      * 
      * @param packageName
-     *            Full qualified name of the package - Cannot be
-     *            <code>null</code>.
+     *            Full qualified name of the package - Cannot be <code>null</code>.
      * @param includeSubPackages
-     *            If sub package dependencies are included <code>true</code>
-     *            else <code>false</code>.
+     *            If sub package dependencies are included <code>true</code> else <code>false</code>.
      */
     public DependsOn(final String packageName, final boolean includeSubPackages) {
         super(packageName, includeSubPackages);

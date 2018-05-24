@@ -27,16 +27,14 @@ import org.fuin.utils4j.Utils4J;
 
 // CHECKSTYLE:OFF
 /**
- * Package and it's allowed or disallowed dependencies (this depends on the
- * context of this object. Two objects are considered equal if the names are
- * equal.
+ * Package and it's allowed or disallowed dependencies (this depends on the context of this object. Two objects are considered equal if the
+ * names are equal.
  * 
  * @param <DEP_TYPE>
  *            Type of dependency.
  */
 // CHECKSTYLE:ON
-public final class Package<DEP_TYPE extends Dependency> implements
-        ToDebugStringCapable, Serializable {
+public final class Package<DEP_TYPE extends Dependency> implements ToDebugStringCapable, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -135,8 +133,7 @@ public final class Package<DEP_TYPE extends Dependency> implements
     /**
      * Returns a comment why restrictions apply.
      * 
-     * @return Description of the restriction for all dependencies in the
-     *         package.
+     * @return Description of the restriction for all dependencies in the package.
      */
     public final String getComment() {
         return comment;

@@ -79,8 +79,8 @@ public class RuleMethodHasNullabilityInfoTest {
     @Test
     public final void testOkMethod4() {
 
-        final AssertionResult result = testee.verify(CLASS_INFO.method("okMethod4",
-                Type.create(DotName.createSimple(int.class.getName()), Kind.PRIMITIVE)));
+        final AssertionResult result = testee
+                .verify(CLASS_INFO.method("okMethod4", Type.create(DotName.createSimple(int.class.getName()), Kind.PRIMITIVE)));
         assertThat(result).isNotNull();
         assertThat(result.getErrorMessage()).isEqualTo("");
 
@@ -89,8 +89,8 @@ public class RuleMethodHasNullabilityInfoTest {
     @Test
     public final void testokMethod5() {
 
-        final AssertionResult result = testee.verify(CLASS_INFO.method("okMethod5",
-                Type.create(DotName.createSimple(Integer.class.getName()), Kind.CLASS)));
+        final AssertionResult result = testee
+                .verify(CLASS_INFO.method("okMethod5", Type.create(DotName.createSimple(Integer.class.getName()), Kind.CLASS)));
         assertThat(result).isNotNull();
         assertThat(result.getErrorMessage()).isEqualTo("");
 
@@ -102,8 +102,8 @@ public class RuleMethodHasNullabilityInfoTest {
         final MethodInfo method = CLASS_INFO.method("failedMethod1");
         final AssertionResult result = testee.verify(method);
         assertThat(result).isNotNull();
-        assertThat(result.getErrorMessage()).isEqualTo(
-                MyClass.class.getName() + "\t" + method + "\t" + "Return type (java.lang.Boolean)\n");
+        assertThat(result.getErrorMessage())
+                .isEqualTo(MyClass.class.getName() + "\t" + method + "\t" + "Return type (java.lang.Boolean)\n");
 
     }
 
@@ -122,16 +122,14 @@ public class RuleMethodHasNullabilityInfoTest {
     @Test
     public final void testFailedMethod3() {
 
-        final MethodInfo method = CLASS_INFO.method("failedMethod3", type(Integer.class),
-                type(boolean.class), type(Long.class), type(String.class));
+        final MethodInfo method = CLASS_INFO.method("failedMethod3", type(Integer.class), type(boolean.class), type(Long.class),
+                type(String.class));
         final String location = MyClass.class.getName() + "\t" + method + "\t";
 
         final AssertionResult result = testee.verify(method);
         assertThat(result).isNotNull();
-        assertThat(result.getErrorMessage()).isEqualTo(
-                location + "Return type (java.lang.Double)\n" + location
-                        + "Parameter #0 (java.lang.Integer)\n" + location
-                        + "Parameter #3 (java.lang.String)\n");
+        assertThat(result.getErrorMessage()).isEqualTo(location + "Return type (java.lang.Double)\n" + location
+                + "Parameter #0 (java.lang.Integer)\n" + location + "Parameter #3 (java.lang.String)\n");
 
     }
 

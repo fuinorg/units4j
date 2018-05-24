@@ -31,8 +31,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 /**
- * Base class for lightweight unit tests with entity manager. The tests tries to
- * find a configuration properties file in the resource path:<br>
+ * Base class for lightweight unit tests with entity manager. The tests tries to find a configuration properties file in the resource
+ * path:<br>
  * /org/fuin/units4j/AbstractPersistenceTest.properties<br>
  * You can use this file to configure the following properties:<br>
  * driver=org.hsqldb.jdbcDriver<br>
@@ -57,14 +57,12 @@ public abstract class AbstractPersistenceTest {
             emf = Persistence.createEntityManagerFactory("testPU");
             em = emf.createEntityManager();
             final Map<String, Object> props = emf.getProperties();
-            final boolean shutdown = Boolean.valueOf(""
-                    + props.get("units4j.shutdown"));
+            final boolean shutdown = Boolean.valueOf("" + props.get("units4j.shutdown"));
             if (shutdown) {
                 final String connUrl = "" + props.get("units4j.url");
                 final String connUsername = "" + props.get("units4j.user");
                 final String connPassword = "" + props.get("units4j.pw");
-                connection = DriverManager.getConnection(connUrl, connUsername,
-                        connPassword);
+                connection = DriverManager.getConnection(connUrl, connUsername, connPassword);
             }
 
         } catch (final SQLException ex) {
@@ -98,8 +96,7 @@ public abstract class AbstractPersistenceTest {
      */
     protected static EntityManager getEm() {
         if (em == null) {
-            throw new IllegalStateException(
-                    "Entity manager not available - Something went wrong...");
+            throw new IllegalStateException("Entity manager not available - Something went wrong...");
         }
         return em;
     }

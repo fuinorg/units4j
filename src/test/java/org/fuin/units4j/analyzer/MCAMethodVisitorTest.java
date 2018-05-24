@@ -44,8 +44,7 @@ public final class MCAMethodVisitorTest {
 
     @Before
     public final void setup() {
-        setScale = new MCAMethod(BigDecimal.class.getName(),
-                BigDecimal.class.getName() + " setScale(int)");
+        setScale = new MCAMethod(BigDecimal.class.getName(), BigDecimal.class.getName() + " setScale(int)");
         toFind = new ArrayList<MCAMethod>();
         toFind.add(setScale);
         classVisitor = new MCAClassVisitor(toFind);
@@ -78,9 +77,8 @@ public final class MCAMethodVisitorTest {
         assertThat(testee.isFound()).isFalse();
 
         // TEST
-        testee.visitMethodInsn(0, BigDecimal.class.getName().replace('.', '/'),
-                setScale.getMethod().getName(), setScale.getMethod()
-                        .getDescriptor(), false);
+        testee.visitMethodInsn(0, BigDecimal.class.getName().replace('.', '/'), setScale.getMethod().getName(),
+                setScale.getMethod().getDescriptor(), false);
 
         // VERIFY
         assertThat(testee.isFound()).isTrue();
@@ -91,9 +89,8 @@ public final class MCAMethodVisitorTest {
     public final void testVisitCode() {
 
         // PREPARE
-        testee.visitMethodInsn(0, BigDecimal.class.getName().replace('.', '/'),
-                setScale.getMethod().getName(), setScale.getMethod()
-                        .getDescriptor(), false);
+        testee.visitMethodInsn(0, BigDecimal.class.getName().replace('.', '/'), setScale.getMethod().getName(),
+                setScale.getMethod().getDescriptor(), false);
         assertThat(testee.isFound()).isTrue();
 
         // TEST
@@ -109,12 +106,10 @@ public final class MCAMethodVisitorTest {
 
         // PREPARE
         classVisitor.visit(0, 0, "a.b.c.MyClass", null, null, null);
-        classVisitor.visitMethod(0, "myMethod", "(Ljava/lang/String;)I", null,
-                null);
+        classVisitor.visitMethod(0, "myMethod", "(Ljava/lang/String;)I", null, null);
         testee.visitCode();
-        testee.visitMethodInsn(0, BigDecimal.class.getName().replace('.', '/'),
-                setScale.getMethod().getName(), setScale.getMethod()
-                        .getDescriptor(), false);
+        testee.visitMethodInsn(0, BigDecimal.class.getName().replace('.', '/'), setScale.getMethod().getName(),
+                setScale.getMethod().getDescriptor(), false);
 
         // TEST
         testee.visitLineNumber(123, null);

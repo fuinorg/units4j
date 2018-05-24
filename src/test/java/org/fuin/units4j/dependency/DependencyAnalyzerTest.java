@@ -67,8 +67,7 @@ public final class DependencyAnalyzerTest {
     }
 
     @Test
-    public final void testDependencyCreationAnalyzerDependencies()
-            throws InvalidDependenciesDefinitionException {
+    public final void testDependencyCreationAnalyzerDependencies() throws InvalidDependenciesDefinitionException {
 
         final Dependencies dependencies = new Dependencies();
         final DependencyAnalyzer testee = new DependencyAnalyzer(dependencies);
@@ -88,8 +87,7 @@ public final class DependencyAnalyzerTest {
         assertThat(forbidden).contains(new Package<NotDependsOn>("dummy.test.bad"));
         final Package<NotDependsOn> forbiddenPkg = forbidden.get(0);
         assertThat(forbiddenPkg.getDependencies()).hasSize(2);
-        assertThat(forbiddenPkg.getDependencies()).contains(new NotDependsOn("dummy.bad"),
-                new NotDependsOn("dummy.test"));
+        assertThat(forbiddenPkg.getDependencies()).contains(new NotDependsOn("dummy.bad"), new NotDependsOn("dummy.test"));
 
         testee.analyze(new File("target/test-classes/dummy/test/bad"));
         final List<DependencyError> errors = testee.getDependencyErrors();
@@ -103,20 +101,16 @@ public final class DependencyAnalyzerTest {
         messages.add(errors.get(1).toString());
         messages.add(errors.get(2).toString());
 
-        assertThat(messages).contains(
-                "dummy.test.bad.BadOne => dummy.test "
-                        + "[You should not use something from the parent package!]",
+        assertThat(messages).contains("dummy.test.bad.BadOne => dummy.test " + "[You should not use something from the parent package!]",
                 "dummy.test.bad.BadOne => dummy.bad.a [This is an evil package!]",
-                "dummy.test.bad.BadOne => org.fuin.utils4j "
-                        + "[This is a nice utility but not allowed here!]");
+                "dummy.test.bad.BadOne => org.fuin.utils4j " + "[This is a nice utility but not allowed here!]");
 
     }
 
     @Test
     public final void testAlwaysForbidden() throws InvalidDependenciesDefinitionException, IOException {
 
-        final DependencyAnalyzer testee = new DependencyAnalyzer(this.getClass(),
-                "/dummy-always-forbidden.xml");
+        final DependencyAnalyzer testee = new DependencyAnalyzer(this.getClass(), "/dummy-always-forbidden.xml");
         testee.analyze(new File("target/test-classes/dummy/test/bad"));
         final List<DependencyError> errors = testee.getDependencyErrors();
         assertThat(errors).hasSize(3);
@@ -126,8 +120,8 @@ public final class DependencyAnalyzerTest {
         messages.add(errors.get(1).toString());
         messages.add(errors.get(2).toString());
 
-        assertThat(messages).contains("dummy.test.bad.BadOne => dummy.bad.a",
-                "dummy.test.bad.BadOne => dummy.test", "dummy.test.bad.BadOne => org.fuin.utils4j");
+        assertThat(messages).contains("dummy.test.bad.BadOne => dummy.bad.a", "dummy.test.bad.BadOne => dummy.test",
+                "dummy.test.bad.BadOne => org.fuin.utils4j");
 
     }
 
@@ -142,8 +136,7 @@ public final class DependencyAnalyzerTest {
         assertThat(allowed).contains(new Package<DependsOn>("dummy.test.good"));
         final Package<DependsOn> allowedPkg = allowed.get(0);
         assertThat(allowedPkg.getDependencies()).hasSize(2);
-        assertThat(allowedPkg.getDependencies()).contains(new DependsOn("dummy.good"),
-                new DependsOn("org.fuin.utils4j"));
+        assertThat(allowedPkg.getDependencies()).contains(new DependsOn("dummy.good"), new DependsOn("org.fuin.utils4j"));
 
         testee.analyze(new File("target/test-classes/dummy/test/good"));
         final List<DependencyError> errors = testee.getDependencyErrors();
@@ -155,8 +148,7 @@ public final class DependencyAnalyzerTest {
     @SuppressWarnings("unchecked")
     public final void testNothingAllowed() throws InvalidDependenciesDefinitionException, IOException {
 
-        final DependencyAnalyzer testee = new DependencyAnalyzer(this.getClass(),
-                "/dummy-nothing-allowed.xml");
+        final DependencyAnalyzer testee = new DependencyAnalyzer(this.getClass(), "/dummy-nothing-allowed.xml");
 
         final List<Package<DependsOn>> allowed = testee.getDependencies().getAllowed();
         assertThat(allowed).hasSize(1);

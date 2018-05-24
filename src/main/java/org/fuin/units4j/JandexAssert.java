@@ -45,8 +45,8 @@ import org.jboss.jandex.MethodInfo;
 public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
 
     private static final int SYNTHETIC = 0x1000;
-    private static final int BRIDGE    = 0x0040;
-    
+    private static final int BRIDGE = 0x0040;
+
     /**
      * Constructor to build assertion class with the object we want to make assertions on.
      * 
@@ -73,8 +73,7 @@ public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
      * Verifies that all class that are annotated with {@link Entity} observe the rules for JPA entities.
      * 
      * <ul>
-     * <li>The class must have a public or protected, no-argument constructor. The class may have other
-     * constructors.</li>
+     * <li>The class must have a public or protected, no-argument constructor. The class may have other constructors.</li>
      * <li>The class must not be declared final.</li>
      * <li>No methods or persistent instance variables must be declared final.</li>
      * <li>Persistent instance variables must be declared private, protected, or package-private.</li>
@@ -92,9 +91,8 @@ public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
         for (final AnnotationInstance ai : annotations) {
             final AnnotationTarget target = ai.target();
             final ClassInfo info = target.asClass();
-            final AssertionRules<ClassInfo> rules = new AssertionRules<ClassInfo>(
-                    new RulePublicOrProtectedNoArgConstructor(), new RuleClassNotFinal(),
-                    new RuleClassHasNoFinalMethods(), new RulePersistentInstanceFieldVisibility());
+            final AssertionRules<ClassInfo> rules = new AssertionRules<ClassInfo>(new RulePublicOrProtectedNoArgConstructor(),
+                    new RuleClassNotFinal(), new RuleClassHasNoFinalMethods(), new RulePersistentInstanceFieldVisibility());
             final AssertionResult result = rules.verify(info);
             if (!result.isValid()) {
                 failWithMessage(result.getErrorMessage());
@@ -106,9 +104,9 @@ public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
     }
 
     /**
-     * Checks if all public, protected and package visible methods define nullability. This means they have
-     * either <code>javax.validation.constraints.NotNull</code> or
-     * <code>org.fuin.objects4j.common.Nullable</code> annotations for parameters and return values.
+     * Checks if all public, protected and package visible methods define nullability. This means they have either
+     * <code>javax.validation.constraints.NotNull</code> or <code>org.fuin.objects4j.common.Nullable</code> annotations for parameters and
+     * return values.
      * 
      * @return Self.
      */
@@ -140,8 +138,7 @@ public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
         }
 
         if (!ok) {
-            failWithMessage("A parameter or the return value has neither a "
-                    + "@NotNull nor a @Nullable annotation:\n" + sb.toString());
+            failWithMessage("A parameter or the return value has neither a " + "@NotNull nor a @Nullable annotation:\n" + sb.toString());
         }
 
         return this;
@@ -172,8 +169,7 @@ public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
                 return true;
             }
         }
-        if (method.declaringClass().name().toString().contains("$") && method.name().equals("get")
-                && (method.parameters().size() == 0)) {
+        if (method.declaringClass().name().toString().contains("$") && method.name().equals("get") && (method.parameters().size() == 0)) {
             return true;
         }
         if (method.declaringClass().name().toString().contains("$") && method.name().equals("<init>")
@@ -182,7 +178,7 @@ public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
         }
         return false;
     }
-    
+
     private boolean isSynthetic(final short flags) {
         return (flags & SYNTHETIC) > 0;
     }
@@ -190,5 +186,5 @@ public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
     private boolean isBridge(final short flags) {
         return (flags & BRIDGE) > 0;
     }
-    
+
 }

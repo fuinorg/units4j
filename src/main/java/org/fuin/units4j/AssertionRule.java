@@ -20,17 +20,19 @@ package org.fuin.units4j;
 /**
  * A rule used in assertions.
  * 
- * @param <T> Type of object to validate.
+ * @param <T>
+ *            Type of object to validate.
  */
 public interface AssertionRule<T> {
-    
+
     /**
      * Verifies if the object observes the rule.
      * 
-     * @param obj Object to test.
+     * @param obj
+     *            Object to test.
      * 
      * @return Result of the verification.
      */
     public AssertionResult verify(T obj);
-    
+
 }

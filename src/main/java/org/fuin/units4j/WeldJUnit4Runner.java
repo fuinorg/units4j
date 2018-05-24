@@ -42,8 +42,7 @@ public final class WeldJUnit4Runner extends BlockJUnit4ClassRunner {
      * @throws InitializationError
      *             if the test class is malformed.
      */
-    public WeldJUnit4Runner(final Class<Object> unitTestClass)
-            throws InitializationError {
+    public WeldJUnit4Runner(final Class<Object> unitTestClass) throws InitializationError {
         super(unitTestClass);
         this.unitTestClass = unitTestClass;
         this.weld = new Weld();

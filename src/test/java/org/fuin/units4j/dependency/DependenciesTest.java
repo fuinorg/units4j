@@ -44,29 +44,28 @@ public final class DependenciesTest {
         testee.validate();
 
     }
-    
+
     @Test
     public final void testSerDeserialize() {
-	
-	// PREPARE
+
+        // PREPARE
         final Dependencies testee = new Dependencies();
         final Package<DependsOn> abc = new Package<DependsOn>("a.b.c");
-	testee.getAllowed().add(abc);
+        testee.getAllowed().add(abc);
         final Package<NotDependsOn> def = new Package<NotDependsOn>("d.e.f");
-	testee.getForbidden().add(def);
-	
-	// TEST
-	final byte[] data = Utils4J.serialize(testee);
-	final Dependencies copy = Utils4J.deserialize(data); 
-	
-	// VERIFY
+        testee.getForbidden().add(def);
+
+        // TEST
+        final byte[] data = Utils4J.serialize(testee);
+        final Dependencies copy = Utils4J.deserialize(data);
+
+        // VERIFY
         assertThat(copy.getAlwaysAllowed()).isEmpty();
         assertThat(copy.getAlwaysForbidden()).isEmpty();
         assertThat(copy.getAllowed()).containsExactly(abc);
         assertThat(copy.getForbidden()).containsExactly(def);
-	
+
     }
-    
 
 }
 // CHECKSTYLE:ON

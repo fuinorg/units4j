@@ -33,20 +33,14 @@ public final class AssertUsageTest {
 
         final File binDir = new File("target/test-classes");
         final MCAMethod divide = new MCAMethod(BigDecimal.class.getName(),
-                BigDecimal.class.getName() + " divide("
-                        + BigDecimal.class.getName() + ")");
+                BigDecimal.class.getName() + " divide(" + BigDecimal.class.getName() + ")");
 
         try {
             AssertUsage.assertMethodsNotUsed(binDir, null, divide);
         } catch (final AssertionError err) {
-            assertThat(err.getMessage())
-                    .isEqualTo(
-                            "Illegal method call(s) found:\n"
-                                    + "Source='FindMethodCallExampleClasz.java', Line=17, "
-                                    + "Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz, "
-                                    + "Method='void <init>()' ==CALLS==> "
-                                    + "Class='java.math.BigDecimal, "
-                                    + "Method='java.math.BigDecimal divide(java.math.BigDecimal)'");
+            assertThat(err.getMessage()).isEqualTo("Illegal method call(s) found:\n" + "Source='FindMethodCallExampleClasz.java', Line=17, "
+                    + "Class='org.fuin.units4j.analyzer.FindMethodCallExampleClasz, " + "Method='void <init>()' ==CALLS==> "
+                    + "Class='java.math.BigDecimal, " + "Method='java.math.BigDecimal divide(java.math.BigDecimal)'");
         }
 
         assertThat(true).isTrue();

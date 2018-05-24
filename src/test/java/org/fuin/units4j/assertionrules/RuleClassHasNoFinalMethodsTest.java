@@ -57,8 +57,7 @@ public class RuleClassHasNoFinalMethodsTest {
         assertThat(result).isNotNull();
         assertThat(result.isValid()).isFalse();
         assertThat(result.getErrorMessage()).isEqualTo(
-                "Class " + ClassWithFinalMethods.class.getName() + " has final methods:\n" + "void a()\n"
-                        + "java.lang.Integer b()\n");
+                "Class " + ClassWithFinalMethods.class.getName() + " has final methods:\n" + "void a()\n" + "java.lang.Integer b()\n");
 
     }
 

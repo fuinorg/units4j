@@ -36,8 +36,7 @@ public class InvalidDependenciesDefinitionException extends Exception {
      * @param message
      *            Error message.
      */
-    public InvalidDependenciesDefinitionException(
-            final Dependencies dependencies, final String message) {
+    public InvalidDependenciesDefinitionException(final Dependencies dependencies, final String message) {
         super(message);
         Utils4J.checkNotNull("dependencies", dependencies);
         this.dependencies = dependencies;

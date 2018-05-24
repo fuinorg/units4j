@@ -37,8 +37,7 @@ public abstract class Dependency implements ToDebugStringCapable, Serializable {
      * Constructor with name and comment.
      * 
      * @param packageName
-     *            Full qualified name of the package - Cannot be
-     *            <code>null</code>.
+     *            Full qualified name of the package - Cannot be <code>null</code>.
      */
     public Dependency(final String packageName) {
         this(packageName, true);
@@ -48,11 +47,9 @@ public abstract class Dependency implements ToDebugStringCapable, Serializable {
      * Constructor with all possible arguments.
      * 
      * @param packageName
-     *            Full qualified name of the package - Cannot be
-     *            <code>null</code>.
+     *            Full qualified name of the package - Cannot be <code>null</code>.
      * @param includeSubPackages
-     *            If sub package dependencies are included <code>true</code>
-     *            else <code>false</code>.
+     *            If sub package dependencies are included <code>true</code> else <code>false</code>.
      */
     public Dependency(final String packageName, final boolean includeSubPackages) {
         super();
@@ -73,8 +70,7 @@ public abstract class Dependency implements ToDebugStringCapable, Serializable {
     /**
      * Does this include the sub packages?
      * 
-     * @return If sub package dependencies are included <code>true</code>
-     *         (default) else <code>false</code>.
+     * @return If sub package dependencies are included <code>true</code> (default) else <code>false</code>.
      */
     public final boolean isIncludeSubPackages() {
         if (includeSubPackages == null) {
@@ -88,8 +84,7 @@ public abstract class Dependency implements ToDebugStringCapable, Serializable {
     public final int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result
-                + ((packageName == null) ? 0 : packageName.hashCode());
+        result = prime * result + ((packageName == null) ? 0 : packageName.hashCode());
         return result;
     }
 

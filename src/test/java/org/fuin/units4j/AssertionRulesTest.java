@@ -31,7 +31,7 @@ public class AssertionRulesTest {
     @Test
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public void testVerifyOK() {
-        
+
         // PREPARE
         final AssertionRule ruleA = new AssertionRule() {
             @Override
@@ -46,21 +46,21 @@ public class AssertionRulesTest {
             }
         };
         final AssertionRules rules = new AssertionRules(ruleA, ruleB);
-        
+
         // TEST
         final AssertionResult result = rules.verify("does not matter here");
-        
+
         // VERIFY
         assertThat(result).isNotNull();
         assertThat(result.isValid()).isTrue();
         assertThat(result.getErrorMessage()).isEqualTo("");
-        
+
     }
 
     @Test
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public void testVerifyMixed() {
-        
+
         // PREPARE
         final String errorMsg = "Error!";
         final AssertionRule ruleA = new AssertionRule() {
@@ -76,21 +76,21 @@ public class AssertionRulesTest {
             }
         };
         final AssertionRules rules = new AssertionRules(ruleA, ruleB);
-        
+
         // TEST
         final AssertionResult result = rules.verify("does not matter here");
-        
+
         // VERIFY
         assertThat(result).isNotNull();
         assertThat(result.isValid()).isFalse();
         assertThat(result.getErrorMessage()).isEqualTo(errorMsg + "\n");
-        
+
     }
 
     @Test
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public void testVerifyError() {
-        
+
         // PREPARE
         final String errorMsgA = "ErrorA!";
         final String errorMsgB = "ErrorB!";
@@ -107,57 +107,57 @@ public class AssertionRulesTest {
             }
         };
         final AssertionRules rules = new AssertionRules(ruleA, ruleB);
-        
+
         // TEST
         final AssertionResult result = rules.verify("does not matter here");
-        
+
         // VERIFY
         assertThat(result).isNotNull();
         assertThat(result.isValid()).isFalse();
         assertThat(result.getErrorMessage()).isEqualTo(errorMsgA + "\n" + errorMsgB + "\n");
-        
+
     }
-    
+
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Test
     public void testConstructionWithNoArgs() {
-        
+
         try {
             new AssertionRules();
             fail();
         } catch (final IllegalArgumentException ex) {
             assertThat(ex.getMessage()).isEqualTo("Argument 'rules' cannot be an empty array");
         }
-        
+
     }
-    
+
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Test
     public void testConstructionWithEmptyArray() {
-        
+
         try {
-            final AssertionRule[] rules = new AssertionRule[] {}; 
+            final AssertionRule[] rules = new AssertionRule[] {};
             new AssertionRules(rules);
             fail();
         } catch (final IllegalArgumentException ex) {
             assertThat(ex.getMessage()).isEqualTo("Argument 'rules' cannot be an empty array");
         }
-        
+
     }
-    
+
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Test
     public void testConstructionWithNullInArray() {
-        
+
         try {
-            final AssertionRule[] rules = new AssertionRule[] { null }; 
+            final AssertionRule[] rules = new AssertionRule[] { null };
             new AssertionRules(rules);
             fail();
         } catch (final IllegalArgumentException ex) {
             assertThat(ex.getMessage()).isEqualTo("Argument 'rules' cannot contain null elements");
         }
-        
+
     }
-    
+
 }
 // CHECKSTYLE:ON

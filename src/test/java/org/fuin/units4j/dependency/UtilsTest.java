@@ -45,8 +45,7 @@ public final class UtilsTest {
     @SuppressWarnings("unchecked")
     public final void testSaveLoad() throws IOException {
 
-        final File file = File.createTempFile(this.getClass().getSimpleName()
-                + "_testSaveLoad", ".xml");
+        final File file = File.createTempFile(this.getClass().getSimpleName() + "_testSaveLoad", ".xml");
         try {
 
             final Dependencies dependencies = new Dependencies();
@@ -56,18 +55,14 @@ public final class UtilsTest {
             final DependsOn dependsOn2 = new DependsOn("a.b.d", false);
             dependencies.getAlwaysAllowed().add(dependsOn2);
 
-            final NotDependsOn notDependsOn1 = new NotDependsOn("a.b.e", true,
-                    "An important comment");
+            final NotDependsOn notDependsOn1 = new NotDependsOn("a.b.e", true, "An important comment");
             dependencies.getAlwaysForbidden().add(notDependsOn1);
-            final NotDependsOn notDependsOn2 = new NotDependsOn("a.b.f", false,
-                    "Whatever comment");
+            final NotDependsOn notDependsOn2 = new NotDependsOn("a.b.f", false, "Whatever comment");
             dependencies.getAlwaysForbidden().add(notDependsOn2);
 
-            final Package<DependsOn> allowedPackage = new Package<DependsOn>(
-                    "org.fuin.utils4j", "Allowed comment");
+            final Package<DependsOn> allowedPackage = new Package<DependsOn>("org.fuin.utils4j", "Allowed comment");
             dependencies.getAllowed().add(allowedPackage);
-            final Package<NotDependsOn> forbiddenPackage = new Package<NotDependsOn>(
-                    "javax.security", "Forbidden comment");
+            final Package<NotDependsOn> forbiddenPackage = new Package<NotDependsOn>("javax.security", "Forbidden comment");
             dependencies.getForbidden().add(forbiddenPackage);
 
             // Save to disk
@@ -78,11 +73,9 @@ public final class UtilsTest {
 
             assertThat(loaded).isNotNull();
             assertThat(loaded.getAlwaysAllowed()).hasSize(2);
-            assertThat(loaded.getAlwaysAllowed()).contains(dependsOn1,
-                    dependsOn2);
+            assertThat(loaded.getAlwaysAllowed()).contains(dependsOn1, dependsOn2);
             assertThat(loaded.getAlwaysForbidden()).hasSize(2);
-            assertThat(loaded.getAlwaysForbidden()).contains(notDependsOn1,
-                    notDependsOn2);
+            assertThat(loaded.getAlwaysForbidden()).contains(notDependsOn1, notDependsOn2);
             assertThat(loaded.getAllowed()).hasSize(1);
             assertThat(loaded.getAllowed()).contains(allowedPackage);
             assertThat(loaded.getForbidden()).hasSize(1);
@@ -125,12 +118,9 @@ public final class UtilsTest {
         allowedList.add(dependsOn);
 
         assertThat(Utils.findAllowedByName(allowedList, "org")).isNull();
-        assertThat(Utils.findAllowedByName(allowedList, "org.fuin")).isEqualTo(
-                dependsOn);
-        assertThat(Utils.findAllowedByName(allowedList, "org.fuin.utils4j"))
-                .isEqualTo(dependsOn);
-        assertThat(Utils.findAllowedByName(allowedList, "org.fuin.utils4j.xyz"))
-                .isEqualTo(dependsOn);
+        assertThat(Utils.findAllowedByName(allowedList, "org.fuin")).isEqualTo(dependsOn);
+        assertThat(Utils.findAllowedByName(allowedList, "org.fuin.utils4j")).isEqualTo(dependsOn);
+        assertThat(Utils.findAllowedByName(allowedList, "org.fuin.utils4j.xyz")).isEqualTo(dependsOn);
 
     }
 
@@ -143,12 +133,9 @@ public final class UtilsTest {
         allowedList.add(dependsOn);
 
         assertThat(Utils.findAllowedByName(allowedList, "org")).isNull();
-        assertThat(Utils.findAllowedByName(allowedList, "org.fuin")).isEqualTo(
-                dependsOn);
-        assertThat(Utils.findAllowedByName(allowedList, "org.fuin.utils4j"))
-                .isNull();
-        assertThat(Utils.findAllowedByName(allowedList, "org.fuin.utils4j.xyz"))
-                .isNull();
+        assertThat(Utils.findAllowedByName(allowedList, "org.fuin")).isEqualTo(dependsOn);
+        assertThat(Utils.findAllowedByName(allowedList, "org.fuin.utils4j")).isNull();
+        assertThat(Utils.findAllowedByName(allowedList, "org.fuin.utils4j.xyz")).isNull();
 
     }
 
@@ -157,17 +144,13 @@ public final class UtilsTest {
 
         final List<NotDependsOn> notAllowedList = new ArrayList<NotDependsOn>();
         final boolean includeSubPackage = true;
-        final NotDependsOn notDependsOn = new NotDependsOn("org.dr",
-                includeSubPackage, "A comment");
+        final NotDependsOn notDependsOn = new NotDependsOn("org.dr", includeSubPackage, "A comment");
         notAllowedList.add(notDependsOn);
 
         assertThat(Utils.findForbiddenByName(notAllowedList, "org")).isNull();
-        assertThat(Utils.findForbiddenByName(notAllowedList, "org.dr"))
-                .isEqualTo(notDependsOn);
-        assertThat(Utils.findForbiddenByName(notAllowedList, "org.dr.evil"))
-                .isEqualTo(notDependsOn);
-        assertThat(Utils.findForbiddenByName(notAllowedList, "org.dr.evil.xyz"))
-                .isEqualTo(notDependsOn);
+        assertThat(Utils.findForbiddenByName(notAllowedList, "org.dr")).isEqualTo(notDependsOn);
+        assertThat(Utils.findForbiddenByName(notAllowedList, "org.dr.evil")).isEqualTo(notDependsOn);
+        assertThat(Utils.findForbiddenByName(notAllowedList, "org.dr.evil.xyz")).isEqualTo(notDependsOn);
 
     }
 
@@ -176,17 +159,13 @@ public final class UtilsTest {
 
         final List<NotDependsOn> notAllowedList = new ArrayList<NotDependsOn>();
         final boolean includeSubPackage = false;
-        final NotDependsOn notDependsOn = new NotDependsOn("org.dr",
-                includeSubPackage, "A comment");
+        final NotDependsOn notDependsOn = new NotDependsOn("org.dr", includeSubPackage, "A comment");
         notAllowedList.add(notDependsOn);
 
         assertThat(Utils.findForbiddenByName(notAllowedList, "org")).isNull();
-        assertThat(Utils.findForbiddenByName(notAllowedList, "org.dr"))
-                .isEqualTo(notDependsOn);
-        assertThat(Utils.findForbiddenByName(notAllowedList, "org.dr.evil"))
-                .isNull();
-        assertThat(Utils.findForbiddenByName(notAllowedList, "org.dr.evil.xyz"))
-                .isNull();
+        assertThat(Utils.findForbiddenByName(notAllowedList, "org.dr")).isEqualTo(notDependsOn);
+        assertThat(Utils.findForbiddenByName(notAllowedList, "org.dr.evil")).isNull();
+        assertThat(Utils.findForbiddenByName(notAllowedList, "org.dr.evil.xyz")).isNull();
 
     }
 

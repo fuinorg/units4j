@@ -53,8 +53,7 @@ public final class Utils {
      * 
      * @return TRUE if the list contains the annotation, else FALSE.
      */
-    public static boolean hasAnnotation(final List<AnnotationInstance> annotations,
-            final String annotationClaszName) {
+    public static boolean hasAnnotation(final List<AnnotationInstance> annotations, final String annotationClaszName) {
         final DotName annotationName = DotName.createSimple(annotationClaszName);
         for (final AnnotationInstance annotation : annotations) {
             if (annotation.name().equals(annotationName)) {
@@ -65,16 +64,15 @@ public final class Utils {
     }
 
     /**
-     * Create a map for parameter annotations. The key id the index (zero based) of the parameter and the
-     * value is a list of all annotations.
+     * Create a map for parameter annotations. The key id the index (zero based) of the parameter and the value is a list of all
+     * annotations.
      * 
      * @param method
      *            Method to create a map for.
      * 
      * @return Map with parameter index (key) and list of annotations (value).
      */
-    public static Map<Integer, List<AnnotationInstance>> createParameterAnnotationMap(
-            final MethodInfo method) {
+    public static Map<Integer, List<AnnotationInstance>> createParameterAnnotationMap(final MethodInfo method) {
         final Map<Integer, List<AnnotationInstance>> result = new HashMap<>();
         for (AnnotationInstance ai : method.annotations()) {
             final AnnotationTarget at = ai.target();
@@ -112,8 +110,7 @@ public final class Utils {
     }
 
     /**
-     * Returns a list of all methods the given one overrides. Such methods can be found in interfaces and
-     * super classes.
+     * Returns a list of all methods the given one overrides. Such methods can be found in interfaces and super classes.
      * 
      * @param index
      *            Index with all known classes.
@@ -128,32 +125,31 @@ public final class Utils {
 
     }
 
-    private static List<MethodInfo> findOverrideMethods(final Index index, final ClassInfo clasz,
-            final MethodInfo methodToFind, final int level) {
+    private static List<MethodInfo> findOverrideMethods(final Index index, final ClassInfo clasz, final MethodInfo methodToFind,
+            final int level) {
 
         final List<MethodInfo> methods = new ArrayList<>();
         if (clasz != null) {
-            
+
             // Super classes
             if (level > 0) {
                 addIfFound(index, clasz, methodToFind, methods);
             }
-            
+
             // Check interfaces
             methods.addAll(findInterfaceMethods(index, clasz, methodToFind));
-    
+
             // Check super class
             final DotName superName = clasz.superName();
-            final ClassInfo superClass = index.getClassByName(superName);            
+            final ClassInfo superClass = index.getClassByName(superName);
             methods.addAll(findOverrideMethods(index, superClass, methodToFind, (level + 1)));
-            
+
         }
         return methods;
 
     }
 
-    private static List<MethodInfo> findInterfaceMethods(final Index index, final ClassInfo clasz,
-            final MethodInfo methodToFind) {
+    private static List<MethodInfo> findInterfaceMethods(final Index index, final ClassInfo clasz, final MethodInfo methodToFind) {
 
         final List<MethodInfo> methods = new ArrayList<>();
         if (clasz != null) {
@@ -171,8 +167,8 @@ public final class Utils {
     private static void addIfFound(final Index index, final ClassInfo clasz, final MethodInfo methodToFind,
             final List<MethodInfo> methods) {
         if (clasz != null) {
-            final MethodInfo foundMethod = clasz.method(methodToFind.name(), methodToFind.parameters()
-                    .toArray(new Type[methodToFind.parameters().size()]));
+            final MethodInfo foundMethod = clasz.method(methodToFind.name(),
+                    methodToFind.parameters().toArray(new Type[methodToFind.parameters().size()]));
             if (foundMethod != null) {
                 methods.add(foundMethod);
             }

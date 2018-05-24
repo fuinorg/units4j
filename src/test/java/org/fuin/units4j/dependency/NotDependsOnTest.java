@@ -30,59 +30,58 @@ public final class NotDependsOnTest {
 
     @Test
     public final void testConstructionString() {
-	final String name = "org.fuin.units4j.dependency";
-	final NotDependsOn testee = new NotDependsOn(name);
-	assertThat(testee.getPackageName()).isEqualTo(name);
-	assertThat(testee.toString()).isEqualTo(name);
-	assertThat(testee.getComment()).isNull();
-	assertThat(testee.isIncludeSubPackages()).isTrue();
+        final String name = "org.fuin.units4j.dependency";
+        final NotDependsOn testee = new NotDependsOn(name);
+        assertThat(testee.getPackageName()).isEqualTo(name);
+        assertThat(testee.toString()).isEqualTo(name);
+        assertThat(testee.getComment()).isNull();
+        assertThat(testee.isIncludeSubPackages()).isTrue();
     }
 
     @Test
     public final void testConstructionStringString() {
-	final String name = "org.fuin.units4j.dependency";
-	final String comment = "Whatever";
-	final NotDependsOn testee = new NotDependsOn(name, comment);
-	assertThat(testee.getPackageName()).isEqualTo(name);
-	assertThat(testee.toString()).isEqualTo(name);
-	assertThat(testee.getComment()).isEqualTo(comment);
-	assertThat(testee.isIncludeSubPackages()).isTrue();
+        final String name = "org.fuin.units4j.dependency";
+        final String comment = "Whatever";
+        final NotDependsOn testee = new NotDependsOn(name, comment);
+        assertThat(testee.getPackageName()).isEqualTo(name);
+        assertThat(testee.toString()).isEqualTo(name);
+        assertThat(testee.getComment()).isEqualTo(comment);
+        assertThat(testee.isIncludeSubPackages()).isTrue();
     }
 
     @Test
     public final void testConstructionStringBooleanString() {
-	final String name = "org.fuin.units4j.dependency";
-	final boolean recursive = true;
-	final String comment = "Whatever";
-	final NotDependsOn testee = new NotDependsOn(name, recursive, comment);
-	assertThat(testee.getPackageName()).isEqualTo(name);
-	assertThat(testee.isIncludeSubPackages()).isEqualTo(recursive);
-	assertThat(testee.getComment()).isEqualTo(comment);
+        final String name = "org.fuin.units4j.dependency";
+        final boolean recursive = true;
+        final String comment = "Whatever";
+        final NotDependsOn testee = new NotDependsOn(name, recursive, comment);
+        assertThat(testee.getPackageName()).isEqualTo(name);
+        assertThat(testee.isIncludeSubPackages()).isEqualTo(recursive);
+        assertThat(testee.getComment()).isEqualTo(comment);
     }
 
     @Test
     public final void testEqualsHashCode() {
-	EqualsVerifier.forClass(NotDependsOn.class).withRedefinedSuperclass()
-		.withIgnoredFields("includeSubPackages", "comment").verify();
+        EqualsVerifier.forClass(NotDependsOn.class).withRedefinedSuperclass().withIgnoredFields("includeSubPackages", "comment").verify();
     }
 
     @Test
     public final void testSerDeserialize() {
-	
-	// PREPARE
-	final String name = "org.fuin.units4j.dependency";
-	final NotDependsOn testee = new NotDependsOn(name);
-	
-	// TEST
-	final byte[] data = Utils4J.serialize(testee);
-	final NotDependsOn copy = Utils4J.deserialize(data); 
-	
-	// VERIFY
-	assertThat(copy.getPackageName()).isEqualTo(name);
-	assertThat(copy.toString()).isEqualTo(name);
-	assertThat(copy.isIncludeSubPackages()).isTrue();
-	
+
+        // PREPARE
+        final String name = "org.fuin.units4j.dependency";
+        final NotDependsOn testee = new NotDependsOn(name);
+
+        // TEST
+        final byte[] data = Utils4J.serialize(testee);
+        final NotDependsOn copy = Utils4J.deserialize(data);
+
+        // VERIFY
+        assertThat(copy.getPackageName()).isEqualTo(name);
+        assertThat(copy.toString()).isEqualTo(name);
+        assertThat(copy.isIncludeSubPackages()).isTrue();
+
     }
-    
+
 }
 // CHECKSTYLE:ON

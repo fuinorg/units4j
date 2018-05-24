@@ -14,8 +14,7 @@ public class EmptyAnnotationVisitor extends AnnotationVisitor {
     }
 
     @Override
-    public AnnotationVisitor visitAnnotation(final String name,
-            final String desc) {
+    public AnnotationVisitor visitAnnotation(final String name, final String desc) {
         return this;
     }
 

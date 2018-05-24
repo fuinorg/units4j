@@ -24,14 +24,14 @@ public enum Visibility {
 
     /** Public modifier. */
     PUBLIC,
-    
+
     /** Protected modifier. */
     PROTECTED,
-    
+
     /** Private modifier. */
     PRIVATE,
-    
+
     /** Package private (no modifier). */
     PACKAGE
-    
+
 }

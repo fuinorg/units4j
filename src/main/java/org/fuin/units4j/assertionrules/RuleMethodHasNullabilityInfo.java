@@ -28,9 +28,9 @@ import org.jboss.jandex.Type;
 import org.jboss.jandex.Type.Kind;
 
 /**
- * Checks if a method defines nullability for all public, protected and package visible methods. This means it
- * has <code>javax.validation.constraints.NotNull</code> or <code>org.fuin.objects4j.common.Nullable</code>
- * annotations for parameters and return values.
+ * Checks if a method defines nullability for all public, protected and package visible methods. This means it has
+ * <code>javax.validation.constraints.NotNull</code> or <code>org.fuin.objects4j.common.Nullable</code> annotations for parameters and
+ * return values.
  */
 public final class RuleMethodHasNullabilityInfo implements AssertionRule<MethodInfo> {
 
@@ -39,8 +39,7 @@ public final class RuleMethodHasNullabilityInfo implements AssertionRule<MethodI
     private final String nullableFqn;
 
     /**
-     * Constructor that defaults to annotations "javax.validation.constraints.NotNull" and
-     * "org.fuin.objects4j.common.Nullable".
+     * Constructor that defaults to annotations "javax.validation.constraints.NotNull" and "org.fuin.objects4j.common.Nullable".
      */
     public RuleMethodHasNullabilityInfo() {
         this("javax.validation.constraints.NotNull", "org.fuin.objects4j.common.Nullable");
@@ -127,8 +126,7 @@ public final class RuleMethodHasNullabilityInfo implements AssertionRule<MethodI
         return true;
     }
 
-    private boolean contains(final List<AnnotationInstance> annotations, final String notNullFqn,
-            final String nullableFqn) {
+    private boolean contains(final List<AnnotationInstance> annotations, final String notNullFqn, final String nullableFqn) {
         return Utils.hasAnnotation(annotations, notNullFqn) || Utils.hasAnnotation(annotations, nullableFqn);
     }
 

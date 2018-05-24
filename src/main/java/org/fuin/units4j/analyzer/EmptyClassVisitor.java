@@ -26,20 +26,18 @@ public class EmptyClassVisitor extends ClassVisitor {
     }
 
     @Override
-    public AnnotationVisitor visitAnnotation(final String desc,
-            final boolean visible) {
+    public AnnotationVisitor visitAnnotation(final String desc, final boolean visible) {
         return an;
     }
 
     @Override
-    public FieldVisitor visitField(final int access, final String name,
-            final String desc, final String signature, final Object value) {
+    public FieldVisitor visitField(final int access, final String name, final String desc, final String signature, final Object value) {
         return fi;
     }
 
     @Override
-    public MethodVisitor visitMethod(final int access, final String name,
-            final String desc, final String signature, final String[] exceptions) {
+    public MethodVisitor visitMethod(final int access, final String name, final String desc, final String signature,
+            final String[] exceptions) {
         return me;
     }
 

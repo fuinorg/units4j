@@ -50,12 +50,10 @@ public final class MethodCallAnalyzer {
     public MethodCallAnalyzer(final MCAMethod... methodsToFind) {
         super();
         if (methodsToFind == null) {
-            throw new IllegalArgumentException(
-                    "Argument 'methodsToFind' cannot be null");
+            throw new IllegalArgumentException("Argument 'methodsToFind' cannot be null");
         }
         if (methodsToFind.length == 0) {
-            throw new IllegalArgumentException(
-                    "Argument 'methodsToFind' cannot be empty");
+            throw new IllegalArgumentException("Argument 'methodsToFind' cannot be empty");
         }
         this.cv = new MCAClassVisitor(Arrays.asList(methodsToFind));
     }
@@ -69,8 +67,7 @@ public final class MethodCallAnalyzer {
     public MethodCallAnalyzer(final List<MCAMethod> methodsToFind) {
         super();
         if (methodsToFind.size() == 0) {
-            throw new IllegalArgumentException(
-                    "Argument 'methodsToFind' cannot be empty");
+            throw new IllegalArgumentException("Argument 'methodsToFind' cannot be empty");
         }
         this.cv = new MCAClassVisitor(methodsToFind);
     }
@@ -84,19 +81,17 @@ public final class MethodCallAnalyzer {
      * @throws IOException
      *             Error reading the file.
      */
-    public final void findCallingMethodsInJar(final File file)
-            throws IOException {
+    public final void findCallingMethodsInJar(final File file) throws IOException {
 
         try (final JarFile jarFile = new JarFile(file)) {
-            
+
             final Enumeration<JarEntry> entries = jarFile.entries();
-    
+
             while (entries.hasMoreElements()) {
                 final JarEntry entry = entries.nextElement();
-    
+
                 if (entry.getName().endsWith(".class")) {
-                    final InputStream in = new BufferedInputStream(
-                            jarFile.getInputStream(entry), 1024);
+                    final InputStream in = new BufferedInputStream(jarFile.getInputStream(entry), 1024);
                     try {
                         new ClassReader(in).accept(cv, 0);
                     } finally {
@@ -104,14 +99,13 @@ public final class MethodCallAnalyzer {
                     }
                 }
             }
-            
+
         }
     }
 
     private void handleClass(final File classFile) {
         try {
-            final InputStream in = new BufferedInputStream(new FileInputStream(
-                    classFile), 1024);
+            final InputStream in = new BufferedInputStream(new FileInputStream(classFile), 1024);
             try {
                 new ClassReader(in).accept(cv, 0);
             } finally {
@@ -140,23 +134,20 @@ public final class MethodCallAnalyzer {
      * @param filter
      *            File filter or NULL (process all '*.class' files).
      */
-    public final void findCallingMethodsInDir(final File dir,
-            final FileFilter filter) {
+    public final void findCallingMethodsInDir(final File dir, final FileFilter filter) {
 
-        final FileProcessor fileProcessor = new FileProcessor(
-                new FileHandler() {
-                    @Override
-                    public final FileHandlerResult handleFile(final File file) {
-                        if (file.isDirectory()) {
-                            return FileHandlerResult.CONTINUE;
-                        }
-                        if (file.getName().endsWith(".class")
-                                && (filter == null || filter.accept(file))) {
-                            handleClass(file);
-                        }
-                        return FileHandlerResult.CONTINUE;
-                    }
-                });
+        final FileProcessor fileProcessor = new FileProcessor(new FileHandler() {
+            @Override
+            public final FileHandlerResult handleFile(final File file) {
+                if (file.isDirectory()) {
+                    return FileHandlerResult.CONTINUE;
+                }
+                if (file.getName().endsWith(".class") && (filter == null || filter.accept(file))) {
+                    handleClass(file);
+                }
+                return FileHandlerResult.CONTINUE;
+            }
+        });
         fileProcessor.process(dir);
 
     }
