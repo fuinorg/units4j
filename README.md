@@ -129,7 +129,9 @@ Index index = Units4JUtils.indexAllClasses(classFiles);
 assertThat(index).hasNullabilityInfoOnAllMethods();
 ```
 
+
 * * *
+
 
 ### Snapshots
 
