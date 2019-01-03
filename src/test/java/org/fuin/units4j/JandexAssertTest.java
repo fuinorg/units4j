@@ -23,6 +23,7 @@ import static org.fuin.units4j.Units4JUtils.index;
 
 import java.io.Serializable;
 
+import javax.json.bind.annotation.JsonbProperty;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -120,6 +121,22 @@ public class JandexAssertTest {
 
     }
 
+    @Test
+    public void testHasNoFinalFieldsWithJsonbPropertyAnnotation() {
+
+        // PREPARE
+        final Index index = index(getClass().getClassLoader(), ClassWithFinalJsonbFields.class.getName());
+
+        // TEST + VERIFY
+        try {
+            assertThat(index).hasNoFinalFieldsWithJsonbPropertyAnnotation();
+        } catch (final AssertionError ex) {
+            assertThat(ex.getMessage())
+                    .isEqualTo("At least one field has a 'final' modifier and is annotated with '@JsonbProperty' at the same time:\n"
+                            + "Modifier 'final' is not allowed for field with '@JsonbProperty': org.fuin.units4j.JandexAssertTest$ClassWithFinalJsonbFields.d");
+        }
+    }
+
     @Entity
     @Table(name = "INVALID_TABLE")
     public static class MyInvalidEntity implements Serializable {
@@ -191,6 +208,21 @@ public class JandexAssertTest {
         public void okMethod4(int abc);
 
         public void okMethod5(@NotNull Integer abc);
+
+    }
+
+    @SuppressWarnings("unused")
+    public static class ClassWithFinalJsonbFields {
+
+        private final String a = "abc";
+
+        private String b;
+
+        @JsonbProperty("c")
+        private String c;
+
+        @JsonbProperty("d")
+        private final String d = "def";
 
     }
 

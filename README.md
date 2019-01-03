@@ -19,6 +19,7 @@ A home for additional useful unit testing modules for Java.
 - [Asserting methods are not used](#asserting-methods-are-not-used)
 - [Assert that JPA entities are valid](#assert-that-jpa-entities-are-valid)
 - [Assert that methods have information if null is allowed or not](#assert-that-methods-have-information-if-null-is-allowed-or-not)
+- [Assert that fields with @JsonbProperty annotation are not final](#assert-that-fields-with--jsonb-property-annotation-are-not-final)
 
 * * *
 
@@ -129,6 +130,25 @@ Index index = Units4JUtils.indexAllClasses(classFiles);
 assertThat(index).hasNullabilityInfoOnAllMethods();
 ```
 
+### Assert that fields with @JsonbProperty annotation are not final
+Verifies that no field that has a [@JsonbProperty](https://static.javadoc.io/javax.json.bind/javax.json.bind-api/1.0/javax/json/bind/annotation/JsonbProperty.html) annotation. 
+The deserialization using a Eclipse Yasson [FieldAccessStrategy](https://github.com/eclipse-ee4j/yasson/blob/master/src/main/java/org/eclipse/yasson/FieldAccessStrategy.java) will fail otherwise silently.
+
+Uses JBoss [Jandex](https://github.com/wildfly/jandex) to validate [JSON-B](http://json-b.net/) fields.
+
+```Java
+import static org.fuin.units4j.JandexAssert.assertThat;
+```
+```Java
+// Collect all class files
+File dir = new File("target/classes");
+List<File> classFiles = Units4JUtils.findAllClasses(dir);
+Index index = Units4JUtils.indexAllClasses(classFiles);
+
+// Verify that no field that has a 'javax.json.bind.annotation.JsonbProperty' annotation. 
+// The deserialization using a 'org.eclipse.yasson.FieldAccessStrategy' will fail otherwise.
+assertThat(index).hasNoFinalFieldsWithJsonbPropertyAnnotation();
+```
 
 * * *
 

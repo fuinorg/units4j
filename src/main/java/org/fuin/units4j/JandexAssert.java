@@ -28,6 +28,7 @@ import javax.persistence.MappedSuperclass;
 import org.assertj.core.api.AbstractAssert;
 import org.fuin.units4j.assertionrules.RuleClassHasNoFinalMethods;
 import org.fuin.units4j.assertionrules.RuleClassNotFinal;
+import org.fuin.units4j.assertionrules.RuleJsonbFieldNotFinal;
 import org.fuin.units4j.assertionrules.RuleMethodHasNullabilityInfo;
 import org.fuin.units4j.assertionrules.RulePersistentInstanceFieldVisibility;
 import org.fuin.units4j.assertionrules.RulePublicOrProtectedNoArgConstructor;
@@ -36,6 +37,7 @@ import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
+import org.jboss.jandex.FieldInfo;
 import org.jboss.jandex.Index;
 import org.jboss.jandex.MethodInfo;
 
@@ -139,6 +141,41 @@ public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
 
         if (!ok) {
             failWithMessage("A parameter or the return value has neither a " + "@NotNull nor a @Nullable annotation:\n" + sb.toString());
+        }
+
+        return this;
+    }
+
+    /**
+     * Checks if no field that has a {@code javax.json.bind.annotation.JsonbProperty annotation} is final. The deserialization using a
+     * {@code org.eclipse.yasson.FieldAccessStrategy} will fail otherwise.
+     * 
+     * @return Self.
+     */
+    public JandexAssert hasNoFinalFieldsWithJsonbPropertyAnnotation() {
+        // Precondition
+        isNotNull();
+
+        final RuleJsonbFieldNotFinal rule = new RuleJsonbFieldNotFinal();
+
+        final StringBuilder sb = new StringBuilder();
+        boolean ok = true;
+
+        final Collection<ClassInfo> classes = actual.getKnownClasses();
+        for (final ClassInfo clasz : classes) {
+            final List<FieldInfo> fields = clasz.fields();
+            for (final FieldInfo field : fields) {
+                final AssertionResult result = rule.verify(field);
+                if (!result.isValid()) {
+                    ok = false;
+                    sb.append(result.getErrorMessage());
+                }
+            }
+        }
+
+        if (!ok) {
+            failWithMessage(
+                    "At least one field has a 'final' modifier and is annotated with '@JsonbProperty' at the same time:\n" + sb.toString());
         }
 
         return this;
