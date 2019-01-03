@@ -19,7 +19,7 @@ A home for additional useful unit testing modules for Java.
 - [Asserting methods are not used](#asserting-methods-are-not-used)
 - [Assert that JPA entities are valid](#assert-that-jpa-entities-are-valid)
 - [Assert that methods have information if null is allowed or not](#assert-that-methods-have-information-if-null-is-allowed-or-not)
-- [Assert that fields with @JsonbProperty annotation are not final](#assert-that-fields-with--jsonb-property-annotation-are-not-final)
+- [Assert that fields with @JsonbProperty annotation are not final](#assert-that-fields-with-jsonbproperty-annotation-are-not-final)
 
 * * *
 
