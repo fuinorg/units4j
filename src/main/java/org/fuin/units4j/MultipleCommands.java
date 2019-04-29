@@ -45,6 +45,7 @@ public final class MultipleCommands<CONTEXT> implements TestCommand<CONTEXT> {
      * Constructor with command array.
      * 
      * @param commands
+     *            One or more commands to execute.
      */
     @SafeVarargs
     public MultipleCommands(@NotNull final TestCommand<CONTEXT>... commands) {
@@ -55,7 +56,7 @@ public final class MultipleCommands<CONTEXT> implements TestCommand<CONTEXT> {
      * Constructor with command list.
      * 
      * @param commands
-     *            Commands.
+     *            List of commands to execute.
      */
     public MultipleCommands(@NotNull final List<? extends TestCommand<CONTEXT>> commands) {
         super();
