@@ -22,7 +22,8 @@ import javax.validation.constraints.NotNull;
 /**
  * A command used in a test scenario.
  * 
- * @param <CONTEXT> Type of the context.
+ * @param <CONTEXT>
+ *            Type of the context.
  */
 public interface TestCommand<CONTEXT> {
 
@@ -35,15 +36,13 @@ public interface TestCommand<CONTEXT> {
     public void init(@NotNull CONTEXT context);
 
     /**
-     * Executes the command. Exceptions will be catched and are available for
-     * verification using the {@link #getException()} method.
+     * Executes the command. Exceptions will be catched used for creating a nice failure description. They are also logged.
      */
     public void execute();
 
     /**
-     * Returns if the command execution was successful. If this method is called
-     * before {@link #execute()} was executed, an illegal state exception will
-     * be thrown.
+     * Returns if the command execution was successful. If this method is called before {@link #execute()} was executed, an illegal state
+     * exception will be thrown.
      * 
      * @return TRUE if it was successful, else FALSE if it was a failure.
      */
@@ -57,10 +56,8 @@ public interface TestCommand<CONTEXT> {
     public String getFailureDescription();
 
     /**
-     * Verifies that the command was successful and throws a runtime exception
-     * otherwise.
+     * Verifies that the command was successful and throws a runtime exception otherwise.
      */
     public void verify();
 
-    
 }
