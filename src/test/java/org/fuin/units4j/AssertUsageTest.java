@@ -43,8 +43,6 @@ public final class AssertUsageTest {
                     + "Class='java.math.BigDecimal, " + "Method='java.math.BigDecimal divide(java.math.BigDecimal)'");
         }
 
-        assertThat(true).isTrue();
-
     }
 
 }
