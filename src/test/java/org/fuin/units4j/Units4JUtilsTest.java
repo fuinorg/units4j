@@ -160,5 +160,30 @@ public final class Units4JUtilsTest {
 
     }
 
+    @Test
+    public final void testIsExpectedType() {
+
+        assertThat(Units4JUtils.isExpectedType(null, null)).isTrue();
+        assertThat(Units4JUtils.isExpectedType(null, new Integer(1))).isFalse();
+        assertThat(Units4JUtils.isExpectedType(Integer.class, null)).isFalse();
+        assertThat(Units4JUtils.isExpectedType(Integer.class, new Integer(1))).isTrue();
+
+    }
+
+    @Test
+    public final void testIsExpectedException() {
+
+        assertThat(Units4JUtils.isExpectedException(null, null, null)).isTrue();
+        assertThat(Units4JUtils.isExpectedException(null, "", null)).isTrue();
+        assertThat(Units4JUtils.isExpectedException(null, "Whatever", new IllegalArgumentException("Oops"))).isFalse();
+        assertThat(Units4JUtils.isExpectedException(null, null, new IllegalArgumentException("Oops"))).isFalse();
+        assertThat(Units4JUtils.isExpectedException(IllegalArgumentException.class, "Whatever", new IllegalArgumentException("Whatever")))
+                .isTrue();
+        assertThat(Units4JUtils.isExpectedException(IllegalArgumentException.class, "Whatever", new IllegalArgumentException("Oops")))
+                .isFalse();
+        assertThat(Units4JUtils.isExpectedException(IllegalArgumentException.class, "Whatever", new RuntimeException("W"))).isFalse();
+
+    }
+
 }
 // CHECKSTYLE:ON

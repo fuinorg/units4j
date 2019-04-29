@@ -26,6 +26,7 @@ import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -521,6 +522,49 @@ public final class Units4JUtils {
         return StringUtils.replaceEachRepeatedly(xml, searchArray, replacementArray);
     }
 
+    /**
+     * Determines if an object has an expected type in a null-safe way.
+     * 
+     * @param expectedClass
+     *            Expected type.
+     * @param obj
+     *            Object to test.
+     * 
+     * @return TRUE if the object is exactly of the same class, else FALSE.
+     */
+    public static boolean isExpectedType(final Class<?> expectedClass, final Object obj) {
+        final Class<?> actualClass;
+        if (obj == null) {
+            actualClass = null;
+        } else {
+            actualClass = obj.getClass();
+        }
+        return Objects.equals(expectedClass, actualClass);
+    }
+
+    /**
+     * Determines if an exception has an expected type and message in a null-safe way.
+     * 
+     * @param expectedClass
+     *            Expected exception type.
+     * @param expectedMessage
+     *            Expected message.
+     * @param ex
+     *            Exception to test.
+     * 
+     * @return TRUE if the object is exactly of the same class and has the same message, else FALSE.
+     */
+    public static boolean isExpectedException(final Class<? extends Exception> expectedClass,
+            final String expectedMessage, final Exception ex) {
+        if (!isExpectedType(expectedClass, ex)) {
+            return false;
+        }
+        if ((expectedClass != null) && (expectedMessage != null) && (ex != null)) {
+            return Objects.equals(expectedMessage, ex.getMessage());
+        }
+        return true;
+    }
+    
     /**
      * Represents a key and a value.
      */
