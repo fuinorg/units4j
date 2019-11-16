@@ -23,6 +23,8 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import org.fuin.utils4j.Utils4J;
+
 /**
  * Combines multiple test commands into one.
  * 
@@ -60,9 +62,7 @@ public final class MultipleCommands<CONTEXT> implements TestCommand<CONTEXT> {
      */
     public MultipleCommands(@NotNull final List<? extends TestCommand<CONTEXT>> commands) {
         super();
-        if (commands == null) {
-            throw new IllegalArgumentException("The argument 'commands' cannot be null");
-        }
+        Utils4J.checkNotNull("commands", commands);
         this.commands = new ArrayList<>(commands);
     }
 
