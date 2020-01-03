@@ -22,19 +22,32 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Package dependency rules. Caution: A package cannot be in both lists!
  */
+@XmlRootElement(name = "dependencies")
 public final class Dependencies implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @XmlElementWrapper(name="alwaysAllowed")
+    @XmlElement(name = "dependsOn")
     private final List<DependsOn> alwaysAllowed;
 
+    @XmlElementWrapper(name="alwaysForbidden")
+    @XmlElement(name = "notDependsOn")
     private final List<NotDependsOn> alwaysForbidden;
 
+    @XmlElementWrapper(name="allowed")
+    @XmlElement(name = "package")
     private final List<Package<DependsOn>> allowed;
 
+    @XmlElementWrapper(name="forbidden")
+    @XmlElement(name = "package")
     private final List<Package<NotDependsOn>> forbidden;
 
     /**

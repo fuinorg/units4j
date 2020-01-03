@@ -19,11 +19,12 @@ package org.fuin.units4j.dependency;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.fuin.utils4j.JaxbUtils;
 import org.fuin.utils4j.Utils4J;
+import org.junit.Test;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
-
-import org.junit.Test;
+import nl.jqno.equalsverifier.Warning;
 
 //CHECKSTYLE:OFF Test code
 public final class DependsOnTest {
@@ -49,7 +50,8 @@ public final class DependsOnTest {
 
     @Test
     public final void testEqualsHashCode() {
-        EqualsVerifier.forClass(DependsOn.class).withRedefinedSuperclass().withIgnoredFields("includeSubPackages").verify();
+        EqualsVerifier.forClass(DependsOn.class).withRedefinedSuperclass().withIgnoredFields("includeSubPackages")
+                .suppress(Warning.NONFINAL_FIELDS).verify();
     }
 
     @Test
@@ -62,6 +64,25 @@ public final class DependsOnTest {
         // TEST
         final byte[] data = Utils4J.serialize(testee);
         final DependsOn copy = Utils4J.deserialize(data);
+
+        // VERIFY
+        assertThat(copy.getPackageName()).isEqualTo(name);
+        assertThat(copy.toString()).isEqualTo(name);
+        assertThat(copy.isIncludeSubPackages()).isTrue();
+
+    }
+
+    @Test
+    public final void testMarshalUnmarshalXml() {
+
+        // PREPARE
+        final String name = "org.fuin.units4j.dependency";
+        final DependsOn testee = new DependsOn(name);
+
+        // TEST
+        final String xml = Utils.toXml(testee, false, false);
+        assertThat(xml).isEqualTo("<dependsOn package=\"org.fuin.units4j.dependency\" includeSubPackages=\"true\"/>");
+        final DependsOn copy = JaxbUtils.unmarshal(Utils.createJaxbContext(), xml, null);
 
         // VERIFY
         assertThat(copy.getPackageName()).isEqualTo(name);

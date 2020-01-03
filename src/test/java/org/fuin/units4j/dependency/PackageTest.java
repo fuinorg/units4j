@@ -19,9 +19,11 @@ package org.fuin.units4j.dependency;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.fuin.utils4j.JaxbUtils;
 import org.fuin.utils4j.Utils4J;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 import org.junit.Test;
 
@@ -43,7 +45,7 @@ public final class PackageTest {
     @Test
     public final void testEqualsHashCode() {
 
-        EqualsVerifier.forClass(Package.class).withIgnoredFields("comment", "dependencies").verify();
+        EqualsVerifier.forClass(Package.class).withIgnoredFields("comment", "dependencies").suppress(Warning.NONFINAL_FIELDS).verify();
 
     }
 
@@ -58,6 +60,26 @@ public final class PackageTest {
         // TEST
         final byte[] data = Utils4J.serialize(testee);
         final Package<DependsOn> copy = Utils4J.deserialize(data);
+
+        // VERIFY
+        assertThat(copy.getName()).isEqualTo(name);
+        assertThat(copy.getComment()).isEqualTo(comment);
+        assertThat(copy.getDependencies()).isEmpty();
+
+    }
+
+    @Test
+    public final void testMarshalUnmarshalXml() {
+
+        // PREPARE
+        final String name = "org.fuin.units4j.dependency";
+        final String comment = "Bla";
+        final Package<DependsOn> testee = new Package<>(name, comment);
+
+        // TEST
+        final String xml = Utils.toXml(testee, false, false);
+        assertThat(xml).isEqualTo("<package name=\"org.fuin.units4j.dependency\" comment=\"Bla\"/>");
+        final Package<DependsOn> copy = JaxbUtils.unmarshal(Utils.createJaxbContext(), xml, null);
 
         // VERIFY
         assertThat(copy.getName()).isEqualTo(name);

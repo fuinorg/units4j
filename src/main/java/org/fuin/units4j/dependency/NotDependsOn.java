@@ -17,14 +17,26 @@
  */
 package org.fuin.units4j.dependency;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Forbidden dependency.
  */
+@XmlRootElement(name = "notDependsOn")
 public final class NotDependsOn extends Dependency {
 
     private static final long serialVersionUID = 1L;
 
-    private final String comment;
+    @XmlAttribute(name = "comment")
+    private String comment;
+
+    /**
+     * Default constructor for unmarshalling.
+     */
+    protected NotDependsOn() {
+        super();
+    }
 
     /**
      * Constructor with name. Sub package dependencies are included.
@@ -74,17 +86,12 @@ public final class NotDependsOn extends Dependency {
         return comment;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final String toString() {
         return getPackageName();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public final String toDebugString() {
         final StringBuilder sb = new StringBuilder();
         sb.append("packageName=" + getPackageName() + ", ");

@@ -76,9 +76,6 @@ public final class DependencyError {
         return comment;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final String toString() {
         if (comment == null) {

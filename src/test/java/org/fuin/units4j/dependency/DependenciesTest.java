@@ -19,6 +19,7 @@ package org.fuin.units4j.dependency;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.fuin.utils4j.JaxbUtils;
 import org.fuin.utils4j.Utils4J;
 import org.junit.Test;
 
@@ -67,5 +68,43 @@ public final class DependenciesTest {
 
     }
 
+    @Test
+    public final void testMarshalUnmarshalXml() {
+
+        // PREPARE
+        final Dependencies testee = new Dependencies();
+
+        final DependsOn dependsOn1 = new DependsOn("a.b.c", true);
+        testee.getAlwaysAllowed().add(dependsOn1);
+        final DependsOn dependsOn2 = new DependsOn("a.b.d", false);
+        testee.getAlwaysAllowed().add(dependsOn2);
+
+        final NotDependsOn notDependsOn1 = new NotDependsOn("a.b.e", true, "An important comment");
+        testee.getAlwaysForbidden().add(notDependsOn1);
+        final NotDependsOn notDependsOn2 = new NotDependsOn("a.b.f", false, "Whatever comment");
+        testee.getAlwaysForbidden().add(notDependsOn2);
+
+        final Package<DependsOn> allowedPackage = new Package<DependsOn>("org.fuin.utils4j", "Allowed comment");
+        testee.getAllowed().add(allowedPackage);
+        final Package<NotDependsOn> forbiddenPackage = new Package<NotDependsOn>("javax.security", "Forbidden comment");
+        testee.getForbidden().add(forbiddenPackage);
+
+        // TEST
+        final String xml = JaxbUtils.marshal(Utils.createJaxbContext(), testee, null);
+        final Dependencies copy = JaxbUtils.unmarshal(Utils.createJaxbContext(), xml, null);
+
+        // VERIFY
+        assertThat(copy).isNotNull();
+        assertThat(copy.getAlwaysAllowed()).hasSize(2);
+        assertThat(copy.getAlwaysAllowed()).contains(dependsOn1, dependsOn2);
+        assertThat(copy.getAlwaysForbidden()).hasSize(2);
+        assertThat(copy.getAlwaysForbidden()).contains(notDependsOn1, notDependsOn2);
+        assertThat(copy.getAllowed()).hasSize(1);
+        assertThat(copy.getAllowed()).contains(allowedPackage);
+        assertThat(copy.getForbidden()).hasSize(1);
+        assertThat(copy.getForbidden()).contains(forbiddenPackage);
+
+    }
+        
 }
 // CHECKSTYLE:ON

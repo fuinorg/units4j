@@ -18,9 +18,13 @@
 package org.fuin.units4j.dependency;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.fuin.utils4j.ToDebugStringCapable;
 import org.fuin.utils4j.Utils4J;
@@ -34,15 +38,26 @@ import org.fuin.utils4j.Utils4J;
  *            Type of dependency.
  */
 // CHECKSTYLE:ON
+@XmlRootElement(name = "package")
 public final class Package<DEP_TYPE extends Dependency> implements ToDebugStringCapable, Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String name;
+    @XmlAttribute(name = "name")
+    private String name;
 
-    private final String comment;
+    @XmlAttribute(name = "comment")
+    private String comment;
 
-    private final List<DEP_TYPE> dependencies;
+    @XmlAnyElement(lax = true)
+    private List<DEP_TYPE> dependencies;
+
+    /**
+     * Default constructor for unmarshalling.
+     */
+    protected Package() {
+        super();
+    }
 
     /**
      * Constructor with name.
@@ -67,7 +82,7 @@ public final class Package<DEP_TYPE extends Dependency> implements ToDebugString
         Utils4J.checkNotNull("name", name);
         this.name = name;
         this.comment = comment;
-        this.dependencies = new ArrayList<DEP_TYPE>();
+        this.dependencies = null;
     }
 
     /**
@@ -86,15 +101,11 @@ public final class Package<DEP_TYPE extends Dependency> implements ToDebugString
      */
     public final List<DEP_TYPE> getDependencies() {
         if (dependencies == null) {
-            // This can only happen with serialization
             return Collections.emptyList();
         }
         return dependencies;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -105,9 +116,6 @@ public final class Package<DEP_TYPE extends Dependency> implements ToDebugString
         return result;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj) {
@@ -139,17 +147,12 @@ public final class Package<DEP_TYPE extends Dependency> implements ToDebugString
         return comment;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final String toString() {
         return name;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public String toDebugString() {
         final StringBuilder sb = new StringBuilder();
         sb.append("name=" + name + ", ");

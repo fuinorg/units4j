@@ -27,19 +27,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.thoughtworks.xstream.XStream;
-
 // CHECKSTYLE:OFF Test code
 public final class UtilsTest {
-
-    @Test
-    public final void testCreateXStream() {
-
-        final XStream xstream = Utils.createXStream();
-        // As XStream is difficult to test we do just a minimal assert here...
-        assertThat(xstream).isNotNull();
-
-    }
 
     @Test
     @SuppressWarnings("unchecked")

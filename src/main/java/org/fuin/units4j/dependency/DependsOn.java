@@ -17,12 +17,22 @@
  */
 package org.fuin.units4j.dependency;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Allowed dependency.
  */
+@XmlRootElement(name = "dependsOn")
 public final class DependsOn extends Dependency {
 
     private static final long serialVersionUID = 1L;
+
+    /**
+     * Default constructor for unmarshalling.
+     */
+    protected DependsOn() {
+        super();
+    }
 
     /**
      * Constructor with name. Sub package dependencies are included.
@@ -46,17 +56,12 @@ public final class DependsOn extends Dependency {
         super(packageName, includeSubPackages);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final String toString() {
         return getPackageName();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public final String toDebugString() {
         final StringBuilder sb = new StringBuilder();
         sb.append("packageName=" + getPackageName() + ", ");

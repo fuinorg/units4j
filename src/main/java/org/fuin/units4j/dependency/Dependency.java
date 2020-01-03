@@ -19,6 +19,8 @@ package org.fuin.units4j.dependency;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlAttribute;
+
 import org.fuin.utils4j.ToDebugStringCapable;
 import org.fuin.utils4j.Utils4J;
 
@@ -29,10 +31,19 @@ public abstract class Dependency implements ToDebugStringCapable, Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String packageName;
+    @XmlAttribute(name = "package")
+    private String packageName;
 
-    private final Boolean includeSubPackages;
+    @XmlAttribute(name = "includeSubPackages")
+    private Boolean includeSubPackages;
 
+    /**
+     * Default constructor for unmarshalling.
+     */
+    protected Dependency() {
+        super();
+    }
+    
     /**
      * Constructor with name and comment.
      * 

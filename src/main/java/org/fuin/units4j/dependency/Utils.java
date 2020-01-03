@@ -24,14 +24,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.List;
 
-import org.fuin.utils4j.Utils4J;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 
-import com.thoughtworks.xstream.XStream;
+import org.fuin.utils4j.JaxbUtils;
+import org.fuin.utils4j.Utils4J;
 
 /**
  * Utilities for the package.
@@ -46,27 +50,16 @@ public final class Utils {
     }
 
     /**
-     * Creates a ready configured XStream instance.
+     * Creates a JAXB context for usage in this package.
      * 
-     * @return New XStream instance.
+     * @return Initialized context.
      */
-    public static XStream createXStream() {
-        final Class<?>[] classes = new Class[] { Dependencies.class, Package.class, DependsOn.class, NotDependsOn.class, Dependency.class };
-        final XStream xstream = new XStream();
-        XStream.setupDefaultSecurity(xstream);
-        xstream.allowTypes(classes);
-        xstream.alias("dependencies", Dependencies.class);
-        xstream.alias("package", Package.class);
-        xstream.alias("dependsOn", DependsOn.class);
-        xstream.alias("notDependsOn", NotDependsOn.class);
-        xstream.aliasField("package", Dependency.class, "packageName");
-        xstream.useAttributeFor(Package.class, "name");
-        xstream.useAttributeFor(Package.class, "comment");
-        xstream.useAttributeFor(Dependency.class, "packageName");
-        xstream.useAttributeFor(Dependency.class, "includeSubPackages");
-        xstream.useAttributeFor(NotDependsOn.class, "comment");
-        xstream.addImplicitCollection(Package.class, "dependencies");
-        return xstream;
+    static JAXBContext createJaxbContext() {
+        try {
+            return JAXBContext.newInstance(Dependencies.class, Package.class, DependsOn.class, NotDependsOn.class, Dependency.class);
+        } catch (final JAXBException ex) {
+            throw new RuntimeException("Failed to create JAXB context", ex);
+        }
     }
 
     /**
@@ -102,9 +95,7 @@ public final class Utils {
      */
     public static Dependencies load(final InputStream inputStream) {
         Utils4J.checkNotNull("inputStream", inputStream);
-        final XStream xstream = createXStream();
-        final Reader reader = new InputStreamReader(inputStream);
-        return (Dependencies) xstream.fromXML(reader);
+        return JaxbUtils.unmarshal(createJaxbContext(), new InputStreamReader(inputStream, Charset.forName("utf-8")), null);
     }
 
     /**
@@ -133,7 +124,7 @@ public final class Utils {
                 in.close();
             }
         } catch (final IOException ex) {
-            throw new RuntimeException(ex);
+            throw new RuntimeException("Failed to unmarshal from " + resourcePathAndName, ex);
         }
 
     }
@@ -149,19 +140,29 @@ public final class Utils {
     public static void save(final File file, final Dependencies dependencies) {
         Utils4J.checkNotNull("file", file);
         Utils4J.checkValidFile(file);
-        final XStream xstream = createXStream();
         try {
-            final Writer writer = new FileWriter(file);
-            try {
-                xstream.toXML(dependencies, writer);
-            } finally {
-                writer.close();
+            try (final Writer writer = new FileWriter(file)) {
+                JaxbUtils.marshal(createJaxbContext(), dependencies, null, writer);
             }
         } catch (final IOException ex) {
-            throw new RuntimeException(ex);
+            throw new RuntimeException("Failed to marshal: " + dependencies, ex);
         }
     }
 
+    static <T> String toXml(T obj, boolean standalone, boolean formattedOutput) {
+        try {
+            final Marshaller marshaller = createJaxbContext().createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FRAGMENT, !standalone);
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, formattedOutput);
+            try (final StringWriter sw = new StringWriter()) {
+                marshaller.marshal(obj, sw);
+                return sw.toString();
+            }
+        } catch (final JAXBException | IOException ex) {
+            throw new RuntimeException("Failed to marshal: " + obj, ex);
+        }
+    }
+    
     /**
      * Find a dependency in a list by a package name.
      * 
