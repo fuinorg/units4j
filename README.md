@@ -8,7 +8,9 @@ A home for additional useful unit testing modules for Java.
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.fuin/units4j/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.fuin/units4j/)
 [![Javadocs](https://www.javadoc.io/badge/org.fuin/units4j.svg)](https://www.javadoc.io/doc/org.fuin/units4j)
 [![LGPLv3 License](http://img.shields.io/badge/license-LGPLv3-blue.svg)](https://www.gnu.org/licenses/lgpl.html)
-[![Java Development Kit 1.8](https://img.shields.io/badge/JDK-1.8-green.svg)](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+[![Java Development Kit 11](https://img.shields.io/badge/JDK-11-green.svg)](https://openjdk.java.net/projects/jdk/11/)
+
+**Java 11 for releases >= 0.8.5** / Java 8 <= 0.8.4
 
 * * *
 
