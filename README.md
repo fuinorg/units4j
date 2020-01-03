@@ -10,7 +10,7 @@ A home for additional useful unit testing modules for Java.
 [![LGPLv3 License](http://img.shields.io/badge/license-LGPLv3-blue.svg)](https://www.gnu.org/licenses/lgpl.html)
 [![Java Development Kit 11](https://img.shields.io/badge/JDK-11-green.svg)](https://openjdk.java.net/projects/jdk/11/)
 
-**Java 11 for releases >= 0.8.5** / Java 8 <= 0.8.4
+**Java 11 for releases >= 0.9.0** / Java 8 <= 0.8.4
 
 * * *
 
