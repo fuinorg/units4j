@@ -45,7 +45,7 @@ public final class MCAMethodVisitor extends MethodVisitor {
      *            List of methods to find.
      */
     public MCAMethodVisitor(final MCAClassVisitor classVisitor, final List<MCAMethod> toFind) {
-        super(Opcodes.ASM5, new EmptyMethodVisitor());
+        super(Opcodes.ASM7, new EmptyMethodVisitor());
         if (classVisitor == null) {
             throw new IllegalArgumentException("Argument 'classVisitor' canot be NULL");
         }

@@ -10,7 +10,7 @@ import org.objectweb.asm.Opcodes;
 public class EmptyAnnotationVisitor extends AnnotationVisitor {
 
     public EmptyAnnotationVisitor() {
-        super(Opcodes.ASM5);
+        super(Opcodes.ASM7);
     }
 
     @Override

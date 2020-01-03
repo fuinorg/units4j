@@ -68,7 +68,7 @@ public class DependencyVisitor extends ClassVisitor {
     private Map<String, Integer> current;
 
     public DependencyVisitor() {
-        super(Opcodes.ASM5);
+        super(Opcodes.ASM7);
         mv = new MVisitor();
         av = new AVisitor();
         sv = new SVisitor();
@@ -220,7 +220,7 @@ public class DependencyVisitor extends ClassVisitor {
     private class MVisitor extends MethodVisitor {
 
         public MVisitor() {
-            super(Opcodes.ASM5);
+            super(Opcodes.ASM7);
         }
 
         @Override
@@ -279,7 +279,7 @@ public class DependencyVisitor extends ClassVisitor {
     private class AVisitor extends AnnotationVisitor {
 
         public AVisitor() {
-            super(Opcodes.ASM5);
+            super(Opcodes.ASM7);
         }
 
         @Override
@@ -312,7 +312,7 @@ public class DependencyVisitor extends ClassVisitor {
         private String signatureClassName;
 
         public SVisitor() {
-            super(Opcodes.ASM5);
+            super(Opcodes.ASM7);
         }
 
         @Override
@@ -377,7 +377,7 @@ public class DependencyVisitor extends ClassVisitor {
     private class FVisitor extends FieldVisitor {
 
         public FVisitor() {
-            super(Opcodes.ASM5);
+            super(Opcodes.ASM7);
         }
 
         @Override

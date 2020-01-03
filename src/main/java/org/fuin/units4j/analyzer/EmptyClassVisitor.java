@@ -19,7 +19,7 @@ public class EmptyClassVisitor extends ClassVisitor {
     private EmptyFieldVisitor fi;
 
     public EmptyClassVisitor() {
-        super(Opcodes.ASM5);
+        super(Opcodes.ASM7);
         an = new EmptyAnnotationVisitor();
         me = new EmptyMethodVisitor();
         fi = new EmptyFieldVisitor();

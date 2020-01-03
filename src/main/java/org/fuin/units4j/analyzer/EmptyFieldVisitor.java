@@ -13,7 +13,7 @@ public class EmptyFieldVisitor extends FieldVisitor {
     private EmptyAnnotationVisitor an;
 
     public EmptyFieldVisitor() {
-        super(Opcodes.ASM5);
+        super(Opcodes.ASM7);
         an = new EmptyAnnotationVisitor();
     }
 
