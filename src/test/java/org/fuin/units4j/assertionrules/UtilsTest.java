@@ -20,8 +20,12 @@ package org.fuin.units4j.assertionrules;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.fuin.units4j.Units4JUtils;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
@@ -171,6 +175,81 @@ public class UtilsTest {
         assertThat(intfMethods.get(1).declaringClass().name().toString()).isEqualTo(MyInterface2.class.getName());
         assertThat(intfMethods.get(2).name()).isEqualTo("all");
         assertThat(intfMethods.get(2).declaringClass().name().toString()).isEqualTo(MyBaseClass1.class.getName());
+
+    }
+
+    @Test
+    public void testHasAnnotation() {
+
+        final ClassInfo implClass = index.getClassByName(DotName.createSimple(HasAnnotationIntf.class.getName()));
+        String javaxNotNull = "javax.validation.constraints.NotNull";
+        String checkerNonNull = "org.checkerframework.checker.nullness.qual.NonNull";
+        final Type stringType = Type.create(DotName.createSimple(String.class.getName()), Kind.CLASS);
+        final MethodInfo methodJavax = implClass.method("javax", stringType);
+        final MethodInfo methodJavax2 = implClass.method("javax2", stringType);
+        final MethodInfo methodChecker = implClass.method("checker", stringType);
+        final MethodInfo methodAny = implClass.method("any");
+
+        assertThat(Utils.hasAnnotation(Utils.createReturnTypeAnnotationList(methodJavax), javaxNotNull)).isTrue();
+        assertThat(Utils.hasAnnotation(Utils.createReturnTypeAnnotationList(methodJavax), checkerNonNull)).isFalse();
+        assertThat(Utils.hasAnnotation(Utils.createReturnTypeAnnotationList(methodJavax2), javaxNotNull)).isFalse();
+        assertThat(Utils.hasAnnotation(Utils.createReturnTypeAnnotationList(methodChecker), javaxNotNull)).isFalse();
+        assertThat(Utils.hasAnnotation(Utils.createReturnTypeAnnotationList(methodChecker), checkerNonNull)).isTrue();
+        assertThat(Utils.hasAnnotation(Utils.createReturnTypeAnnotationList(methodAny), javaxNotNull)).isFalse();
+
+        assertThat(Utils.hasAnnotation(Utils.createParameterAnnotationMap(methodJavax).get(0), javaxNotNull)).isTrue();
+        assertThat(Utils.hasAnnotation(Utils.createParameterAnnotationMap(methodJavax).get(0), checkerNonNull)).isFalse();
+        assertThat(Utils.hasAnnotation(Utils.createParameterAnnotationMap(methodJavax2).get(0), javaxNotNull)).isTrue();
+        assertThat(Utils.hasAnnotation(Utils.createParameterAnnotationMap(methodChecker).get(0), javaxNotNull)).isFalse();
+        assertThat(Utils.hasAnnotation(Utils.createParameterAnnotationMap(methodChecker).get(0), checkerNonNull)).isTrue();
+
+    }
+
+    @Test
+    public void testHasOneOfAnnotations() {
+
+        final ClassInfo implClass = index.getClassByName(DotName.createSimple(HasAnnotationIntf.class.getName()));
+        String javaxNotNull = "javax.validation.constraints.NotNull";
+        String checkerNonNull = "org.checkerframework.checker.nullness.qual.NonNull";
+        final Type stringType = Type.create(DotName.createSimple(String.class.getName()), Kind.CLASS);
+        final MethodInfo methodJavax = implClass.method("javax", stringType);
+        final MethodInfo methodJavax2 = implClass.method("javax2", stringType);
+        final MethodInfo methodChecker = implClass.method("checker", stringType);
+        final MethodInfo methodAny = implClass.method("any");
+
+        assertThat(Utils.hasOneOfAnnotations(Utils.createReturnTypeAnnotationList(methodJavax), list(javaxNotNull, checkerNonNull)))
+                .isTrue();
+        assertThat(Utils.hasOneOfAnnotations(Utils.createReturnTypeAnnotationList(methodJavax), list(checkerNonNull))).isFalse();
+        assertThat(Utils.hasOneOfAnnotations(Utils.createReturnTypeAnnotationList(methodJavax2), list(javaxNotNull))).isFalse();
+        assertThat(Utils.hasOneOfAnnotations(Utils.createReturnTypeAnnotationList(methodChecker), list(javaxNotNull))).isFalse();
+        assertThat(Utils.hasOneOfAnnotations(Utils.createReturnTypeAnnotationList(methodChecker), list(checkerNonNull))).isTrue();
+        assertThat(Utils.hasOneOfAnnotations(Utils.createReturnTypeAnnotationList(methodAny), list(javaxNotNull))).isFalse();
+
+        assertThat(Utils.hasOneOfAnnotations(Utils.createParameterAnnotationMap(methodJavax).get(0), list(javaxNotNull))).isTrue();
+        assertThat(Utils.hasOneOfAnnotations(Utils.createParameterAnnotationMap(methodJavax).get(0), list(checkerNonNull))).isFalse();
+        assertThat(Utils.hasOneOfAnnotations(Utils.createParameterAnnotationMap(methodJavax2).get(0), list(javaxNotNull))).isTrue();
+        assertThat(Utils.hasOneOfAnnotations(Utils.createParameterAnnotationMap(methodChecker).get(0), list(javaxNotNull))).isFalse();
+        assertThat(Utils.hasOneOfAnnotations(Utils.createParameterAnnotationMap(methodChecker).get(0), list(checkerNonNull))).isTrue();
+
+    }
+
+    @SafeVarargs
+    private static <T> List<T> list(final T... str) {
+        return Arrays.asList(str);
+    }
+
+    public static interface HasAnnotationIntf {
+
+        @NotNull
+        public Integer javax(@NotNull String str);
+
+        @NotNull // Does not make any sense, but is possible
+        public void javax2(@NotNull String str);
+
+        @NonNull
+        public Integer checker(@NonNull String str);
+
+        public void any();
 
     }
 

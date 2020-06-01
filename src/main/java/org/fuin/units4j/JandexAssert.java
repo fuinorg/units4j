@@ -21,6 +21,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.Entity;
 import javax.persistence.MappedSuperclass;
@@ -106,9 +107,14 @@ public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
     }
 
     /**
-     * Checks if all public, protected and package visible methods define nullability. This means they have either
-     * <code>javax.validation.constraints.NotNull</code> or <code>org.fuin.objects4j.common.Nullable</code> annotations for parameters and
-     * return values.
+     * Checks if all public, protected and package visible methods define nullability. This means every parameter and return value follows
+     * at least one of the following conditions:
+     * <ul>
+     * <li>It has a <code>@Nullable</code> annotation</li>
+     * <li>It has a <code>@NotNull</code> or <code>@NonNull</code> annotation</li>
+     * <li>It is an {@link Optional} value.</li>
+     * </ul>
+     * The case or package of the annotations does not matter and is not checked.
      * 
      * @return Self.
      */
@@ -127,7 +133,7 @@ public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
             for (final MethodInfo method : methods) {
                 if (!ignored(method) && !Modifier.isPrivate(method.flags())) {
                     final List<MethodInfo> overrideMethods = Utils.findOverrideMethods(actual, method);
-                    if (overrideMethods.size() == 0) {
+                    if (overrideMethods.isEmpty()) {
                         // Only check methods that DON'T override an interface or super method
                         final AssertionResult result = rule.verify(method);
                         if (!result.isValid()) {
@@ -140,7 +146,8 @@ public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
         }
 
         if (!ok) {
-            failWithMessage("A parameter or the return value has neither a " + "@NotNull nor a @Nullable annotation:\n" + sb.toString());
+            failWithMessage(
+                    "A parameter or the return value has neither a " + "@NotNull/@NonNull nor a @Nullable annotation:\n" + sb.toString());
         }
 
         return this;

@@ -17,65 +17,59 @@
  */
 package org.fuin.units4j.assertionrules;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
+import javax.validation.constraints.NotNull;
 
 import org.fuin.units4j.AssertionResult;
 import org.fuin.units4j.AssertionRule;
+import org.fuin.utils4j.Utils4J;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.MethodInfo;
 import org.jboss.jandex.Type;
 import org.jboss.jandex.Type.Kind;
 
 /**
- * Checks if a method defines nullability for all public, protected and package visible methods. This means it has
- * <code>javax.validation.constraints.NotNull</code> or <code>org.fuin.objects4j.common.Nullable</code> annotations for parameters and
- * return values.
+ * Checks if all public, protected and package visible methods define nullability. This means every parameter and return value follows at
+ * least one of the following conditions:
+ * <ul>
+ * <li>It has a <code>@Nullable</code> annotation</li>
+ * <li>It has a <code>@NotNull</code> or <code>@NonNull</code> annotation</li>
+ * <li>It is an {@link Optional} value.</li>
+ * </ul>
+ * The case or package of the annotations does not matter and is not checked.
  */
 public final class RuleMethodHasNullabilityInfo implements AssertionRule<MethodInfo> {
 
-    private final String notNullFqn;
-
-    private final String nullableFqn;
+    private final List<String> expectedAnnotations;
 
     /**
-     * Constructor that defaults to annotations "javax.validation.constraints.NotNull" and "org.fuin.objects4j.common.Nullable".
+     * Constructor that defaults to annotations "NotNull", "NonNull" and "Nullable".
      */
     public RuleMethodHasNullabilityInfo() {
-        this("javax.validation.constraints.NotNull", "org.fuin.objects4j.common.Nullable");
+        this("NotNull", "NonNull", "Nullable");
     }
 
     /**
-     * Constructor with annotation class names.
+     * Constructor with annotation simple class names.
      * 
-     * @param notNullFqn
-     *            Full qualified class name of the @NotNull annotation.
-     * @param nullableFqn
-     *            Full qualified class name of the @Nullable annotation.
+     * @param annotationNames
+     *            Simple class names of annotations that satisfy the condition.
      */
-    public RuleMethodHasNullabilityInfo(final String notNullFqn, final String nullableFqn) {
+    public RuleMethodHasNullabilityInfo(final String... annotationNames) {
         super();
-        if (notNullFqn == null) {
-            throw new IllegalArgumentException("Argument 'notNullFqn' cannot be null");
-        }
-        if (nullableFqn == null) {
-            throw new IllegalArgumentException("Argument 'nullableFqn' cannot be null");
-        }
+        Utils4J.checkNotNull("annotationNames", annotationNames);
 
-        this.notNullFqn = notNullFqn.trim();
-        this.nullableFqn = nullableFqn.trim();
-
-        if (this.notNullFqn.length() == 0) {
-            throw new IllegalArgumentException("Argument 'notNullFqn' cannot be empty");
-        }
-        if (this.nullableFqn.length() == 0) {
-            throw new IllegalArgumentException("Argument 'nullableFqn' cannot be empty");
-        }
+        expectedAnnotations = Arrays.asList(annotationNames);
 
     }
 
     @Override
-    public final AssertionResult verify(final MethodInfo method) {
+    public final AssertionResult verify(@NotNull final MethodInfo method) {
+        Utils4J.checkNotNull("method", method);
 
         final StringBuilder sb = new StringBuilder();
         final boolean returnTypeOk = validReturnType(method, sb);
@@ -97,7 +91,7 @@ public final class RuleMethodHasNullabilityInfo implements AssertionRule<MethodI
             final Type param = params.get(i);
             if (param.kind() != Kind.PRIMITIVE) {
                 final List<AnnotationInstance> annotations = map.get(i);
-                if ((annotations == null) || !contains(annotations, notNullFqn, nullableFqn)) {
+                if ((annotations == null) || !Utils.hasOneOfAnnotations(annotations, expectedAnnotations)) {
                     ok = false;
                     sb.append(method.declaringClass());
                     sb.append("\t");
@@ -113,8 +107,8 @@ public final class RuleMethodHasNullabilityInfo implements AssertionRule<MethodI
 
     private boolean validReturnType(final MethodInfo method, final StringBuilder sb) {
         if ((method.returnType().kind() != Kind.VOID) && method.returnType().kind() != Kind.PRIMITIVE) {
-            final List<AnnotationInstance> list = Utils.createMethodAnnotationList(method);
-            if (!contains(list, notNullFqn, nullableFqn)) {
+            final List<AnnotationInstance> list = Utils.createReturnTypeAnnotationList(method);
+            if (!Utils.hasOneOfAnnotations(list, expectedAnnotations)) {
                 sb.append(method.declaringClass());
                 sb.append("\t");
                 sb.append(method);
@@ -124,10 +118,6 @@ public final class RuleMethodHasNullabilityInfo implements AssertionRule<MethodI
             }
         }
         return true;
-    }
-
-    private boolean contains(final List<AnnotationInstance> annotations, final String notNullFqn, final String nullableFqn) {
-        return Utils.hasAnnotation(annotations, notNullFqn) || Utils.hasAnnotation(annotations, nullableFqn);
     }
 
 }

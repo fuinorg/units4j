@@ -20,8 +20,12 @@ package org.fuin.units4j.assertionrules;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.fuin.units4j.Units4JUtils.classInfo;
 
+import java.util.Optional;
+
 import javax.validation.constraints.NotNull;
 
+import org.assertj.core.annotations.Nullable;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.fuin.units4j.AssertionResult;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
@@ -87,10 +91,46 @@ public class RuleMethodHasNullabilityInfoTest {
     }
 
     @Test
-    public final void testokMethod5() {
+    public final void testOkMethod5() {
 
         final AssertionResult result = testee
                 .verify(CLASS_INFO.method("okMethod5", Type.create(DotName.createSimple(Integer.class.getName()), Kind.CLASS)));
+        assertThat(result).isNotNull();
+        assertThat(result.getErrorMessage()).isEqualTo("");
+
+    }
+
+    @Test
+    public final void testOkMethod6() {
+
+        final AssertionResult result = testee.verify(CLASS_INFO.method("okMethod6"));
+        assertThat(result).isNotNull();
+        assertThat(result.getErrorMessage()).isEqualTo("");
+
+    }
+
+    @Test
+    public final void testOkMethod7() {
+
+        final AssertionResult result = testee.verify(CLASS_INFO.method("okMethod7"));
+        assertThat(result).isNotNull();
+        assertThat(result.getErrorMessage()).isEqualTo("");
+
+    }
+
+    @Test
+    public final void testOkMethod8() {
+
+        final AssertionResult result = testee.verify(CLASS_INFO.method("okMethod8"));
+        assertThat(result).isNotNull();
+        assertThat(result.getErrorMessage()).isEqualTo("");
+
+    }
+
+    @Test
+    public final void testOkMethod9() {
+
+        final AssertionResult result = testee.verify(CLASS_INFO.method("okMethod9", type(Optional.class)));
         assertThat(result).isNotNull();
         assertThat(result.getErrorMessage()).isEqualTo("");
 
@@ -157,6 +197,24 @@ public class RuleMethodHasNullabilityInfoTest {
         }
 
         public void okMethod5(@NotNull Integer abc) {
+            // Do nothing
+        }
+
+        @NonNull
+        public Boolean okMethod6() {
+            return true;
+        }
+
+        @Nullable
+        public Boolean okMethod7() {
+            return null;
+        }
+
+        public Optional<Boolean> okMethod8() {
+            return Optional.empty();
+        }
+
+        public void okMethod9(Optional<Integer> abc) {
             // Do nothing
         }
 
