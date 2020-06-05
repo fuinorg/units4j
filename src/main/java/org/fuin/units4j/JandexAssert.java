@@ -211,7 +211,7 @@ public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
         if (method.name().equals("compareTo") && (method.parameters().size() == 1)) {
             return true;
         }
-        if (method.name().equals("toString") && (method.parameters().size() == 0)) {
+        if (method.name().equals("toString") && (method.parameters().isEmpty())) {
             return true;
         }
         if (method.declaringClass().superName().toString().equals(Enum.class.getName())) {
@@ -222,14 +222,11 @@ public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
                 return true;
             }
         }
-        if (method.declaringClass().name().toString().contains("$") && method.name().equals("get") && (method.parameters().size() == 0)) {
+        if (method.declaringClass().name().toString().contains("$") && method.name().equals("get") && (method.parameters().isEmpty())) {
             return true;
         }
-        if (method.declaringClass().name().toString().contains("$") && method.name().equals("<init>")
-                && method.declaringClass().flags() == 32) {
-            return true;
-        }
-        return false;
+        return (method.declaringClass().name().toString().contains("$") && method.name().equals("<init>")
+                && method.declaringClass().flags() == 32);
     }
 
     private boolean isSynthetic(final short flags) {

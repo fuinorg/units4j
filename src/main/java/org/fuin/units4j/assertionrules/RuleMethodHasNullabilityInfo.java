@@ -93,17 +93,15 @@ public final class RuleMethodHasNullabilityInfo implements AssertionRule<MethodI
         final List<Type> params = method.parameters();
         for (int i = 0; i < params.size(); i++) {
             final Type param = params.get(i);
-            if (param.kind() != Kind.PRIMITIVE) {
-                if (!param.name().equals(optionalDotName)) {
-                    final List<AnnotationInstance> annotations = map.get(i);
-                    if ((annotations == null) || !Utils.hasOneOfSimpleAnnotations(annotations, expectedAnnotations)) {
-                        ok = false;
-                        sb.append(method.declaringClass());
-                        sb.append("\t");
-                        sb.append(method);
-                        sb.append("\t");
-                        sb.append("Parameter #" + i + " (" + params.get(i).name() + ")\n");
-                    }
+            if (!typeIsPrimitive(param) && !typeIsOptional(param)) {
+                final List<AnnotationInstance> annotations = map.get(i);
+                if ((annotations == null) || !Utils.hasOneOfSimpleAnnotations(annotations, expectedAnnotations)) {
+                    ok = false;
+                    sb.append(method.declaringClass());
+                    sb.append("\t");
+                    sb.append(method);
+                    sb.append("\t");
+                    sb.append("Parameter #" + i + " (" + params.get(i).name() + ")\n");
                 }
             }
         }
@@ -112,20 +110,38 @@ public final class RuleMethodHasNullabilityInfo implements AssertionRule<MethodI
     }
 
     private boolean validReturnType(final MethodInfo method, final StringBuilder sb) {
-        if ((method.returnType().kind() != Kind.VOID) && method.returnType().kind() != Kind.PRIMITIVE) {
-            if (!method.returnType().name().equals(optionalDotName)) {
-                final List<AnnotationInstance> list = Utils.createReturnTypeAnnotationList(method);
-                if (!Utils.hasOneOfSimpleAnnotations(list, expectedAnnotations)) {
-                    sb.append(method.declaringClass());
-                    sb.append("\t");
-                    sb.append(method);
-                    sb.append("\t");
-                    sb.append("Return type (" + method.returnType() + ")\n");
-                    return false;
-                }
+        if (!returnsVoid(method) && !returnsPrimitive(method) && !returnsOptional(method)) {
+            final List<AnnotationInstance> list = Utils.createReturnTypeAnnotationList(method);
+            if (!Utils.hasOneOfSimpleAnnotations(list, expectedAnnotations)) {
+                sb.append(method.declaringClass());
+                sb.append("\t");
+                sb.append(method);
+                sb.append("\t");
+                sb.append("Return type (" + method.returnType() + ")\n");
+                return false;
             }
         }
         return true;
+    }
+
+    private boolean typeIsPrimitive(final Type type) {
+        return type.kind() == Kind.PRIMITIVE;
+    }
+
+    private boolean typeIsOptional(final Type type) {
+        return type.name().equals(optionalDotName);
+    }
+
+    private boolean returnsPrimitive(final MethodInfo method) {
+        return typeIsPrimitive(method.returnType());
+    }
+
+    private boolean returnsVoid(final MethodInfo method) {
+        return method.returnType().kind() == Kind.VOID;
+    }
+
+    private boolean returnsOptional(final MethodInfo method) {
+        return typeIsOptional(method.returnType());
     }
 
 }

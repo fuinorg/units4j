@@ -87,7 +87,7 @@ public final class DependencyAnalyzer {
         Utils4J.checkNotNull("dependencies", dependencies);
         this.dependencies = dependencies;
         this.dependencies.validate();
-        dependencyErrors = new ArrayList<DependencyError>();
+        dependencyErrors = new ArrayList<>();
     }
 
     /**
@@ -105,7 +105,7 @@ public final class DependencyAnalyzer {
     private List<DependencyError> checkAllowedSection(final Dependencies dependencies, final Package<DependsOn> allowedPkg,
             final ClassInfo classInfo) {
 
-        final List<DependencyError> errors = new ArrayList<DependencyError>();
+        final List<DependencyError> errors = new ArrayList<>();
 
         final Iterator<String> it = classInfo.getImports().iterator();
         while (it.hasNext()) {
@@ -136,7 +136,7 @@ public final class DependencyAnalyzer {
     private static List<DependencyError> checkForbiddenSection(final Dependencies dependencies, final Package<NotDependsOn> forbiddenPkg,
             final ClassInfo classInfo) {
 
-        final List<DependencyError> errors = new ArrayList<DependencyError>();
+        final List<DependencyError> errors = new ArrayList<>();
 
         final Iterator<String> it = classInfo.getImports().iterator();
         while (it.hasNext()) {
@@ -160,22 +160,6 @@ public final class DependencyAnalyzer {
             }
         }
         return errors;
-    }
-
-    /**
-     * Returns the name of the file without path an extension.
-     * 
-     * @param filename
-     *            Filename to extract the name from.
-     * 
-     * @return Simple name.
-     */
-    private static String nameOnly(final String filename) {
-        final int p = filename.lastIndexOf('.');
-        if (p == -1) {
-            return filename;
-        }
-        return filename.substring(0, p);
     }
 
     /**
@@ -328,6 +312,22 @@ public final class DependencyAnalyzer {
          */
         public final String getName() {
             return packageName + "." + simpleName;
+        }
+
+        /**
+         * Returns the name of the file without path an extension.
+         * 
+         * @param filename
+         *            Filename to extract the name from.
+         * 
+         * @return Simple name.
+         */
+        private static String nameOnly(final String filename) {
+            final int p = filename.lastIndexOf('.');
+            if (p == -1) {
+                return filename;
+            }
+            return filename.substring(0, p);
         }
 
     }

@@ -46,7 +46,7 @@ public final class AssertionRules<T> implements AssertionRule<T> {
                 throw new IllegalArgumentException("Argument 'rules' cannot contain null elements");
             }
         }
-        this.rules = (AssertionRule<T>[]) rules;
+        this.rules = rules;
     }
 
     @Override

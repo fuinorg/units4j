@@ -42,7 +42,7 @@ public final class AssertDependencies {
     private static void assertIntern(final File classesDir, final DependencyAnalyzer analyzer) {
         analyzer.analyze(classesDir);
         final List<DependencyError> dependencyErrors = analyzer.getDependencyErrors();
-        if (dependencyErrors.size() > 0) {
+        if (!dependencyErrors.isEmpty()) {
             final StringBuilder sb = new StringBuilder();
             for (int i = 0; i < dependencyErrors.size(); i++) {
                 sb.append("\n");

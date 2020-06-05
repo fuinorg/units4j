@@ -102,7 +102,7 @@ public final class MultipleCommands<CONTEXT> implements TestCommand<CONTEXT> {
 
     @Override
     public final String getFailureDescription() {
-        final StringBuffer sb = new StringBuffer();
+        final StringBuilder sb = new StringBuilder();
         for (final TestCommand<CONTEXT> command : commands) {
             if (!command.isSuccessful()) {
                 sb.append(command.getFailureDescription());

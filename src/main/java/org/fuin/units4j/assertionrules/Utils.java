@@ -215,7 +215,7 @@ public final class Utils {
      */
     public static String simpleName(final DotName dotName) {
         final String name = dotName.withoutPackagePrefix();
-        final int p = name.indexOf("$");
+        final int p = name.indexOf('$');
         if (p > -1) {
             return name.substring(p + 1);
         }
