@@ -91,6 +91,52 @@ public final class Utils {
     }
 
     /**
+     * Verifies if a list of annotations contains any of the given ones based only on the simple and case insensitive name.
+     * 
+     * @param annotations
+     *            List with annotations to check.
+     * @param annotationClaszNames
+     *            List of expected full qualified name of annotation classes.
+     * 
+     * @return TRUE if the list contains at least one of the expected annotation, else FALSE.
+     */
+    public static boolean hasOneOfSimpleAnnotations(@NotNull final List<AnnotationInstance> annotations,
+            @NotNull final List<String> annotationClaszNames) {
+
+        for (final String annotationClaszName : annotationClaszNames) {
+            if (hasSimpleAnnotation(annotations, annotationClaszName)) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    /**
+     * Verifies if a list of annotations contains a given one based only on the simple and case insensitive name.
+     * 
+     * @param annotations
+     *            List with annotations to check.
+     * @param annotationClaszName
+     *            Full qualified name of annotation class to find.
+     * 
+     * @return TRUE if the list contains the annotation, else FALSE.
+     */
+    public static boolean hasSimpleAnnotation(@NotNull final List<AnnotationInstance> annotations,
+            @NotNull final String annotationClaszName) {
+        Utils4J.checkNotNull("annotations", annotations);
+        Utils4J.checkNotNull("annotationClaszName", annotationClaszName);
+
+        final String annotationName = simpleName(DotName.createSimple(annotationClaszName));
+        for (final AnnotationInstance annotation : annotations) {
+            if (annotationName.equalsIgnoreCase(simpleName(annotation.name()))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Create a map for parameter annotations. The key id the index (zero based) of the parameter and the value is a list of all
      * annotations.
      * 
@@ -105,7 +151,11 @@ public final class Utils {
         final Map<Integer, List<AnnotationInstance>> result = new HashMap<>();
         final List<Type> parameters = method.parameters();
         for (int i = 0; i < parameters.size(); i++) {
-            result.put(i, parameters.get(i).annotations());
+            if (parameters.get(i).kind() == Kind.ARRAY) {
+                result.put(i, parameters.get(i).asArrayType().component().annotations());
+            } else {
+                result.put(i, parameters.get(i).annotations());
+            }
         }
         return result;
     }
@@ -123,7 +173,14 @@ public final class Utils {
 
         final List<AnnotationInstance> result = new ArrayList<>();
         if (method.returnType().kind() != Kind.VOID) {
-            for (AnnotationInstance ai : method.returnType().annotations()) {
+            final List<AnnotationInstance> annotations;
+            if (method.returnType().kind() == Kind.ARRAY) {
+                annotations = method.returnType().asArrayType().component().annotations();
+            } else {
+                annotations = method.returnType().annotations();
+            }
+
+            for (AnnotationInstance ai : annotations) {
                 result.add(ai);
             }
         }
@@ -146,6 +203,23 @@ public final class Utils {
 
         return findOverrideMethods(index, method.declaringClass(), method, 0);
 
+    }
+
+    /**
+     * Returns the simple name of a class from a dot name.
+     * 
+     * @param dotName
+     *            Dot name to return the simple class name (without path) for.
+     * 
+     * @return Simple class name.
+     */
+    public static String simpleName(final DotName dotName) {
+        final String name = dotName.withoutPackagePrefix();
+        final int p = name.indexOf("$");
+        if (p > -1) {
+            return name.substring(p + 1);
+        }
+        return dotName.withoutPackagePrefix();
     }
 
     private static List<MethodInfo> findOverrideMethods(@NotNull final Index index, final ClassInfo clasz,

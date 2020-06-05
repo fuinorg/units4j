@@ -119,10 +119,20 @@ public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
      * @return Self.
      */
     public JandexAssert hasNullabilityInfoOnAllMethods() {
+        return hasNullabilityInfoOnAllMethods(new RuleMethodHasNullabilityInfo());
+    }
+
+    /**
+     * Checks if all public, protected and package visible methods define nullability.
+     * 
+     * @param rule
+     *            Nullability rule to use.
+     * 
+     * @return Self.
+     */
+    public JandexAssert hasNullabilityInfoOnAllMethods(final RuleMethodHasNullabilityInfo rule) {
         // Precondition
         isNotNull();
-
-        final RuleMethodHasNullabilityInfo rule = new RuleMethodHasNullabilityInfo();
 
         final StringBuilder sb = new StringBuilder();
         boolean ok = true;
@@ -188,7 +198,6 @@ public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
         return this;
     }
 
-    @SuppressWarnings("checkstyle:cyclomaticcomplexity")
     private boolean ignored(final MethodInfo method) {
         if (isSynthetic(method.flags()) || isBridge(method.flags())) {
             return true;

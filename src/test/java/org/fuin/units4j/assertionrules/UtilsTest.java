@@ -20,6 +20,7 @@ package org.fuin.units4j.assertionrules;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,9 +28,12 @@ import javax.validation.constraints.NotNull;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.fuin.units4j.Units4JUtils;
+import org.fuin.utils4j.JandexUtils;
+import org.fuin.utils4j.Utils4J;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.Index;
+import org.jboss.jandex.Indexer;
 import org.jboss.jandex.MethodInfo;
 import org.jboss.jandex.Type;
 import org.jboss.jandex.Type.Kind;
@@ -233,9 +237,74 @@ public class UtilsTest {
 
     }
 
+    @Test
+    public void testSimpleNameComponentizedNormalClassName() {
+        final ClassInfo normalClass = UtilsTest.classInfo(true, UtilsTest.class.getName());
+        assertThat(Utils.simpleName(normalClass.name())).isEqualTo("UtilsTest");
+    }
+
+    @Test
+    public void testSimpleNameComponentizedInnerClassName() {
+        final ClassInfo normalClass = UtilsTest.classInfo(true, UtilsTest.MyClass.class.getName());
+        assertThat(Utils.simpleName(normalClass.name())).isEqualTo("MyClass");
+    }
+
+    @Test
+    public void testSimpleNameNonComponentizedNormalClassName() {
+        final DotName dotName = DotName.createSimple(UtilsTest.class.getName());
+        assertThat(Utils.simpleName(dotName)).isEqualTo("UtilsTest");
+    }
+
+    @Test
+    public void testSimpleNameNonComponentizedInnerClassName() {
+        final DotName dotName = DotName.createSimple(UtilsTest.MyClass.class.getName());
+        assertThat(Utils.simpleName(dotName)).isEqualTo("MyClass");
+    }
+
     @SafeVarargs
     private static <T> List<T> list(final T... str) {
         return Arrays.asList(str);
+    }
+
+    /**
+     * Indexes a class in the "classes" or the "test-classes" path.
+     * 
+     * @param testClass
+     *            Is this a test class or a normal class.
+     * @param classToIndex
+     *            Fully qualified class name to index.
+     * 
+     * @return Information about the class.
+     */
+    public static Index index(final boolean testClass, final String classToIndex) {
+        final Indexer indexer = new Indexer();
+        final File targetDir = new File("target");
+        final File dir;
+        if (testClass) {
+            dir = new File(targetDir, "test-classes");
+        } else {
+            dir = new File(targetDir, "classes");
+        }
+        final File classFile = new File(dir, classToIndex.replace('.', File.separatorChar) + ".class");
+        Utils4J.checkValidFile(classFile);
+        if (!JandexUtils.indexClassFile(indexer, new ArrayList<>(), classFile)) {
+            throw new IllegalArgumentException("Cannot index: " + classFile);
+        }
+        return indexer.complete();
+    }
+
+    /**
+     * Returns the class info for a class in the "classes" or the "test-classes" path.
+     * 
+     * @param testClass
+     *            Is this a test class or a normal class.
+     * @param classToIndex
+     *            Fully qualified class name to index.
+     * 
+     * @return Information about the class.
+     */
+    public static ClassInfo classInfo(final boolean testClass, final String classToIndex) {
+        return index(testClass, classToIndex).getClassByName(DotName.createSimple(classToIndex));
     }
 
     public static interface HasAnnotationIntf {

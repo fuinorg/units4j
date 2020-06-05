@@ -101,11 +101,12 @@ public class JandexAssertTest {
         try {
             assertThat(index).hasNullabilityInfoOnAllMethods();
         } catch (final AssertionError ex) {
-            assertThat(ex.getMessage()).isEqualTo("A parameter or the return value has neither a @NotNull nor a @Nullable annotation:\n"
-                    + "org.fuin.units4j.JandexAssertTest$InvalidNullabilityClass\tvoid <init>(java.lang.String xyz)\tParameter #0 (java.lang.String)\n"
-                    + "org.fuin.units4j.JandexAssertTest$InvalidNullabilityClass\tvoid b(java.lang.String b)\tParameter #0 (java.lang.String)\n"
-                    + "org.fuin.units4j.JandexAssertTest$InvalidNullabilityClass\tjava.lang.String c(java.lang.String c)\tReturn type (java.lang.String)\n"
-                    + "org.fuin.units4j.JandexAssertTest$InvalidNullabilityClass\tjava.lang.String c(java.lang.String c)\tParameter #0 (java.lang.String)\n");
+            assertThat(ex.getMessage())
+                    .isEqualTo("A parameter or the return value has neither a @NotNull/@NonNull nor a @Nullable annotation:\n"
+                            + "org.fuin.units4j.JandexAssertTest$InvalidNullabilityClass\tvoid <init>(java.lang.String xyz)\tParameter #0 (java.lang.String)\n"
+                            + "org.fuin.units4j.JandexAssertTest$InvalidNullabilityClass\tvoid b(java.lang.String b)\tParameter #0 (java.lang.String)\n"
+                            + "org.fuin.units4j.JandexAssertTest$InvalidNullabilityClass\tjava.lang.String c(java.lang.String c)\tReturn type (java.lang.String)\n"
+                            + "org.fuin.units4j.JandexAssertTest$InvalidNullabilityClass\tjava.lang.String c(java.lang.String c)\tParameter #0 (java.lang.String)\n");
         }
 
     }

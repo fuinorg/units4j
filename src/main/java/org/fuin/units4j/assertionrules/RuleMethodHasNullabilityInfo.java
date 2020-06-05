@@ -28,6 +28,7 @@ import org.fuin.units4j.AssertionResult;
 import org.fuin.units4j.AssertionRule;
 import org.fuin.utils4j.Utils4J;
 import org.jboss.jandex.AnnotationInstance;
+import org.jboss.jandex.DotName;
 import org.jboss.jandex.MethodInfo;
 import org.jboss.jandex.Type;
 import org.jboss.jandex.Type.Kind;
@@ -46,11 +47,13 @@ public final class RuleMethodHasNullabilityInfo implements AssertionRule<MethodI
 
     private final List<String> expectedAnnotations;
 
+    private final DotName optionalDotName;
+
     /**
      * Constructor that defaults to annotations "NotNull", "NonNull" and "Nullable".
      */
     public RuleMethodHasNullabilityInfo() {
-        this("NotNull", "NonNull", "Nullable");
+        this("NotEmpty", "NotNull", "NonNull", "Nullable");
     }
 
     /**
@@ -64,6 +67,7 @@ public final class RuleMethodHasNullabilityInfo implements AssertionRule<MethodI
         Utils4J.checkNotNull("annotationNames", annotationNames);
 
         expectedAnnotations = Arrays.asList(annotationNames);
+        optionalDotName = DotName.createSimple(Optional.class.getName());
 
     }
 
@@ -90,14 +94,16 @@ public final class RuleMethodHasNullabilityInfo implements AssertionRule<MethodI
         for (int i = 0; i < params.size(); i++) {
             final Type param = params.get(i);
             if (param.kind() != Kind.PRIMITIVE) {
-                final List<AnnotationInstance> annotations = map.get(i);
-                if ((annotations == null) || !Utils.hasOneOfAnnotations(annotations, expectedAnnotations)) {
-                    ok = false;
-                    sb.append(method.declaringClass());
-                    sb.append("\t");
-                    sb.append(method);
-                    sb.append("\t");
-                    sb.append("Parameter #" + i + " (" + params.get(i).name() + ")\n");
+                if (!param.name().equals(optionalDotName)) {
+                    final List<AnnotationInstance> annotations = map.get(i);
+                    if ((annotations == null) || !Utils.hasOneOfSimpleAnnotations(annotations, expectedAnnotations)) {
+                        ok = false;
+                        sb.append(method.declaringClass());
+                        sb.append("\t");
+                        sb.append(method);
+                        sb.append("\t");
+                        sb.append("Parameter #" + i + " (" + params.get(i).name() + ")\n");
+                    }
                 }
             }
         }
@@ -107,14 +113,16 @@ public final class RuleMethodHasNullabilityInfo implements AssertionRule<MethodI
 
     private boolean validReturnType(final MethodInfo method, final StringBuilder sb) {
         if ((method.returnType().kind() != Kind.VOID) && method.returnType().kind() != Kind.PRIMITIVE) {
-            final List<AnnotationInstance> list = Utils.createReturnTypeAnnotationList(method);
-            if (!Utils.hasOneOfAnnotations(list, expectedAnnotations)) {
-                sb.append(method.declaringClass());
-                sb.append("\t");
-                sb.append(method);
-                sb.append("\t");
-                sb.append("Return type (" + method.returnType() + ")\n");
-                return false;
+            if (!method.returnType().name().equals(optionalDotName)) {
+                final List<AnnotationInstance> list = Utils.createReturnTypeAnnotationList(method);
+                if (!Utils.hasOneOfSimpleAnnotations(list, expectedAnnotations)) {
+                    sb.append(method.declaringClass());
+                    sb.append("\t");
+                    sb.append(method);
+                    sb.append("\t");
+                    sb.append("Return type (" + method.returnType() + ")\n");
+                    return false;
+                }
             }
         }
         return true;
