@@ -20,8 +20,13 @@ package org.fuin.units4j.assertionrules;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.fuin.units4j.Units4JUtils.classInfo;
 
+import java.util.List;
+import java.util.Optional;
+
 import javax.validation.constraints.NotNull;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.fuin.units4j.AssertionResult;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
@@ -87,10 +92,84 @@ public class RuleMethodHasNullabilityInfoTest {
     }
 
     @Test
-    public final void testokMethod5() {
+    public final void testOkMethod5() {
 
         final AssertionResult result = testee
                 .verify(CLASS_INFO.method("okMethod5", Type.create(DotName.createSimple(Integer.class.getName()), Kind.CLASS)));
+        assertThat(result).isNotNull();
+        assertThat(result.getErrorMessage()).isEqualTo("");
+
+    }
+
+    @Test
+    public final void testOkMethod6() {
+
+        final AssertionResult result = testee.verify(CLASS_INFO.method("okMethod6"));
+        assertThat(result).isNotNull();
+        assertThat(result.getErrorMessage()).isEqualTo("");
+
+    }
+
+    @Test
+    public final void testOkMethod7() {
+
+        final AssertionResult result = testee.verify(CLASS_INFO.method("okMethod7"));
+        assertThat(result).isNotNull();
+        assertThat(result.getErrorMessage()).isEqualTo("");
+
+    }
+
+    @Test
+    public final void testOkMethod8() {
+
+        final AssertionResult result = testee.verify(CLASS_INFO.method("okMethod8"));
+        assertThat(result).isNotNull();
+        assertThat(result.getErrorMessage()).isEqualTo("");
+
+    }
+
+    @Test
+    public final void testOkMethod9() {
+
+        final AssertionResult result = testee.verify(CLASS_INFO.method("okMethod9", type(Optional.class)));
+        assertThat(result).isNotNull();
+        assertThat(result.getErrorMessage()).isEqualTo("");
+
+    }
+
+    @Test
+    public final void testOkMethod10() {
+
+        final AssertionResult result = testee
+                .verify(CLASS_INFO.method("okMethod10", Type.create(DotName.createSimple(Integer[].class.getName()), Kind.CLASS)));
+        assertThat(result).isNotNull();
+        assertThat(result.getErrorMessage()).isEqualTo("");
+
+    }
+
+    @Test
+    public final void testOkMethod11() {
+
+        final AssertionResult result = testee.verify(CLASS_INFO.method("okMethod11"));
+        assertThat(result).isNotNull();
+        assertThat(result.getErrorMessage()).isEqualTo("");
+
+    }
+
+    @Test
+    public final void testOkMethod12() {
+
+        final AssertionResult result = testee
+                .verify(CLASS_INFO.method("okMethod12", Type.create(DotName.createSimple(List.class.getName()), Kind.CLASS)));
+        assertThat(result).isNotNull();
+        assertThat(result.getErrorMessage()).isEqualTo("");
+
+    }
+
+    @Test
+    public final void testOkMethod13() {
+
+        final AssertionResult result = testee.verify(CLASS_INFO.method("okMethod13"));
         assertThat(result).isNotNull();
         assertThat(result.getErrorMessage()).isEqualTo("");
 
@@ -158,6 +237,42 @@ public class RuleMethodHasNullabilityInfoTest {
 
         public void okMethod5(@NotNull Integer abc) {
             // Do nothing
+        }
+
+        @NonNull
+        public Boolean okMethod6() {
+            return true;
+        }
+
+        @Nullable
+        public Boolean okMethod7() {
+            return null;
+        }
+
+        public Optional<Boolean> okMethod8() {
+            return Optional.empty();
+        }
+
+        public void okMethod9(Optional<Integer> abc) {
+            // Do nothing
+        }
+
+        public void okMethod10(@NotNull final Integer... values) {
+            // Do nothing
+        }
+
+        @NotNull
+        public Integer[] okMethod11() {
+            return null;
+        }
+
+        public void okMethod12(@NotNull final List<Integer> values) {
+            // Do nothing
+        }
+
+        @NotNull
+        public List<Integer> okMethod13() {
+            return null;
         }
 
         public Boolean failedMethod1() {

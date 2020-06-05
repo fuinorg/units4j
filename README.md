@@ -91,14 +91,16 @@ assertThat(index).hasOnlyValidJpaEntities();
 
 ### Assert that methods have information if null is allowed or not
 
-**WORK IN PROGRESS** See [Issue #9](https://github.com/fuinorg/units4j/issues/9)
-
 It's a good style to define a [precondition](https://en.wikipedia.org/wiki/Precondition) for method arguments 
 and [postconditions](https://en.wikipedia.org/wiki/Postcondition) for return values of externally used methods.
 Especially the questions "Can I pass null?" or "Does the method return null values?" is a common source of confusion.
-This assertion makes sure that all return values and parameters of all public, protected and package-private methods have either
-a [@NotNull](https://docs.oracle.com/javaee/6/api/javax/validation/constraints/NotNull.html) or
-a [@Nullable](https://github.com/fuinorg/objects4j/blob/master/src/main/java/org/fuin/objects4j/common/Nullable.java) annotation.
+
+This assertion makes sure that all return values and parameters of all public, protected and package-private methods have at least one of the following annotations:
+* **@NotNull** (For example from [Java Validation API](https://javaee.github.io/javaee-spec/javadocs/javax/validation/constraints/NotNull.html)) or
+* **@NotEmpty** (For example from [Java Validation API](https://javaee.github.io/javaee-spec/javadocs/javax/validation/constraints/NotEmpty.html)) or
+* **@Nullable** (For example from the [checkerframework](https://checkerframework.org/api/org/checkerframework/checker/nullness/qual/Nullable.html) annotation. 
+
+The package and case of those annotations does actually not matter as only simple name is checked. It is also possible to pass your own list of expected annotation simple names to the `hasNullabilityInfoOnAllMethods()` method.
 
 Example:
 ```Java

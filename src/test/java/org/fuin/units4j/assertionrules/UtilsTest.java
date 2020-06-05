@@ -20,12 +20,20 @@ package org.fuin.units4j.assertionrules;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.fuin.units4j.Units4JUtils;
+import org.fuin.utils4j.JandexUtils;
+import org.fuin.utils4j.Utils4J;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.Index;
+import org.jboss.jandex.Indexer;
 import org.jboss.jandex.MethodInfo;
 import org.jboss.jandex.Type;
 import org.jboss.jandex.Type.Kind;
@@ -171,6 +179,146 @@ public class UtilsTest {
         assertThat(intfMethods.get(1).declaringClass().name().toString()).isEqualTo(MyInterface2.class.getName());
         assertThat(intfMethods.get(2).name()).isEqualTo("all");
         assertThat(intfMethods.get(2).declaringClass().name().toString()).isEqualTo(MyBaseClass1.class.getName());
+
+    }
+
+    @Test
+    public void testHasAnnotation() {
+
+        final ClassInfo implClass = index.getClassByName(DotName.createSimple(HasAnnotationIntf.class.getName()));
+        String javaxNotNull = "javax.validation.constraints.NotNull";
+        String checkerNonNull = "org.checkerframework.checker.nullness.qual.NonNull";
+        final Type stringType = Type.create(DotName.createSimple(String.class.getName()), Kind.CLASS);
+        final MethodInfo methodJavax = implClass.method("javax", stringType);
+        final MethodInfo methodJavax2 = implClass.method("javax2", stringType);
+        final MethodInfo methodChecker = implClass.method("checker", stringType);
+        final MethodInfo methodAny = implClass.method("any");
+
+        assertThat(Utils.hasAnnotation(Utils.createReturnTypeAnnotationList(methodJavax), javaxNotNull)).isTrue();
+        assertThat(Utils.hasAnnotation(Utils.createReturnTypeAnnotationList(methodJavax), checkerNonNull)).isFalse();
+        assertThat(Utils.hasAnnotation(Utils.createReturnTypeAnnotationList(methodJavax2), javaxNotNull)).isFalse();
+        assertThat(Utils.hasAnnotation(Utils.createReturnTypeAnnotationList(methodChecker), javaxNotNull)).isFalse();
+        assertThat(Utils.hasAnnotation(Utils.createReturnTypeAnnotationList(methodChecker), checkerNonNull)).isTrue();
+        assertThat(Utils.hasAnnotation(Utils.createReturnTypeAnnotationList(methodAny), javaxNotNull)).isFalse();
+
+        assertThat(Utils.hasAnnotation(Utils.createParameterAnnotationMap(methodJavax).get(0), javaxNotNull)).isTrue();
+        assertThat(Utils.hasAnnotation(Utils.createParameterAnnotationMap(methodJavax).get(0), checkerNonNull)).isFalse();
+        assertThat(Utils.hasAnnotation(Utils.createParameterAnnotationMap(methodJavax2).get(0), javaxNotNull)).isTrue();
+        assertThat(Utils.hasAnnotation(Utils.createParameterAnnotationMap(methodChecker).get(0), javaxNotNull)).isFalse();
+        assertThat(Utils.hasAnnotation(Utils.createParameterAnnotationMap(methodChecker).get(0), checkerNonNull)).isTrue();
+
+    }
+
+    @Test
+    public void testHasOneOfAnnotations() {
+
+        final ClassInfo implClass = index.getClassByName(DotName.createSimple(HasAnnotationIntf.class.getName()));
+        String javaxNotNull = "javax.validation.constraints.NotNull";
+        String checkerNonNull = "org.checkerframework.checker.nullness.qual.NonNull";
+        final Type stringType = Type.create(DotName.createSimple(String.class.getName()), Kind.CLASS);
+        final MethodInfo methodJavax = implClass.method("javax", stringType);
+        final MethodInfo methodJavax2 = implClass.method("javax2", stringType);
+        final MethodInfo methodChecker = implClass.method("checker", stringType);
+        final MethodInfo methodAny = implClass.method("any");
+
+        assertThat(Utils.hasOneOfAnnotations(Utils.createReturnTypeAnnotationList(methodJavax), list(javaxNotNull, checkerNonNull)))
+                .isTrue();
+        assertThat(Utils.hasOneOfAnnotations(Utils.createReturnTypeAnnotationList(methodJavax), list(checkerNonNull))).isFalse();
+        assertThat(Utils.hasOneOfAnnotations(Utils.createReturnTypeAnnotationList(methodJavax2), list(javaxNotNull))).isFalse();
+        assertThat(Utils.hasOneOfAnnotations(Utils.createReturnTypeAnnotationList(methodChecker), list(javaxNotNull))).isFalse();
+        assertThat(Utils.hasOneOfAnnotations(Utils.createReturnTypeAnnotationList(methodChecker), list(checkerNonNull))).isTrue();
+        assertThat(Utils.hasOneOfAnnotations(Utils.createReturnTypeAnnotationList(methodAny), list(javaxNotNull))).isFalse();
+
+        assertThat(Utils.hasOneOfAnnotations(Utils.createParameterAnnotationMap(methodJavax).get(0), list(javaxNotNull))).isTrue();
+        assertThat(Utils.hasOneOfAnnotations(Utils.createParameterAnnotationMap(methodJavax).get(0), list(checkerNonNull))).isFalse();
+        assertThat(Utils.hasOneOfAnnotations(Utils.createParameterAnnotationMap(methodJavax2).get(0), list(javaxNotNull))).isTrue();
+        assertThat(Utils.hasOneOfAnnotations(Utils.createParameterAnnotationMap(methodChecker).get(0), list(javaxNotNull))).isFalse();
+        assertThat(Utils.hasOneOfAnnotations(Utils.createParameterAnnotationMap(methodChecker).get(0), list(checkerNonNull))).isTrue();
+
+    }
+
+    @Test
+    public void testSimpleNameComponentizedNormalClassName() {
+        final ClassInfo normalClass = UtilsTest.classInfo(true, UtilsTest.class.getName());
+        assertThat(Utils.simpleName(normalClass.name())).isEqualTo("UtilsTest");
+    }
+
+    @Test
+    public void testSimpleNameComponentizedInnerClassName() {
+        final ClassInfo normalClass = UtilsTest.classInfo(true, UtilsTest.MyClass.class.getName());
+        assertThat(Utils.simpleName(normalClass.name())).isEqualTo("MyClass");
+    }
+
+    @Test
+    public void testSimpleNameNonComponentizedNormalClassName() {
+        final DotName dotName = DotName.createSimple(UtilsTest.class.getName());
+        assertThat(Utils.simpleName(dotName)).isEqualTo("UtilsTest");
+    }
+
+    @Test
+    public void testSimpleNameNonComponentizedInnerClassName() {
+        final DotName dotName = DotName.createSimple(UtilsTest.MyClass.class.getName());
+        assertThat(Utils.simpleName(dotName)).isEqualTo("MyClass");
+    }
+
+    @SafeVarargs
+    private static <T> List<T> list(final T... str) {
+        return Arrays.asList(str);
+    }
+
+    /**
+     * Indexes a class in the "classes" or the "test-classes" path.
+     * 
+     * @param testClass
+     *            Is this a test class or a normal class.
+     * @param classToIndex
+     *            Fully qualified class name to index.
+     * 
+     * @return Information about the class.
+     */
+    public static Index index(final boolean testClass, final String classToIndex) {
+        final Indexer indexer = new Indexer();
+        final File targetDir = new File("target");
+        final File dir;
+        if (testClass) {
+            dir = new File(targetDir, "test-classes");
+        } else {
+            dir = new File(targetDir, "classes");
+        }
+        final File classFile = new File(dir, classToIndex.replace('.', File.separatorChar) + ".class");
+        Utils4J.checkValidFile(classFile);
+        if (!JandexUtils.indexClassFile(indexer, new ArrayList<>(), classFile)) {
+            throw new IllegalArgumentException("Cannot index: " + classFile);
+        }
+        return indexer.complete();
+    }
+
+    /**
+     * Returns the class info for a class in the "classes" or the "test-classes" path.
+     * 
+     * @param testClass
+     *            Is this a test class or a normal class.
+     * @param classToIndex
+     *            Fully qualified class name to index.
+     * 
+     * @return Information about the class.
+     */
+    public static ClassInfo classInfo(final boolean testClass, final String classToIndex) {
+        return index(testClass, classToIndex).getClassByName(DotName.createSimple(classToIndex));
+    }
+
+    public static interface HasAnnotationIntf {
+
+        @NotNull
+        public Integer javax(@NotNull String str);
+
+        @NotNull // Does not make any sense, but is possible
+        public void javax2(@NotNull String str);
+
+        @NonNull
+        public Integer checker(@NonNull String str);
+
+        public void any();
 
     }
 
