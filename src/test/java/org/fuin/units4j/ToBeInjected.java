@@ -17,7 +17,7 @@
  */
 package org.fuin.units4j;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 /**
  * Example application scoped bean.

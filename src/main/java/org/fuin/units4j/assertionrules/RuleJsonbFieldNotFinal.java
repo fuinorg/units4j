@@ -27,7 +27,7 @@ import org.jboss.jandex.DotName;
 import org.jboss.jandex.FieldInfo;
 
 /**
- * Checks if a field that has a {@code javax.json.bind.annotation.JsonbProperty annotation} is not final. The deserialization using a
+ * Checks if a field that has a {@code jakarta.json.bind.annotation.JsonbProperty annotation} is not final. The deserialization using a
  * {@code org.eclipse.yasson.FieldAccessStrategy} will fail otherwise.
  */
 public final class RuleJsonbFieldNotFinal implements AssertionRule<FieldInfo> {
@@ -45,7 +45,7 @@ public final class RuleJsonbFieldNotFinal implements AssertionRule<FieldInfo> {
 
     private boolean hasJsonbPropertyAnnotation(final List<AnnotationInstance> annotations) {
         for (final AnnotationInstance annotation : annotations) {
-            if (annotation.name().compareTo(DotName.createSimple("javax.json.bind.annotation.JsonbProperty")) == 0) {
+            if (annotation.name().compareTo(DotName.createSimple("jakarta.json.bind.annotation.JsonbProperty")) == 0) {
                 return true;
             }
         }

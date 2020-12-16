@@ -22,7 +22,7 @@ import static org.junit.Assert.fail;
 
 import java.util.Set;
 
-import javax.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolation;
 
 import org.fuin.units4j.Units4JUtils.KV;
 import org.fuin.utils4j.JaxbUtils;

@@ -19,7 +19,7 @@ package org.fuin.units4j;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 import org.junit.Test;
 

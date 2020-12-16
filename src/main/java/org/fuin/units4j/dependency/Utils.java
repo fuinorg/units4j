@@ -30,9 +30,9 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.List;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
 
 import org.fuin.utils4j.JaxbUtils;
 import org.fuin.utils4j.Utils4J;

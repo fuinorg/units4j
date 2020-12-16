@@ -22,7 +22,7 @@ import static org.fuin.units4j.Units4JUtils.classInfo;
 
 import java.io.IOException;
 
-import javax.json.bind.annotation.JsonbProperty;
+import jakarta.json.bind.annotation.JsonbProperty;
 
 import org.fuin.units4j.AssertionResult;
 import org.jboss.jandex.ClassInfo;

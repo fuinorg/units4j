@@ -23,13 +23,13 @@ import static org.fuin.units4j.Units4JUtils.index;
 
 import java.io.Serializable;
 
-import javax.json.bind.annotation.JsonbProperty;
+import jakarta.json.bind.annotation.JsonbProperty;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 import org.jboss.jandex.Index;
 import org.jboss.jandex.Indexer;

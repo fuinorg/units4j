@@ -17,7 +17,7 @@
  */
 package org.fuin.units4j;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * A collection of rules used in assertions.

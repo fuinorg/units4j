@@ -19,7 +19,7 @@ package org.fuin.units4j.dependency;
 
 import java.io.Serializable;
 
-import javax.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlAttribute;
 
 import org.fuin.utils4j.ToDebugStringCapable;
 import org.fuin.utils4j.Utils4J;

@@ -23,8 +23,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.Entity;
-import javax.persistence.MappedSuperclass;
+import jakarta.persistence.Entity;
+import jakarta.persistence.MappedSuperclass;
 
 import org.assertj.core.api.AbstractAssert;
 import org.fuin.units4j.assertionrules.RuleClassHasNoFinalMethods;
@@ -164,7 +164,7 @@ public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
     }
 
     /**
-     * Checks if no field that has a {@code javax.json.bind.annotation.JsonbProperty annotation} is final. The deserialization using a
+     * Checks if no field that has a {@code jakarta.json.bind.annotation.JsonbProperty annotation} is final. The deserialization using a
      * {@code org.eclipse.yasson.FieldAccessStrategy} will fail otherwise.
      * 
      * @return Self.

@@ -29,14 +29,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-import javax.validation.constraints.NotNull;
-import javax.validation.groups.Default;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.groups.Default;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.fuin.utils4j.JaxbUtils;

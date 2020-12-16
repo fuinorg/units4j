@@ -24,7 +24,7 @@ import static org.fuin.units4j.assertionrules.Visibility.PROTECTED;
 import java.lang.reflect.Modifier;
 import java.util.List;
 
-import javax.persistence.Transient;
+import jakarta.persistence.Transient;
 
 import org.fuin.units4j.AssertionResult;
 import org.fuin.units4j.AssertionRule;

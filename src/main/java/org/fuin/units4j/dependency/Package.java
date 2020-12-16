@@ -21,9 +21,9 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlAnyElement;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 import org.fuin.utils4j.ToDebugStringCapable;
 import org.fuin.utils4j.Utils4J;
