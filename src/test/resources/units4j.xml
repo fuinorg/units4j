@@ -2,7 +2,7 @@
   
   <alwaysAllowed>
     <dependsOn package="java"/>
-    <dependsOn package="javax"/>
+    <dependsOn package="jakarta"/>
     <dependsOn package="org.junit"/>
     <dependsOn package="org.apache.commons"/>
     <dependsOn package="org.assertj"/>

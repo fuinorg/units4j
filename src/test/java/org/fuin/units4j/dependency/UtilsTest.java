@@ -51,7 +51,7 @@ public final class UtilsTest {
 
             final Package<DependsOn> allowedPackage = new Package<DependsOn>("org.fuin.utils4j", "Allowed comment");
             dependencies.getAllowed().add(allowedPackage);
-            final Package<NotDependsOn> forbiddenPackage = new Package<NotDependsOn>("javax.security", "Forbidden comment");
+            final Package<NotDependsOn> forbiddenPackage = new Package<NotDependsOn>("jakarta.security", "Forbidden comment");
             dependencies.getForbidden().add(forbiddenPackage);
 
             // Save to disk
