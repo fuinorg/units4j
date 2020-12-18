@@ -22,118 +22,118 @@ import static org.fuin.units4j.Units4JUtils.classInfo;
 
 import java.io.IOException;
 
-import javax.persistence.Entity;
-import javax.persistence.MappedSuperclass;
-
 import org.fuin.units4j.AssertionResult;
 import org.junit.Test;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.MappedSuperclass;
 
 // CHECKSTYLE:OFF Test code
 public class RulePersistentInstanceFieldVisibilityTest {
 
-    @Test
-    public final void testVerifyValid() throws IOException {
+	@Test
+	public final void testVerifyValid() throws IOException {
 
-        // PREPARE
-        final RulePersistentInstanceFieldVisibility testee = new RulePersistentInstanceFieldVisibility();
+		// PREPARE
+		final RulePersistentInstanceFieldVisibility testee = new RulePersistentInstanceFieldVisibility();
 
-        // TEST + VERIFY
-        final AssertionResult resultEntity = testee.verify(classInfo(ValidEntity.class));
-        assertThat(resultEntity).isNotNull();
-        assertThat(resultEntity.isValid()).isTrue();
-        assertThat(resultEntity.getErrorMessage()).isEqualTo("");
+		// TEST + VERIFY
+		final AssertionResult resultEntity = testee.verify(classInfo(ValidEntity.class));
+		assertThat(resultEntity).isNotNull();
+		assertThat(resultEntity.isValid()).isTrue();
+		assertThat(resultEntity.getErrorMessage()).isEqualTo("");
 
-        // TEST + VERIFY
-        final AssertionResult resultSuper = testee.verify(classInfo(ValidSuper.class));
-        assertThat(resultSuper).isNotNull();
-        assertThat(resultSuper.isValid()).isTrue();
-        assertThat(resultSuper.getErrorMessage()).isEqualTo("");
+		// TEST + VERIFY
+		final AssertionResult resultSuper = testee.verify(classInfo(ValidSuper.class));
+		assertThat(resultSuper).isNotNull();
+		assertThat(resultSuper.isValid()).isTrue();
+		assertThat(resultSuper.getErrorMessage()).isEqualTo("");
 
-    }
+	}
 
-    @Test
-    public final void testVerifyInvalid() throws IOException {
+	@Test
+	public final void testVerifyInvalid() throws IOException {
 
-        // PREPARE
-        final RulePersistentInstanceFieldVisibility testee = new RulePersistentInstanceFieldVisibility();
+		// PREPARE
+		final RulePersistentInstanceFieldVisibility testee = new RulePersistentInstanceFieldVisibility();
 
-        // TEST + VERIFY
-        final AssertionResult resultEntity = testee.verify(classInfo(InvalidEntity.class));
-        assertThat(resultEntity).isNotNull();
-        assertThat(resultEntity.isValid()).isFalse();
-        assertThat(resultEntity.getErrorMessage())
-                .isEqualTo("Public visibility is not allowed for: " + InvalidEntity.class.getName() + ".publicField\n");
+		// TEST + VERIFY
+		final AssertionResult resultEntity = testee.verify(classInfo(InvalidEntity.class));
+		assertThat(resultEntity).isNotNull();
+		assertThat(resultEntity.isValid()).isFalse();
+		assertThat(resultEntity.getErrorMessage())
+				.isEqualTo("Public visibility is not allowed for: " + InvalidEntity.class.getName() + ".publicField\n");
 
-        // TEST + VERIFY
-        final AssertionResult resultSuper = testee.verify(classInfo(InvalidSuper.class));
-        assertThat(resultSuper).isNotNull();
-        assertThat(resultSuper.isValid()).isFalse();
-        assertThat(resultSuper.getErrorMessage())
-                .isEqualTo("Public visibility is not allowed for: " + InvalidSuper.class.getName() + ".publicField\n");
+		// TEST + VERIFY
+		final AssertionResult resultSuper = testee.verify(classInfo(InvalidSuper.class));
+		assertThat(resultSuper).isNotNull();
+		assertThat(resultSuper.isValid()).isFalse();
+		assertThat(resultSuper.getErrorMessage())
+				.isEqualTo("Public visibility is not allowed for: " + InvalidSuper.class.getName() + ".publicField\n");
 
-    }
+	}
 
-    @MappedSuperclass
-    @SuppressWarnings("unused")
-    public static class ValidSuper {
+	@MappedSuperclass
+	@SuppressWarnings("unused")
+	public static class ValidSuper {
 
-        public static String publicStaticField;
-        protected static String protectedStaticField;
-        private static String privateStaticField;
-        static String packageStaticField;
+		public static String publicStaticField;
+		protected static String protectedStaticField;
+		private static String privateStaticField;
+		static String packageStaticField;
 
-        private String privateField;
-        protected String protectedField;
-        String packageField;
+		private String privateField;
+		protected String protectedField;
+		String packageField;
 
-    }
+	}
 
-    @Entity
-    @SuppressWarnings("unused")
-    public static class ValidEntity extends ValidSuper {
+	@Entity
+	@SuppressWarnings("unused")
+	public static class ValidEntity extends ValidSuper {
 
-        public static String publicStaticField;
-        protected static String protectedStaticField;
-        private static String privateStaticField;
-        static String packageStaticField;
+		public static String publicStaticField;
+		protected static String protectedStaticField;
+		private static String privateStaticField;
+		static String packageStaticField;
 
-        private String privateField;
-        protected String protectedField;
-        String packageField;
+		private String privateField;
+		protected String protectedField;
+		String packageField;
 
-    }
+	}
 
-    @MappedSuperclass
-    @SuppressWarnings("unused")
-    public static class InvalidSuper {
+	@MappedSuperclass
+	@SuppressWarnings("unused")
+	public static class InvalidSuper {
 
-        public static String publicStaticField;
-        protected static String protectedStaticField;
-        private static String privateStaticField;
-        static String packageStaticField;
+		public static String publicStaticField;
+		protected static String protectedStaticField;
+		private static String privateStaticField;
+		static String packageStaticField;
 
-        private String privateField;
-        protected String protectedField;
-        String packageField;
-        public String publicField;
+		private String privateField;
+		protected String protectedField;
+		String packageField;
+		public String publicField;
 
-    }
+	}
 
-    @Entity
-    @SuppressWarnings("unused")
-    public static class InvalidEntity extends ValidSuper {
+	@Entity
+	@SuppressWarnings("unused")
+	public static class InvalidEntity extends ValidSuper {
 
-        public static String publicStaticField;
-        protected static String protectedStaticField;
-        private static String privateStaticField;
-        static String packageStaticField;
+		public static String publicStaticField;
+		protected static String protectedStaticField;
+		private static String privateStaticField;
+		static String packageStaticField;
 
-        private String privateField;
-        protected String protectedField;
-        String packageField;
-        public String publicField;
+		private String privateField;
+		protected String protectedField;
+		String packageField;
+		public String publicField;
 
-    }
+	}
 
 }
 // CHECKSTYLE:ON
