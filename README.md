@@ -1,6 +1,4 @@
-units4j
-=======
-
+# units4j
 A home for additional useful unit testing modules for Java. 
 
 [![Build Status](https://jenkins.fuin.org/job/units4j/badge/icon)](https://jenkins.fuin.org/job/units4j/)
@@ -11,9 +9,9 @@ A home for additional useful unit testing modules for Java.
 [![Java Development Kit 11](https://img.shields.io/badge/JDK-11-green.svg)](https://openjdk.java.net/projects/jdk/11/)
 
 ## Versions
-- >= 0.10.0 = Java 11 with new jakarta.* namespace
-- 0.9.x = Java 11 before namespace change from 'javax.' to 'jakarta.'
-- <= 0.8.4 = Java 8
+- 0.10.0 (or later) = **Java 11** with new **jakarta** namespace
+- 0.9.x = **Java 11** before namespace change from 'javax' to 'jakarta'
+- 0.8.4 (or previous) = **Java 8**
 
 
 
