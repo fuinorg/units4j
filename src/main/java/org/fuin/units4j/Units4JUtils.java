@@ -41,7 +41,6 @@ import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import org.apache.commons.lang3.StringUtils;
 import org.fuin.utils4j.JaxbUtils;
 import org.fuin.utils4j.Utils4J;
-import org.fuin.utils4j.fileprocessor.FileHandler;
 import org.fuin.utils4j.fileprocessor.FileHandlerResult;
 import org.fuin.utils4j.fileprocessor.FileProcessor;
 import org.jboss.jandex.ClassInfo;
@@ -329,20 +328,17 @@ public final class Units4JUtils {
     public static List<File> findFilesRecursive(final File dir, final String extension) {
         final String dotExtension = "." + extension;
         final List<File> files = new ArrayList<>();
-        final FileProcessor fileProcessor = new FileProcessor(new FileHandler() {
-            @Override
-            public final FileHandlerResult handleFile(final File file) {
-                // Directory
-                if (file.isDirectory()) {
-                    return FileHandlerResult.CONTINUE;
-                }
-                // File
-                final String name = file.getName();
-                if (name.endsWith(dotExtension)) {
-                    files.add(file);
-                }
+        final FileProcessor fileProcessor = new FileProcessor(file -> {
+            // Directory
+            if (file.isDirectory()) {
                 return FileHandlerResult.CONTINUE;
             }
+            // File
+            final String name = file.getName();
+            if (name.endsWith(dotExtension)) {
+                files.add(file);
+            }
+            return FileHandlerResult.CONTINUE;
         });
 
         fileProcessor.process(dir);
@@ -386,11 +382,8 @@ public final class Units4JUtils {
     public static final void indexAllClasses(final Indexer indexer, final List<File> classFiles) {
         classFiles.forEach(file -> {
             try {
-                final InputStream in = new FileInputStream(file);
-                try {
+                try (final InputStream in = new FileInputStream(file)) {
                     indexer.index(in);
-                } finally {
-                    in.close();
                 }
             } catch (final IOException ex) {
                 throw new RuntimeException(ex);
@@ -498,8 +491,8 @@ public final class Units4JUtils {
      */
     public static String replaceXmlAttr(final String xml, final KV... keyValues) {
 
-        final List<String> searchList = new ArrayList<String>();
-        final List<String> replacementList = new ArrayList<String>();
+        final List<String> searchList = new ArrayList<>();
+        final List<String> replacementList = new ArrayList<>();
 
         for (final KV kv : keyValues) {
             final String tag = kv.getKey() + "=\"";

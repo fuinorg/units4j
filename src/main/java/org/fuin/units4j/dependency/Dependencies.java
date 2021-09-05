@@ -55,10 +55,10 @@ public final class Dependencies implements Serializable {
      */
     public Dependencies() {
         super();
-        this.alwaysAllowed = new ArrayList<DependsOn>();
-        this.alwaysForbidden = new ArrayList<NotDependsOn>();
-        this.allowed = new ArrayList<Package<DependsOn>>();
-        this.forbidden = new ArrayList<Package<NotDependsOn>>();
+        this.alwaysAllowed = new ArrayList<>();
+        this.alwaysForbidden = new ArrayList<>();
+        this.allowed = new ArrayList<>();
+        this.forbidden = new ArrayList<>();
     }
 
     /**
@@ -153,7 +153,7 @@ public final class Dependencies implements Serializable {
         final List<Package<NotDependsOn>> list = getForbidden();
         for (int i = 0; i < list.size(); i++) {
             final String name = list.get(i).getName();
-            final Package<DependsOn> dep = new Package<DependsOn>(name);
+            final Package<DependsOn> dep = new Package<>(name);
             if (getAllowed().indexOf(dep) > -1) {
                 if (errorCount > 0) {
                     sb.append(", ");

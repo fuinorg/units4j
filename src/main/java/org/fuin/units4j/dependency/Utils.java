@@ -74,11 +74,8 @@ public final class Utils {
         Utils4J.checkNotNull("file", file);
         Utils4J.checkValidFile(file);
         try {
-            final InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
-            try {
+            try (final InputStream inputStream = new BufferedInputStream(new FileInputStream(file))) {
                 return load(inputStream);
-            } finally {
-                inputStream.close();
             }
         } catch (final IOException ex) {
             throw new RuntimeException(ex);

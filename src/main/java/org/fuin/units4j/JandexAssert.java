@@ -94,7 +94,7 @@ public final class JandexAssert extends AbstractAssert<JandexAssert, Index> {
         for (final AnnotationInstance ai : annotations) {
             final AnnotationTarget target = ai.target();
             final ClassInfo info = target.asClass();
-            final AssertionRules<ClassInfo> rules = new AssertionRules<ClassInfo>(new RulePublicOrProtectedNoArgConstructor(),
+            final AssertionRules<ClassInfo> rules = new AssertionRules<>(new RulePublicOrProtectedNoArgConstructor(),
                     new RuleClassNotFinal(), new RuleClassHasNoFinalMethods(), new RulePersistentInstanceFieldVisibility());
             final AssertionResult result = rules.verify(info);
             if (!result.isValid()) {

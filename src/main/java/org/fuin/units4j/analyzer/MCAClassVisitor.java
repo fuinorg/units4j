@@ -52,7 +52,7 @@ public final class MCAClassVisitor extends ClassVisitor {
         if (methodsToFind == null) {
             throw new IllegalArgumentException("Argument 'methodsToFind' canot be NULL");
         }
-        calls = new ArrayList<MCAMethodCall>();
+        calls = new ArrayList<>();
         methodVisitor = new MCAMethodVisitor(this, methodsToFind);
     }
 
