@@ -57,7 +57,7 @@ public abstract class AbstractPersistenceTest {
             emf = Persistence.createEntityManagerFactory("testPU");
             em = emf.createEntityManager();
             final Map<String, Object> props = emf.getProperties();
-            final boolean shutdown = Boolean.valueOf("" + props.get("units4j.shutdown"));
+            final boolean shutdown = Boolean.parseBoolean("" + props.get("units4j.shutdown"));
             if (shutdown) {
                 final String connUrl = "" + props.get("units4j.url");
                 final String connUsername = "" + props.get("units4j.user");

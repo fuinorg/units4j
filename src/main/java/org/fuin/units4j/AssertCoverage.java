@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.fuin.utils4j.Utils4J;
-import org.fuin.utils4j.fileprocessor.FileHandler;
 import org.fuin.utils4j.fileprocessor.FileHandlerResult;
 import org.fuin.utils4j.fileprocessor.FileProcessor;
 import org.junit.Assert;
@@ -86,11 +85,7 @@ public final class AssertCoverage {
      *            Root source directory like ("src/main/java").
      */
     public static final void assertEveryClassHasATest(final File baseDir) {
-        assertEveryClassHasATest(baseDir, new ClassFilter() {
-            public final boolean isIncludeClass(final Class<?> clasz) {
-                return true;
-            }
-        });
+        assertEveryClassHasATest(baseDir, clasz -> true);
     }
 
     /**
@@ -118,11 +113,7 @@ public final class AssertCoverage {
      *            Should sub directories be included?
      */
     public static final void assertEveryClassHasATest(final File baseDir, final boolean recursive) {
-        assertEveryClassHasATest(baseDir, recursive, new ClassFilter() {
-            public final boolean isIncludeClass(final Class<?> clasz) {
-                return true;
-            }
-        });
+        assertEveryClassHasATest(baseDir, recursive, clasz -> true);
     }
 
     /**
@@ -139,7 +130,7 @@ public final class AssertCoverage {
      */
     public static final void assertEveryClassHasATest(final File baseDir, final boolean recursive, final ClassFilter classFilter) {
         Utils4J.checkNotNull("baseDir", baseDir);
-        final Set<Class<?>> classes = new HashSet<Class<?>>();
+        final Set<Class<?>> classes = new HashSet<>();
         analyzeDir(classes, baseDir, baseDir, recursive, classFilter);
         assertEveryClassHasATest(classes);
     }
@@ -161,29 +152,26 @@ public final class AssertCoverage {
     static void analyzeDir(final Set<Class<?>> classes, final File baseDir, final File srcDir, final boolean recursive,
             final ClassFilter classFilter) {
 
-        final FileProcessor fileProcessor = new FileProcessor(new FileHandler() {
-            @Override
-            public final FileHandlerResult handleFile(final File file) {
-                if (file.isDirectory()) {
-                    // Directory
-                    if (recursive) {
-                        return FileHandlerResult.CONTINUE;
-                    }
-                    return FileHandlerResult.SKIP_SUBDIRS;
+        final FileProcessor fileProcessor = new FileProcessor(file -> {
+            if (file.isDirectory()) {
+                // Directory
+                if (recursive) {
+                    return FileHandlerResult.CONTINUE;
                 }
-                // File
-                final String name = file.getName();
-                if (name.endsWith(".java") && !name.equals("package-info.java")) {
-                    final String packageName = Utils4J.getRelativePath(baseDir, file.getParentFile()).replace(File.separatorChar, '.');
-                    final String simpleName = name.substring(0, name.length() - 5);
-                    final String className = packageName + "." + simpleName;
-                    final Class<?> clasz = classForName(className);
-                    if (isInclude(clasz, classFilter)) {
-                        classes.add(clasz);
-                    }
-                }
-                return FileHandlerResult.CONTINUE;
+                return FileHandlerResult.SKIP_SUBDIRS;
             }
+            // File
+            final String name = file.getName();
+            if (name.endsWith(".java") && !name.equals("package-info.java")) {
+                final String packageName = Utils4J.getRelativePath(baseDir, file.getParentFile()).replace(File.separatorChar, '.');
+                final String simpleName = name.substring(0, name.length() - 5);
+                final String className = packageName + "." + simpleName;
+                final Class<?> clasz = classForName(className);
+                if (isInclude(clasz, classFilter)) {
+                    classes.add(clasz);
+                }
+            }
+            return FileHandlerResult.CONTINUE;
         });
 
         fileProcessor.process(srcDir);
@@ -277,7 +265,7 @@ public final class AssertCoverage {
          */
         public ExcludeListClassFilter(final String... fqClassNames) {
             super();
-            this.excludedClasses = new ArrayList<Class<?>>();
+            this.excludedClasses = new ArrayList<>();
             if (fqClassNames != null) {
                 for (final String className : fqClassNames) {
                     final Class<?> clasz = classForName(className);
@@ -294,7 +282,7 @@ public final class AssertCoverage {
          */
         public ExcludeListClassFilter(final Class<?>... excludedClasses) {
             super();
-            this.excludedClasses = new ArrayList<Class<?>>();
+            this.excludedClasses = new ArrayList<>();
             if (excludedClasses != null) {
                 for (final Class<?> clasz : excludedClasses) {
                     this.excludedClasses.add(clasz);

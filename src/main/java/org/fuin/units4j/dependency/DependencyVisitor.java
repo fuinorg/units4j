@@ -61,9 +61,9 @@ public class DependencyVisitor extends ClassVisitor {
 
     private FVisitor fv;
 
-    private Set<String> packages = new HashSet<String>();
+    private Set<String> packages = new HashSet<>();
 
-    private Map<String, Map<String, Integer>> groups = new HashMap<String, Map<String, Integer>>();
+    private Map<String, Map<String, Integer>> groups = new HashMap<>();
 
     private Map<String, Integer> current;
 
@@ -89,7 +89,7 @@ public class DependencyVisitor extends ClassVisitor {
         String p = getGroupKey(name);
         current = groups.get(p);
         if (current == null) {
-            current = new HashMap<String, Integer>();
+            current = new HashMap<>();
             groups.put(p, current);
         }
 
@@ -274,7 +274,7 @@ public class DependencyVisitor extends ClassVisitor {
             addInternalName(type);
         }
 
-    };
+    }
 
     private class AVisitor extends AnnotationVisitor {
 

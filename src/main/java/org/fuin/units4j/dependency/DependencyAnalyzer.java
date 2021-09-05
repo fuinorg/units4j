@@ -30,7 +30,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.fuin.utils4j.Utils4J;
-import org.fuin.utils4j.fileprocessor.FileHandler;
 import org.fuin.utils4j.fileprocessor.FileHandlerResult;
 import org.fuin.utils4j.fileprocessor.FileProcessor;
 import org.objectweb.asm.ClassReader;
@@ -174,7 +173,7 @@ public final class DependencyAnalyzer {
      */
     private static List<DependencyError> checkAlwaysForbiddenSection(final Dependencies dependencies, final ClassInfo classInfo) {
 
-        final List<DependencyError> errors = new ArrayList<DependencyError>();
+        final List<DependencyError> errors = new ArrayList<>();
 
         final Iterator<String> importedPackages = classInfo.getImports().iterator();
         while (importedPackages.hasNext()) {
@@ -196,33 +195,29 @@ public final class DependencyAnalyzer {
      */
     public final void analyze(final File classesDir) {
 
-        final FileProcessor fileProcessor = new FileProcessor(new FileHandler() {
-            @Override
-            public final FileHandlerResult handleFile(final File classFile) {
-                if (!classFile.getName().endsWith(".class")) {
-                    return FileHandlerResult.CONTINUE;
-                }
-                try {
-                    final ClassInfo classInfo = new ClassInfo(classFile);
-
-                    final Package<DependsOn> allowedPkg = dependencies.findAllowedByName(classInfo.getPackageName());
-                    if (allowedPkg == null) {
-                        final Package<NotDependsOn> forbiddenPkg = dependencies.findForbiddenByName(classInfo.getPackageName());
-                        if (forbiddenPkg == null) {
-                            dependencyErrors.addAll(checkAlwaysForbiddenSection(dependencies, classInfo));
-                        } else {
-                            dependencyErrors.addAll(checkForbiddenSection(dependencies, forbiddenPkg, classInfo));
-                        }
-                    } else {
-                        dependencyErrors.addAll(checkAllowedSection(dependencies, allowedPkg, classInfo));
-                    }
-                } catch (final IOException ex) {
-                    throw new RuntimeException("Error handling file: " + classFile, ex);
-                }
-
+        final FileProcessor fileProcessor = new FileProcessor(classFile -> {
+            if (!classFile.getName().endsWith(".class")) {
                 return FileHandlerResult.CONTINUE;
-
             }
+            try {
+                final ClassInfo classInfo = new ClassInfo(classFile);
+
+                final Package<DependsOn> allowedPkg = dependencies.findAllowedByName(classInfo.getPackageName());
+                if (allowedPkg == null) {
+                    final Package<NotDependsOn> forbiddenPkg = dependencies.findForbiddenByName(classInfo.getPackageName());
+                    if (forbiddenPkg == null) {
+                        dependencyErrors.addAll(checkAlwaysForbiddenSection(dependencies, classInfo));
+                    } else {
+                        dependencyErrors.addAll(checkForbiddenSection(dependencies, forbiddenPkg, classInfo));
+                    }
+                } else {
+                    dependencyErrors.addAll(checkAllowedSection(dependencies, allowedPkg, classInfo));
+                }
+            } catch (final IOException ex) {
+                throw new RuntimeException("Error handling file: " + classFile, ex);
+            }
+
+            return FileHandlerResult.CONTINUE;
         });
 
         dependencyErrors.clear();
@@ -269,21 +264,18 @@ public final class DependencyAnalyzer {
          *             Error reading the file.
          */
         public ClassInfo(final File classFile) throws IOException {
-            final InputStream in = new BufferedInputStream(new FileInputStream(classFile));
-            try {
+            try (final InputStream in = new BufferedInputStream(new FileInputStream(classFile))) {
                 final DependencyVisitor visitor = new DependencyVisitor();
                 new ClassReader(in).accept(visitor, 0);
                 final Map<String, Map<String, Integer>> globals = visitor.getGlobals();
                 final Set<String> jarPackages = globals.keySet();
                 packageName = jarPackages.iterator().next().replace('/', '.');
                 simpleName = nameOnly(classFile.getName());
-                imports = new HashSet<String>();
+                imports = new HashSet<>();
                 final Iterator<String> it = visitor.getPackages().iterator();
                 while (it.hasNext()) {
                     imports.add(it.next().replace('/', '.'));
                 }
-            } finally {
-                in.close();
             }
         }
 

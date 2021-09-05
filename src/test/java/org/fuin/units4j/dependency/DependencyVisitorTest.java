@@ -23,7 +23,7 @@ import org.junit.Test;
 //CHECKSTYLE:OFF Test code
 public class DependencyVisitorTest {
 
-    @Ignore
+    @Ignore("Imported class - Not tested here")
     @Test
     public void notTested() {
         // Imported class - Not tested here

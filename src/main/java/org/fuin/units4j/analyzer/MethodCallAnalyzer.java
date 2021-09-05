@@ -29,7 +29,6 @@ import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-import org.fuin.utils4j.fileprocessor.FileHandler;
 import org.fuin.utils4j.fileprocessor.FileHandlerResult;
 import org.fuin.utils4j.fileprocessor.FileProcessor;
 import org.objectweb.asm.ClassReader;
@@ -66,7 +65,7 @@ public final class MethodCallAnalyzer {
      */
     public MethodCallAnalyzer(final List<MCAMethod> methodsToFind) {
         super();
-        if (methodsToFind.size() == 0) {
+        if (methodsToFind.isEmpty()) {
             throw new IllegalArgumentException("Argument 'methodsToFind' cannot be empty");
         }
         this.cv = new MCAClassVisitor(methodsToFind);
@@ -91,11 +90,8 @@ public final class MethodCallAnalyzer {
                 final JarEntry entry = entries.nextElement();
 
                 if (entry.getName().endsWith(".class")) {
-                    final InputStream in = new BufferedInputStream(jarFile.getInputStream(entry), 1024);
-                    try {
+                    try (final InputStream in = new BufferedInputStream(jarFile.getInputStream(entry), 1024)) {
                         new ClassReader(in).accept(cv, 0);
-                    } finally {
-                        in.close();
                     }
                 }
             }
@@ -136,17 +132,14 @@ public final class MethodCallAnalyzer {
      */
     public final void findCallingMethodsInDir(final File dir, final FileFilter filter) {
 
-        final FileProcessor fileProcessor = new FileProcessor(new FileHandler() {
-            @Override
-            public final FileHandlerResult handleFile(final File file) {
-                if (file.isDirectory()) {
-                    return FileHandlerResult.CONTINUE;
-                }
-                if (file.getName().endsWith(".class") && (filter == null || filter.accept(file))) {
-                    handleClass(file);
-                }
+        final FileProcessor fileProcessor = new FileProcessor(file -> {
+            if (file.isDirectory()) {
                 return FileHandlerResult.CONTINUE;
             }
+            if (file.getName().endsWith(".class") && (filter == null || filter.accept(file))) {
+                handleClass(file);
+            }
+            return FileHandlerResult.CONTINUE;
         });
         fileProcessor.process(dir);
 
