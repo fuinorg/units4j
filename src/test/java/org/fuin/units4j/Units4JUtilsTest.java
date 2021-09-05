@@ -164,9 +164,9 @@ public final class Units4JUtilsTest {
     public final void testIsExpectedType() {
 
         assertThat(Units4JUtils.isExpectedType(null, null)).isTrue();
-        assertThat(Units4JUtils.isExpectedType(null, new Integer(1))).isFalse();
+        assertThat(Units4JUtils.isExpectedType(null, Integer.valueOf(1))).isFalse();
         assertThat(Units4JUtils.isExpectedType(Integer.class, null)).isFalse();
-        assertThat(Units4JUtils.isExpectedType(Integer.class, new Integer(1))).isTrue();
+        assertThat(Units4JUtils.isExpectedType(Integer.class, Integer.valueOf(1))).isTrue();
 
     }
 

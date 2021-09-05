@@ -175,6 +175,7 @@ public class RuleFieldVisibilityTest {
 
         protected String protectedField;
 
+        @SuppressWarnings("unused")
         private String privateField;
 
         String packageField;

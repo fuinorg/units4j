@@ -30,7 +30,6 @@ import org.junit.Test;
 public final class DependencyAnalyzerTest {
 
     @Test
-    @SuppressWarnings("unchecked")
     public final void testDependencyCreationAnalyzerFile() throws InvalidDependenciesDefinitionException {
 
         final DependsOn dependsOn1 = new DependsOn("a.b.c");
@@ -77,7 +76,6 @@ public final class DependencyAnalyzerTest {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
     public final void testAnalyzeForbidden() throws InvalidDependenciesDefinitionException, IOException {
 
         final DependencyAnalyzer testee = new DependencyAnalyzer(this.getClass(), "/dummy-forbidden.xml");
@@ -126,7 +124,6 @@ public final class DependencyAnalyzerTest {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
     public final void testAnalyzeValid() throws InvalidDependenciesDefinitionException, IOException {
 
         final DependencyAnalyzer testee = new DependencyAnalyzer(this.getClass(), "/dummy-allowed.xml");
@@ -145,7 +142,6 @@ public final class DependencyAnalyzerTest {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
     public final void testNothingAllowed() throws InvalidDependenciesDefinitionException, IOException {
 
         final DependencyAnalyzer testee = new DependencyAnalyzer(this.getClass(), "/dummy-nothing-allowed.xml");

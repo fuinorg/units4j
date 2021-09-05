@@ -31,7 +31,6 @@ import org.junit.Test;
 public final class UtilsTest {
 
     @Test
-    @SuppressWarnings("unchecked")
     public final void testSaveLoad() throws IOException {
 
         final File file = File.createTempFile(this.getClass().getSimpleName() + "_testSaveLoad", ".xml");
