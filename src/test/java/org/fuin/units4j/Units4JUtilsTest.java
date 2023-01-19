@@ -27,7 +27,6 @@ import javax.validation.ConstraintViolation;
 import org.fuin.units4j.Units4JUtils.KV;
 import org.fuin.utils4j.Utils4J;
 import org.fuin.utils4j.jaxb.JaxbUtils;
-import org.junit.ComparisonFailure;
 import org.junit.Test;
 
 // CHECKSTYLE:OFF Test code
@@ -92,9 +91,13 @@ public final class Units4JUtilsTest {
         try {
             Units4JUtils.assertCauseMessage(first, "xxx");
             fail();
-        } catch (final ComparisonFailure f) {
+        } catch (final AssertionError f) {
             // OK
-            assertThat(f.getMessage()).isEqualTo("expected:<\"[xxx]\"> but was:<\"[second]\">");
+            assertThat(f.getMessage()).isEqualTo("\n"
+                    + "Expecting actual:\n"
+                    + "  \"second\"\n"
+                    + "to contain:\n"
+                    + "  \"xxx\" ");
         }
 
     }
@@ -112,9 +115,13 @@ public final class Units4JUtilsTest {
         try {
             Units4JUtils.assertCauseCauseMessage(first, "xxx");
             fail();
-        } catch (final ComparisonFailure f) {
+        } catch (final AssertionError f) {
             // OK
-            assertThat(f.getMessage()).isEqualTo("expected:<\"[xxx]\"> but was:<\"[third]\">");
+            assertThat(f.getMessage()).isEqualTo("\n"
+                    + "Expecting actual:\n"
+                    + "  \"third\"\n"
+                    + "to contain:\n"
+                    + "  \"xxx\" ");
         }
 
     }
