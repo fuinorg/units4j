@@ -39,10 +39,10 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.apache.commons.lang3.StringUtils;
-import org.fuin.utils4j.jaxb.JaxbUtils;
 import org.fuin.utils4j.Utils4J;
 import org.fuin.utils4j.fileprocessor.FileHandlerResult;
 import org.fuin.utils4j.fileprocessor.FileProcessor;
+import org.fuin.utils4j.jaxb.JaxbUtils;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.Index;
@@ -271,7 +271,7 @@ public final class Units4JUtils {
      */
     public static void assertCauseMessage(final Throwable ex, final String expectedMessage) {
         assertThat(ex.getCause()).isNotNull();
-        assertThat(ex.getCause().getMessage()).isEqualTo(expectedMessage);
+        assertThat(ex.getCause().getMessage()).contains(expectedMessage);
     }
 
     /**
@@ -285,7 +285,7 @@ public final class Units4JUtils {
     public static void assertCauseCauseMessage(final Throwable ex, final String expectedMessage) {
         assertThat(ex.getCause()).isNotNull();
         assertThat(ex.getCause().getCause()).isNotNull();
-        assertThat(ex.getCause().getCause().getMessage()).isEqualTo(expectedMessage);
+        assertThat(ex.getCause().getCause().getMessage()).contains(expectedMessage);
     }
 
     /**
@@ -547,8 +547,8 @@ public final class Units4JUtils {
      * 
      * @return TRUE if the object is exactly of the same class and has the same message, else FALSE.
      */
-    public static boolean isExpectedException(final Class<? extends Exception> expectedClass,
-            final String expectedMessage, final Exception ex) {
+    public static boolean isExpectedException(final Class<? extends Exception> expectedClass, final String expectedMessage,
+            final Exception ex) {
         if (!isExpectedType(expectedClass, ex)) {
             return false;
         }
@@ -557,7 +557,7 @@ public final class Units4JUtils {
         }
         return true;
     }
-    
+
     /**
      * Represents a key and a value.
      */

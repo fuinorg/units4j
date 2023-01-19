@@ -33,11 +33,11 @@ public class MultipleCommandsTest {
         final MultipleCommands<String> testee1 = new MultipleCommands<>(cmd1);
         testee1.init("Hello1");
         testee1.execute();
-        
+
         assertThat(testee1.getFailureDescription()).isEmpty();
         assertThat(testee1.isSuccessful()).isTrue();
         assertThat(cmd1.getContext()).isEqualTo("Hello1");
-        assertThat(cmd1.isExecuted()).isTrue();;
+        assertThat(cmd1.isExecuted()).isTrue();
 
         final MyCmd cmd2 = new MyCmd(false, "Oops");
         final MultipleCommands<String> testee2 = new MultipleCommands<>(cmd1, cmd2);
@@ -47,9 +47,10 @@ public class MultipleCommandsTest {
         assertThat(testee2.isSuccessful()).isFalse();
         assertThat(testee2.getFailureDescription()).isEqualTo("Oops\n");
         assertThat(cmd1.getContext()).isEqualTo("Hello2");
-        assertThat(cmd1.isExecuted()).isTrue();;
+        assertThat(cmd1.isExecuted()).isTrue();
         assertThat(cmd2.getContext()).isEqualTo("Hello2");
-        assertThat(cmd2.isExecuted()).isTrue();;
+        assertThat(cmd2.isExecuted()).isTrue();
+      
 
     }
 
