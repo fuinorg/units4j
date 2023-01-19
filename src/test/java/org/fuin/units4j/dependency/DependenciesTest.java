@@ -19,8 +19,9 @@ package org.fuin.units4j.dependency;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.fuin.utils4j.jaxb.JaxbUtils;
 import org.fuin.utils4j.Utils4J;
+import org.fuin.utils4j.jaxb.JaxbUtils;
+import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
 import org.junit.Test;
 
 // CHECKSTYLE:OFF Test code
@@ -91,7 +92,7 @@ public final class DependenciesTest {
 
         // TEST
         final String xml = JaxbUtils.marshal(Utils.createJaxbContext(), testee, null);
-        final Dependencies copy = JaxbUtils.unmarshal(Utils.createJaxbContext(), xml, null);
+        final Dependencies copy = JaxbUtils.unmarshal(new UnmarshallerBuilder().addClassesToBeBound(Dependencies.class).build(), xml);
 
         // VERIFY
         assertThat(copy).isNotNull();
@@ -105,6 +106,6 @@ public final class DependenciesTest {
         assertThat(copy.getForbidden()).contains(forbiddenPackage);
 
     }
-        
+
 }
 // CHECKSTYLE:ON

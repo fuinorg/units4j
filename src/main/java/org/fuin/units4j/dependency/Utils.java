@@ -34,8 +34,9 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
-import org.fuin.utils4j.jaxb.JaxbUtils;
 import org.fuin.utils4j.Utils4J;
+import org.fuin.utils4j.jaxb.JaxbUtils;
+import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
 
 /**
  * Utilities for the package.
@@ -92,7 +93,8 @@ public final class Utils {
      */
     public static Dependencies load(final InputStream inputStream) {
         Utils4J.checkNotNull("inputStream", inputStream);
-        return JaxbUtils.unmarshal(createJaxbContext(), new InputStreamReader(inputStream, Charset.forName("utf-8")), null);
+        return JaxbUtils.unmarshal(new UnmarshallerBuilder().addClassesToBeBound(Dependencies.class).build(),
+                new InputStreamReader(inputStream, Charset.forName("utf-8")));
     }
 
     /**
@@ -159,7 +161,7 @@ public final class Utils {
             throw new RuntimeException("Failed to marshal: " + obj, ex);
         }
     }
-    
+
     /**
      * Find a dependency in a list by a package name.
      * 
