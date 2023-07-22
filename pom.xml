@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>org.fuin</groupId>
 		<artifactId>pom</artifactId>
-		<version>1.7.0</version>
+		<version>1.8.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>units4j</artifactId>
@@ -35,37 +35,37 @@
 		<dependency>
 			<groupId>jakarta.validation</groupId>
 			<artifactId>jakarta.validation-api</artifactId>
-			<version>3.0.0</version>
+			<version>3.0.2</version>
 		</dependency>
 
 		<dependency>
 			<groupId>jakarta.persistence</groupId>
 			<artifactId>jakarta.persistence-api</artifactId>
-			<version>3.0.0</version>
+			<version>3.1.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.ow2.asm</groupId>
 			<artifactId>asm</artifactId>
-			<version>9.2</version>
+			<version>9.5</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.ow2.asm</groupId>
 			<artifactId>asm-commons</artifactId>
-			<version>9.2</version>
+			<version>9.5</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.fuin</groupId>
 			<artifactId>utils4j</artifactId>
-			<version>0.12.0</version>
+			<version>0.12.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
 			<groupId>jakarta.enterprise</groupId>
 			<artifactId>jakarta.enterprise.cdi-api</artifactId>
-			<version>3.0.0</version>
+			<version>4.0.1</version>
 		</dependency>
 
 		<dependency>
@@ -78,13 +78,13 @@
 		<dependency>
 			<groupId>org.jboss.weld.se</groupId>
 			<artifactId>weld-se-core</artifactId>
-			<version>4.0.2.Final</version>
+			<version>5.1.1.SP1</version>
 		</dependency>
 
 		<dependency>
-			<groupId>org.jboss</groupId>
+			<groupId>io.smallrye</groupId>
 			<artifactId>jandex</artifactId>
-			<version>2.4.0.Final</version>
+			<version>3.1.2</version>
 		</dependency>
 
 		<dependency>
@@ -96,13 +96,13 @@
 		<dependency>
 			<groupId>org.assertj</groupId>
 			<artifactId>assertj-core</artifactId>
-			<version>3.20.2</version>
+			<version>3.24.2</version>
 		</dependency>
 
 		<dependency>
 			<groupId>jakarta.xml.bind</groupId>
 			<artifactId>jakarta.xml.bind-api</artifactId>
-			<version>3.0.0</version>
+			<version>4.0.0</version>
 		</dependency>
 
 		<!-- Test -->
@@ -110,56 +110,56 @@
 		<dependency>
 			<groupId>org.checkerframework</groupId>
 			<artifactId>checker-qual</artifactId>
-			<version>3.17.0</version>
+			<version>3.36.0</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>7.0.1.Final</version>
+			<version>8.0.1.Final</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
     		<groupId>org.glassfish.jaxb</groupId>
     		<artifactId>jaxb-runtime</artifactId>
-    		<version>3.0.2</version>
+    		<version>4.0.3</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.glassfish</groupId>
 			<artifactId>jakarta.el</artifactId>
-			<version>4.0.1</version>
+			<version>5.0.0-M1</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>jakarta.transaction</groupId>
 			<artifactId>jakarta.transaction-api</artifactId>
-			<version>2.0.0</version>
+			<version>2.0.1</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
     		<groupId>org.eclipse.persistence</groupId>
 		    <artifactId>org.eclipse.persistence.jpa</artifactId>
-    		<version>3.0.0</version>
+    		<version>4.0.2</version>
             <scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
-			<version>2.6.0</version>
+			<version>2.7.2</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>nl.jqno.equalsverifier</groupId>
 			<artifactId>equalsverifier</artifactId>
-			<version>3.7.1</version>
+			<version>3.15</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -173,7 +173,7 @@
 		<dependency>
 			<groupId>jakarta.json.bind</groupId>
 			<artifactId>jakarta.json.bind-api</artifactId>
-			<version>2.0.0</version>
+			<version>3.0.0</version>
 			<scope>test</scope>
 		</dependency>
 

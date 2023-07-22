@@ -194,7 +194,7 @@ public class RuleMethodHasNullabilityInfoTest {
 
         final AssertionResult result = testee.verify(method);
         assertThat(result).isNotNull();
-        assertThat(result.getErrorMessage()).isEqualTo(location + "Parameter #0 (java.lang.Integer)\n");
+        assertThat(result.getErrorMessage()).isEqualTo(location + "Parameter #0 (abc)\n");
 
     }
 
@@ -208,7 +208,7 @@ public class RuleMethodHasNullabilityInfoTest {
         final AssertionResult result = testee.verify(method);
         assertThat(result).isNotNull();
         assertThat(result.getErrorMessage()).isEqualTo(location + "Return type (java.lang.Double)\n" + location
-                + "Parameter #0 (java.lang.Integer)\n" + location + "Parameter #3 (java.lang.String)\n");
+                + "Parameter #0 (one)\n" + location + "Parameter #3 (four)\n");
 
     }
 

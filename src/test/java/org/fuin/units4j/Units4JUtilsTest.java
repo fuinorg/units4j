@@ -25,7 +25,7 @@ import java.util.Set;
 import jakarta.validation.ConstraintViolation;
 
 import org.fuin.units4j.Units4JUtils.KV;
-import org.fuin.utils4j.JaxbUtils;
+import org.fuin.utils4j.jaxb.JaxbUtils;
 import org.fuin.utils4j.Utils4J;
 import org.junit.ComparisonFailure;
 import org.junit.Test;

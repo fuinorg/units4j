@@ -39,7 +39,7 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.apache.commons.lang3.StringUtils;
-import org.fuin.utils4j.JaxbUtils;
+import org.fuin.utils4j.jaxb.JaxbUtils;
 import org.fuin.utils4j.Utils4J;
 import org.fuin.utils4j.fileprocessor.FileHandlerResult;
 import org.fuin.utils4j.fileprocessor.FileProcessor;

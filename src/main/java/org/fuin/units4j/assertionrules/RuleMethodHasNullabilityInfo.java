@@ -30,6 +30,7 @@ import org.fuin.utils4j.Utils4J;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.MethodInfo;
+import org.jboss.jandex.MethodParameterInfo;
 import org.jboss.jandex.Type;
 import org.jboss.jandex.Type.Kind;
 
@@ -90,9 +91,9 @@ public final class RuleMethodHasNullabilityInfo implements AssertionRule<MethodI
         boolean ok = true;
 
         final Map<Integer, List<AnnotationInstance>> map = Utils.createParameterAnnotationMap(method);
-        final List<Type> params = method.parameters();
+        final List<MethodParameterInfo> params = method.parameters();
         for (int i = 0; i < params.size(); i++) {
-            final Type param = params.get(i);
+            final Type param = params.get(i).type();
             if (!typeIsPrimitive(param) && !typeIsOptional(param)) {
                 final List<AnnotationInstance> annotations = map.get(i);
                 if ((annotations == null) || !Utils.hasOneOfSimpleAnnotations(annotations, expectedAnnotations)) {

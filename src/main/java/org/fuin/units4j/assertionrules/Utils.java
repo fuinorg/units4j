@@ -18,10 +18,13 @@
 package org.fuin.units4j.assertionrules;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import jakarta.enterprise.lang.model.declarations.ParameterInfo;
 import jakarta.validation.constraints.NotNull;
 
 import org.fuin.utils4j.Utils4J;
@@ -30,6 +33,7 @@ import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.Index;
 import org.jboss.jandex.MethodInfo;
+import org.jboss.jandex.MethodParameterInfo;
 import org.jboss.jandex.Type;
 import org.jboss.jandex.Type.Kind;
 
@@ -149,12 +153,13 @@ public final class Utils {
         Utils4J.checkNotNull("method", method);
 
         final Map<Integer, List<AnnotationInstance>> result = new HashMap<>();
-        final List<Type> parameters = method.parameters();
+        final List<MethodParameterInfo> parameters = method.parameters();
         for (int i = 0; i < parameters.size(); i++) {
-            if (parameters.get(i).kind() == Kind.ARRAY) {
-                result.put(i, parameters.get(i).asArrayType().component().annotations());
+            final Type type = parameters.get(i).type();
+            if (type.kind() == Kind.ARRAY) {
+                result.put(i, type.asArrayType().constituent().annotations());
             } else {
-                result.put(i, parameters.get(i).annotations());
+                result.put(i, type.annotations());
             }
         }
         return result;
@@ -175,7 +180,7 @@ public final class Utils {
         if (method.returnType().kind() != Kind.VOID) {
             final List<AnnotationInstance> annotations;
             if (method.returnType().kind() == Kind.ARRAY) {
-                annotations = method.returnType().asArrayType().component().annotations();
+                annotations = method.returnType().asArrayType().constituent().annotations();
             } else {
                 annotations = method.returnType().annotations();
             }
@@ -270,8 +275,9 @@ public final class Utils {
 
     private static void addIfFound(final ClassInfo clasz, final MethodInfo methodToFind, final List<MethodInfo> methods) {
         if (clasz != null) {
-            final MethodInfo foundMethod = clasz.method(methodToFind.name(),
-                    methodToFind.parameters().toArray(new Type[methodToFind.parameters().size()]));
+            final List<Type> types = methodToFind.parameters().stream().map(pi -> pi.type()).collect(Collectors.toList());
+            final Type[] parameterTypes = types.toArray(new Type[types.size()]);            
+            final MethodInfo foundMethod = clasz.method(methodToFind.name(), parameterTypes);
             if (foundMethod != null) {
                 methods.add(foundMethod);
             }

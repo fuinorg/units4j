@@ -19,7 +19,7 @@ package org.fuin.units4j.dependency;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.fuin.utils4j.JaxbUtils;
+import org.fuin.utils4j.jaxb.JaxbUtils;
 import org.fuin.utils4j.Utils4J;
 import org.junit.Test;
 

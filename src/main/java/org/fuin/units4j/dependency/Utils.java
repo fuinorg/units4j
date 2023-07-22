@@ -34,8 +34,8 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 
-import org.fuin.utils4j.JaxbUtils;
 import org.fuin.utils4j.Utils4J;
+import org.fuin.utils4j.jaxb.JaxbUtils;
 
 /**
  * Utilities for the package.
