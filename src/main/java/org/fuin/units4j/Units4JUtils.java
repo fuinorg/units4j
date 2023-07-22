@@ -289,6 +289,21 @@ public final class Units4JUtils {
     }
 
     /**
+     * Verifies that the cause of a cause of a cause of an exception contains an expected message.
+     * 
+     * @param ex
+     *            Exception with the cause/cause/cause to check,
+     * @param expectedMessage
+     *            Message of the cause/cause.
+     */
+    public static void assertCauseCauseCauseMessage(final Throwable ex, final String expectedMessage) {
+        assertThat(ex.getCause()).isNotNull();
+        assertThat(ex.getCause().getCause()).isNotNull();
+        assertThat(ex.getCause().getCause().getCause()).isNotNull();
+        assertThat(ex.getCause().getCause().getCause().getMessage()).isEqualTo(expectedMessage);
+    }
+
+    /**
      * Validates the given object by using a newly created validator.
      * 
      * @param obj
