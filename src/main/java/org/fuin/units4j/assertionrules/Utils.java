@@ -17,25 +17,16 @@
  */
 package org.fuin.units4j.assertionrules;
 
+import jakarta.validation.constraints.NotNull;
+import org.fuin.utils4j.Utils4J;
+import org.jboss.jandex.*;
+import org.jboss.jandex.Type.Kind;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import jakarta.enterprise.lang.model.declarations.ParameterInfo;
-import jakarta.validation.constraints.NotNull;
-
-import org.fuin.utils4j.Utils4J;
-import org.jboss.jandex.AnnotationInstance;
-import org.jboss.jandex.ClassInfo;
-import org.jboss.jandex.DotName;
-import org.jboss.jandex.Index;
-import org.jboss.jandex.MethodInfo;
-import org.jboss.jandex.MethodParameterInfo;
-import org.jboss.jandex.Type;
-import org.jboss.jandex.Type.Kind;
 
 /**
  * Utilities for the package.

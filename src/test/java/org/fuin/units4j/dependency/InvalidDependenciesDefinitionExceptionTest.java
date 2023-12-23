@@ -17,9 +17,9 @@
  */
 package org.fuin.units4j.dependency;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 //CHECKSTYLE:OFF Test code
 public final class InvalidDependenciesDefinitionExceptionTest {

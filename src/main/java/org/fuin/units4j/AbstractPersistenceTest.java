@@ -17,18 +17,17 @@
  */
 package org.fuin.units4j;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Map;
-
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 
 /**
  * Base class for lightweight unit tests with entity manager. The tests tries to find a configuration properties file in the resource
@@ -51,7 +50,7 @@ public abstract class AbstractPersistenceTest {
 
     private static Connection connection;
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() throws Exception {
         try {
             emf = Persistence.createEntityManagerFactory("testPU");
@@ -70,7 +69,7 @@ public abstract class AbstractPersistenceTest {
         }
     }
 
-    @AfterClass
+    @AfterAll
     public static void afterClass() {
         if (em != null) {
             em.close();

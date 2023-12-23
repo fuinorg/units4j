@@ -17,16 +17,15 @@
  */
 package org.fuin.units4j.dependency;
 
-import java.io.Serializable;
-import java.util.Collections;
-import java.util.List;
-
 import jakarta.xml.bind.annotation.XmlAnyElement;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
-
 import org.fuin.utils4j.ToDebugStringCapable;
 import org.fuin.utils4j.Utils4J;
+
+import java.io.Serializable;
+import java.util.Collections;
+import java.util.List;
 
 // CHECKSTYLE:OFF
 /**

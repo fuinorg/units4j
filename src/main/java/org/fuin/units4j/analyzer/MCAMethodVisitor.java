@@ -17,11 +17,11 @@
  */
 package org.fuin.units4j.analyzer;
 
-import java.util.List;
-
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
+
+import java.util.List;
 
 /**
  * Visits a method and checks if one of a set of methods is called in that method.

@@ -17,18 +17,15 @@
  */
 package org.fuin.units4j.assertionrules;
 
-import static org.fuin.units4j.assertionrules.Visibility.PACKAGE;
-import static org.fuin.units4j.assertionrules.Visibility.PRIVATE;
-import static org.fuin.units4j.assertionrules.Visibility.PROTECTED;
-import static org.fuin.units4j.assertionrules.Visibility.PUBLIC;
+import org.fuin.units4j.AssertionResult;
+import org.fuin.units4j.AssertionRule;
+import org.jboss.jandex.FieldInfo;
 
 import java.lang.reflect.Modifier;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.fuin.units4j.AssertionResult;
-import org.fuin.units4j.AssertionRule;
-import org.jboss.jandex.FieldInfo;
+import static org.fuin.units4j.assertionrules.Visibility.*;
 
 /**
  * Checks if a field has a defined visibility.

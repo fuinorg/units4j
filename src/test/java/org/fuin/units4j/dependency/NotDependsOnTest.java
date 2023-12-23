@@ -17,15 +17,13 @@
  */
 package org.fuin.units4j.dependency;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import org.fuin.utils4j.jaxb.JaxbUtils;
-import org.fuin.utils4j.Utils4J;
-
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
+import org.fuin.utils4j.Utils4J;
+import org.fuin.utils4j.jaxb.JaxbUtils;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 // CHECKSTYLE:OFF Test code
 public final class NotDependsOnTest {

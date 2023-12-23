@@ -17,14 +17,14 @@
  */
 package org.fuin.units4j.dependency;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 // CHECKSTYLE:OFF Test code
 public final class DependencyAnalyzerTest {
@@ -150,7 +150,7 @@ public final class DependencyAnalyzerTest {
         assertThat(allowed).hasSize(1);
         assertThat(allowed).contains(new Package<DependsOn>("dummy.nothing"));
         final Package<DependsOn> allowedPkg = allowed.get(0);
-        assertThat(allowedPkg.getDependencies()).hasSize(0);
+        assertThat(allowedPkg.getDependencies()).isEmpty();
 
         testee.analyze(new File("target/test-classes/dummy/nothing"));
         final List<DependencyError> errors = testee.getDependencyErrors();

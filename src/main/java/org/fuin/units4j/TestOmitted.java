@@ -17,11 +17,7 @@
  */
 package org.fuin.units4j;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * States that the annotated test class contains no tests by intention. This avoids test failures when test coverage checks are done.

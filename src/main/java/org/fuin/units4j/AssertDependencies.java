@@ -17,15 +17,16 @@
  */
 package org.fuin.units4j;
 
-import java.io.File;
-import java.util.List;
-
 import org.fuin.units4j.dependency.Dependencies;
 import org.fuin.units4j.dependency.DependencyAnalyzer;
 import org.fuin.units4j.dependency.DependencyError;
 import org.fuin.units4j.dependency.InvalidDependenciesDefinitionException;
 import org.fuin.utils4j.Utils4J;
-import org.junit.Assert;
+
+import java.io.File;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Assertion tool class for checking dependencies.
@@ -48,7 +49,7 @@ public final class AssertDependencies {
                 sb.append("\n");
                 sb.append(dependencyErrors.get(i));
             }
-            Assert.fail(sb.toString());
+            fail(sb.toString());
         }
     }
 

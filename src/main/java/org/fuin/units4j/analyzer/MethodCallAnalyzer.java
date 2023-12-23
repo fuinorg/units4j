@@ -17,21 +17,16 @@
  */
 package org.fuin.units4j.analyzer;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import org.fuin.utils4j.fileprocessor.FileHandlerResult;
+import org.fuin.utils4j.fileprocessor.FileProcessor;
+import org.objectweb.asm.ClassReader;
+
+import java.io.*;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-
-import org.fuin.utils4j.fileprocessor.FileHandlerResult;
-import org.fuin.utils4j.fileprocessor.FileProcessor;
-import org.objectweb.asm.ClassReader;
 
 /**
  * Locates calls to a given method by analyzing Java ".class" files.

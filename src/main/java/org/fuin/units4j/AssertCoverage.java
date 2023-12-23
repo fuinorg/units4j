@@ -17,6 +17,11 @@
  */
 package org.fuin.units4j;
 
+import org.fuin.utils4j.Utils4J;
+import org.fuin.utils4j.fileprocessor.FileHandlerResult;
+import org.fuin.utils4j.fileprocessor.FileProcessor;
+import org.junit.jupiter.api.Test;
+
 import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -26,11 +31,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.fuin.utils4j.Utils4J;
-import org.fuin.utils4j.fileprocessor.FileHandlerResult;
-import org.fuin.utils4j.fileprocessor.FileProcessor;
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Assertion tool class for checking the test coverage.
@@ -71,7 +72,7 @@ public final class AssertCoverage {
         }
 
         if (sb.length() > 0) {
-            Assert.fail(sb.toString());
+            fail(sb.toString());
         }
 
     }
@@ -91,7 +92,7 @@ public final class AssertCoverage {
     /**
      * Asserts that a every class in the directory (or it's sub directories) has at least one test class. It's assumed that the name of the
      * test class follows the pattern <code>XxxxxTest</code>, where <code>Xxxxx</code> is the name of the class that is tested. The class
-     * must contain at least one method annotated with {@link Test}.
+     * must contain at least one method annotated with {@link org.junit.jupiter.api.Test}.
      * 
      * @param baseDir
      *            Root source directory like ("src/main/java").
@@ -224,7 +225,7 @@ public final class AssertCoverage {
         boolean found = false;
         final Method[] methods = testClass.getMethods();
         for (final Method method : methods) {
-            final Annotation testAnnotation = method.getAnnotation(Test.class);
+            final Annotation testAnnotation = method.getAnnotation(org.junit.jupiter.api.Test.class);
             if (testAnnotation != null) {
                 found = true;
                 break;

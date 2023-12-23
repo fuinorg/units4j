@@ -17,11 +17,12 @@
  */
 package org.fuin.units4j.dependency;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import org.fuin.utils4j.jaxb.JaxbUtils;
 import org.fuin.utils4j.Utils4J;
-import org.junit.Test;
+import org.fuin.utils4j.jaxb.JaxbUtils;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 // CHECKSTYLE:OFF Test code
 public final class DependenciesTest {
@@ -36,13 +37,15 @@ public final class DependenciesTest {
 
     }
 
-    @Test(expected = InvalidDependenciesDefinitionException.class)
+    @Test
     public void testValidate() throws InvalidDependenciesDefinitionException {
 
-        final Dependencies testee = new Dependencies();
-        testee.getAllowed().add(new Package<DependsOn>("a.b.c"));
-        testee.getForbidden().add(new Package<NotDependsOn>("a.b.c"));
-        testee.validate();
+        assertThatThrownBy(() -> {
+            final Dependencies testee = new Dependencies();
+            testee.getAllowed().add(new Package<DependsOn>("a.b.c"));
+            testee.getForbidden().add(new Package<NotDependsOn>("a.b.c"));
+            testee.validate();
+        }).isInstanceOf(InvalidDependenciesDefinitionException.class);        
 
     }
 

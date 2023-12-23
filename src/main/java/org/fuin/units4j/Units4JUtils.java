@@ -17,7 +17,23 @@
  */
 package org.fuin.units4j;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.groups.Default;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
+import org.apache.commons.lang3.StringUtils;
+import org.fuin.utils4j.Utils4J;
+import org.fuin.utils4j.fileprocessor.FileHandlerResult;
+import org.fuin.utils4j.fileprocessor.FileProcessor;
+import org.fuin.utils4j.jaxb.JaxbUtils;
+import org.jboss.jandex.ClassInfo;
+import org.jboss.jandex.DotName;
+import org.jboss.jandex.Index;
+import org.jboss.jandex.Indexer;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,24 +45,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validation;
-import jakarta.validation.Validator;
-import jakarta.validation.ValidatorFactory;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.groups.Default;
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.annotation.adapters.XmlAdapter;
-
-import org.apache.commons.lang3.StringUtils;
-import org.fuin.utils4j.jaxb.JaxbUtils;
-import org.fuin.utils4j.Utils4J;
-import org.fuin.utils4j.fileprocessor.FileHandlerResult;
-import org.fuin.utils4j.fileprocessor.FileProcessor;
-import org.jboss.jandex.ClassInfo;
-import org.jboss.jandex.DotName;
-import org.jboss.jandex.Index;
-import org.jboss.jandex.Indexer;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Utilities for use in tests.
@@ -514,7 +513,7 @@ public final class Units4JUtils {
             int pa = xml.indexOf(tag);
             while (pa > -1) {
                 final int s = pa + tag.length();
-                final int pe = xml.indexOf("\"", s);
+                final int pe = xml.indexOf('"', s);
                 if (pe > -1) {
                     final String str = xml.substring(pa, pe + 1);
                     searchList.add(str);
@@ -525,7 +524,7 @@ public final class Units4JUtils {
             }
         }
 
-        final String[] searchArray = searchList.toArray(new String[searchList.size()]);
+        final String[] searchArray = searchList.toArray(new String[0]);
         final String[] replacementArray = replacementList.toArray(new String[replacementList.size()]);
         return StringUtils.replaceEachRepeatedly(xml, searchArray, replacementArray);
     }

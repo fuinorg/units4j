@@ -17,14 +17,14 @@
  */
 package org.fuin.units4j.assertionrules;
 
-import java.lang.reflect.Modifier;
-import java.util.List;
-
 import org.fuin.units4j.AssertionResult;
 import org.fuin.units4j.AssertionRule;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.FieldInfo;
+
+import java.lang.reflect.Modifier;
+import java.util.List;
 
 /**
  * Checks if a field that has a {@code jakarta.json.bind.annotation.JsonbProperty annotation} is not final. The deserialization using a

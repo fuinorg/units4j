@@ -1,9 +1,8 @@
 // CHECKSTYLE:OFF
 package dummy.test.good;
 
-import org.fuin.utils4j.Utils4J;
-
 import dummy.good.a.GoodA;
+import org.fuin.utils4j.Utils4J;
 
 public final class GoodOne {
 

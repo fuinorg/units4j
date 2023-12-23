@@ -9,7 +9,8 @@ A home for additional useful unit testing modules for Java.
 [![Java Development Kit 11](https://img.shields.io/badge/JDK-11-green.svg)](https://openjdk.java.net/projects/jdk/11/)
 
 ## Versions
-- 0.10.0 (or later) = **Java 11** with new **jakarta** namespace
+- 0.11.0 (or later) = **Java 11** with **junit5** / **WeldJUnit4Runner removed** in favor of [weld-junit5](https://github.com/weld/weld-testing)
+- 0.10.0 = **Java 11** with new **jakarta** namespace
 - 0.9.x = **Java 11** before namespace change from 'javax' to 'jakarta'
 - 0.8.4 (or previous) = **Java 8**
 

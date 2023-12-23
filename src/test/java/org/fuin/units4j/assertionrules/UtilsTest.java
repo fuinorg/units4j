@@ -17,43 +17,37 @@
  */
 package org.fuin.units4j.assertionrules;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import jakarta.validation.constraints.NotNull;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.fuin.units4j.Units4JUtils;
+import org.fuin.utils4j.JandexUtils;
+import org.fuin.utils4j.Utils4J;
+import org.jboss.jandex.*;
+import org.jboss.jandex.Type.Kind;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import jakarta.validation.constraints.NotNull;
-
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.fuin.units4j.Units4JUtils;
-import org.fuin.utils4j.JandexUtils;
-import org.fuin.utils4j.Utils4J;
-import org.jboss.jandex.ClassInfo;
-import org.jboss.jandex.DotName;
-import org.jboss.jandex.Index;
-import org.jboss.jandex.Indexer;
-import org.jboss.jandex.MethodInfo;
-import org.jboss.jandex.Type;
-import org.jboss.jandex.Type.Kind;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 // CHECKSTYLE:OFF Test code
 public class UtilsTest {
 
     private static Index index;
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         final File dir = new File("target/test-classes");
         final List<File> classFiles = Units4JUtils.findAllClasses(dir);
         index = Units4JUtils.indexAllClasses(classFiles);
     }
 
-    @AfterClass
+    @AfterAll
     public static void afterClass() {
         index = null;
     }

@@ -17,12 +17,12 @@
  */
 package org.fuin.units4j.assertionrules;
 
-import java.lang.reflect.Modifier;
-
 import org.fuin.units4j.AssertionResult;
 import org.fuin.units4j.AssertionRule;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.MethodInfo;
+
+import java.lang.reflect.Modifier;
 
 /**
  * Checks if a class has a public or protected no arg constructor.

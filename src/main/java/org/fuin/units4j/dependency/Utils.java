@@ -17,25 +17,16 @@
  */
 package org.fuin.units4j.dependency;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.util.List;
-
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
-
 import org.fuin.utils4j.Utils4J;
 import org.fuin.utils4j.jaxb.JaxbUtils;
+
+import java.io.*;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.List;
 
 /**
  * Utilities for the package.

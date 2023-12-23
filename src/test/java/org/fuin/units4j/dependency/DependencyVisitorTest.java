@@ -17,13 +17,13 @@
  */
 package org.fuin.units4j.dependency;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 //CHECKSTYLE:OFF Test code
 public class DependencyVisitorTest {
 
-    @Ignore("Imported class - Not tested here")
+    @Disabled("Imported class - Not tested here")
     @Test
     public void notTested() {
         // Imported class - Not tested here

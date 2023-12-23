@@ -17,13 +17,13 @@
  */
 package org.fuin.units4j;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.fuin.units4j.analyzer.MCAMethod;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.math.BigDecimal;
 
-import org.fuin.units4j.analyzer.MCAMethod;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 //CHECKSTYLE:OFF Test code
 public final class AssertUsageTest {

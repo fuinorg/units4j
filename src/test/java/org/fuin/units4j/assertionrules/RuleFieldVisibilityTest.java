@@ -17,12 +17,12 @@
  */
 package org.fuin.units4j.assertionrules;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.fuin.units4j.Units4JUtils.classInfo;
-
 import org.fuin.units4j.AssertionResult;
 import org.jboss.jandex.ClassInfo;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.fuin.units4j.Units4JUtils.classInfo;
 
 // CHECKSTYLE:OFF Test code
 public class RuleFieldVisibilityTest {

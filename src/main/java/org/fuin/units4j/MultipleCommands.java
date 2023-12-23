@@ -17,13 +17,12 @@
  */
 package org.fuin.units4j;
 
+import jakarta.validation.constraints.NotNull;
+import org.fuin.utils4j.Utils4J;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import jakarta.validation.constraints.NotNull;
-
-import org.fuin.utils4j.Utils4J;
 
 /**
  * Combines multiple test commands into one.

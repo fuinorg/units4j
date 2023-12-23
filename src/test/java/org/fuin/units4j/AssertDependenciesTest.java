@@ -17,13 +17,13 @@
  */
 package org.fuin.units4j;
 
-import java.io.File;
-
 import org.fuin.units4j.dependency.Dependencies;
 import org.fuin.units4j.dependency.Utils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.io.File;
 
 // CHECKSTYLE:OFF Test code
 public final class AssertDependenciesTest {
@@ -32,13 +32,13 @@ public final class AssertDependenciesTest {
 
     private File classesDir;
 
-    @Before
+    @BeforeEach
     public final void setUp() {
         file = new File("src/test/resources/units4j.xml");
         classesDir = new File("target/classes");
     }
 
-    @After
+    @AfterEach
     public final void tearDown() {
         file = null;
         classesDir = null;

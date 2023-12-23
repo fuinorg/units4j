@@ -17,15 +17,15 @@
  */
 package org.fuin.units4j.analyzer;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 //CHECKSTYLE:OFF
 
@@ -42,7 +42,7 @@ public final class MCAMethodVisitorTest {
 
     private MCAMethodVisitor testee;
 
-    @Before
+    @BeforeEach
     public final void setup() {
         setScale = new MCAMethod(BigDecimal.class.getName(), BigDecimal.class.getName() + " setScale(int)");
         toFind = new ArrayList<MCAMethod>();
@@ -51,7 +51,7 @@ public final class MCAMethodVisitorTest {
         testee = new MCAMethodVisitor(classVisitor, toFind);
     }
 
-    @After
+    @AfterEach
     public final void tearDown() {
         classVisitor = null;
         toFind = null;
