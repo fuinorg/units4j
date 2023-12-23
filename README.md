@@ -8,6 +8,11 @@ A home for additional useful unit testing modules for Java.
 [![LGPLv3 License](http://img.shields.io/badge/license-LGPLv3-blue.svg)](https://www.gnu.org/licenses/lgpl.html)
 [![Java Development Kit 17](https://img.shields.io/badge/JDK-17-green.svg)](https://openjdk.java.net/projects/jdk/17/)
 
+> [!NOTE]  
+> The project is no longer maintained as most of its functionality can be found nowadays in other libraries.
+> For most parts use [ArchUnit](https://www.archunit.org/). Some methods where moved to [Utils4J](https://github.com/fuinorg/utils4j)
+> because they are not strictly bound to test functions.
+
 ## Versions
 - 0.11.0 (or later) = **Java 17** with **junit5** / **WeldJUnit4Runner removed** in favor of [weld-junit5](https://github.com/weld/weld-testing)
 - 0.10.0 = **Java 11** with new **jakarta** namespace
