@@ -19,8 +19,6 @@ A home for additional useful unit testing modules for Java.
 - 0.9.x = **Java 11** before namespace change from 'javax' to 'jakarta'
 - 0.8.4 (or previous) = **Java 8**
 
-
-
 * * *
 
 ## Features
