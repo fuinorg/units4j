@@ -17,16 +17,6 @@
  */
 package org.fuin.units4j;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.fuin.units4j.JandexAssert.assertThat;
-import static org.fuin.units4j.Units4JUtils.index;
-
-import java.io.Serializable;
-
-import org.jboss.jandex.Index;
-import org.jboss.jandex.Indexer;
-import org.junit.Test;
-
 import jakarta.json.bind.annotation.JsonbProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,6 +24,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import org.jboss.jandex.Index;
+import org.jboss.jandex.Indexer;
+import org.junit.jupiter.api.Test;
+
+import java.io.Serializable;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.fuin.units4j.JandexAssert.assertThat;
+import static org.fuin.units4j.Units4JUtils.index;
 
 /**
  * Tests the {@link JandexAssert} class.

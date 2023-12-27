@@ -17,18 +17,17 @@
  */
 package org.fuin.units4j;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import jakarta.validation.ConstraintViolation;
+import org.fuin.units4j.Units4JUtils.KV;
+import org.fuin.utils4j.Utils4J;
+import org.fuin.utils4j.jaxb.JaxbUtils;
+import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 import java.util.Set;
 
-import jakarta.validation.ConstraintViolation;
-
-import org.fuin.units4j.Units4JUtils.KV;
-import org.fuin.utils4j.jaxb.JaxbUtils;
-import org.fuin.utils4j.Utils4J;
-import org.junit.ComparisonFailure;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
 
 // CHECKSTYLE:OFF Test code
 public final class Units4JUtilsTest {
@@ -92,9 +91,10 @@ public final class Units4JUtilsTest {
         try {
             Units4JUtils.assertCauseMessage(first, "xxx");
             fail();
-        } catch (final ComparisonFailure f) {
+        } catch (final AssertionFailedError f) {
             // OK
-            assertThat(f.getMessage()).isEqualTo("expected:<\"[xxx]\"> but was:<\"[second]\">");
+            assertThat(f.getMessage()).contains("expected: \"xxx\"");
+            assertThat(f.getMessage()).contains("but was: \"second\"");
         }
 
     }
@@ -112,9 +112,10 @@ public final class Units4JUtilsTest {
         try {
             Units4JUtils.assertCauseCauseMessage(first, "xxx");
             fail();
-        } catch (final ComparisonFailure f) {
+        } catch (final AssertionFailedError f) {
             // OK
-            assertThat(f.getMessage()).isEqualTo("expected:<\"[xxx]\"> but was:<\"[third]\">");
+            assertThat(f.getMessage()).contains("expected: \"xxx\"");
+            assertThat(f.getMessage()).contains("but was: \"third\"");
         }
 
     }

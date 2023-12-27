@@ -17,22 +17,17 @@
  */
 package org.fuin.units4j.assertionrules;
 
+import jakarta.validation.constraints.NotNull;
+import org.fuin.units4j.AssertionResult;
+import org.fuin.units4j.AssertionRule;
+import org.fuin.utils4j.Utils4J;
+import org.jboss.jandex.*;
+import org.jboss.jandex.Type.Kind;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
-import jakarta.validation.constraints.NotNull;
-
-import org.fuin.units4j.AssertionResult;
-import org.fuin.units4j.AssertionRule;
-import org.fuin.utils4j.Utils4J;
-import org.jboss.jandex.AnnotationInstance;
-import org.jboss.jandex.DotName;
-import org.jboss.jandex.MethodInfo;
-import org.jboss.jandex.MethodParameterInfo;
-import org.jboss.jandex.Type;
-import org.jboss.jandex.Type.Kind;
 
 /**
  * Checks if all public, protected and package visible methods define nullability. This means every parameter and return value follows at

@@ -17,11 +17,10 @@
  */
 package org.fuin.units4j;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import jakarta.validation.constraints.NotNull;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 //CHECKSTYLE:OFF Test code
 public class MultipleCommandsTest {

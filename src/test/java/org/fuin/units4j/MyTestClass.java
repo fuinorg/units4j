@@ -1,8 +1,6 @@
 // CHECKSTYLE:OFF
 package org.fuin.units4j;
 
-import java.io.Serializable;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -11,6 +9,8 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
+
+import java.io.Serializable;
 
 @Entity
 @Table(name = "MY_TEST_TABLE")

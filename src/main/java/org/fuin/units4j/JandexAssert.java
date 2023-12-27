@@ -17,30 +17,18 @@
  */
 package org.fuin.units4j;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.MappedSuperclass;
+import org.assertj.core.api.AbstractAssert;
+import org.fuin.units4j.assertionrules.Utils;
+import org.fuin.units4j.assertionrules.*;
+import org.jboss.jandex.*;
+
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.MappedSuperclass;
-
-import org.assertj.core.api.AbstractAssert;
-import org.fuin.units4j.assertionrules.RuleClassHasNoFinalMethods;
-import org.fuin.units4j.assertionrules.RuleClassNotFinal;
-import org.fuin.units4j.assertionrules.RuleJsonbFieldNotFinal;
-import org.fuin.units4j.assertionrules.RuleMethodHasNullabilityInfo;
-import org.fuin.units4j.assertionrules.RulePersistentInstanceFieldVisibility;
-import org.fuin.units4j.assertionrules.RulePublicOrProtectedNoArgConstructor;
-import org.fuin.units4j.assertionrules.Utils;
-import org.jboss.jandex.AnnotationInstance;
-import org.jboss.jandex.AnnotationTarget;
-import org.jboss.jandex.ClassInfo;
-import org.jboss.jandex.DotName;
-import org.jboss.jandex.FieldInfo;
-import org.jboss.jandex.Index;
-import org.jboss.jandex.MethodInfo;
 
 /**
  * Assertion class for JBoss Jandex.

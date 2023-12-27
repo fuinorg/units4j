@@ -17,23 +17,20 @@
  */
 package org.fuin.units4j;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import assertcoverage.*;
+import org.assertj.core.api.Assertions;
+import org.fuin.units4j.AssertCoverage.ClassFilter;
+import org.fuin.units4j.dependency.InvalidDependenciesDefinitionException;
+import org.fuin.utils4j.PropertiesUtils;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 
-import org.fuin.units4j.AssertCoverage.ClassFilter;
-import org.fuin.utils4j.PropertiesUtils;
-import org.junit.Test;
-
-import assertcoverage.AbstractExampleClass;
-import assertcoverage.AnnotationExampleClass;
-import assertcoverage.EnumExampleClass;
-import assertcoverage.ExampleClass;
-import assertcoverage.ExampleExcludedClass;
-import assertcoverage.InterfaceExampleClass;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 // CHECKSTYLE:OFF Test code
 public final class AssertCoverageTest {
@@ -59,12 +56,14 @@ public final class AssertCoverageTest {
 
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public final void testAssertEveryClassHasATestError() {
 
-        final Set<Class<?>> classes = new HashSet<Class<?>>();
-        classes.add(AssertCoverageTest.class);
-        AssertCoverage.assertEveryClassHasATest(classes);
+        assertThatThrownBy(() -> {
+            final Set<Class<?>> classes = new HashSet<Class<?>>();
+            classes.add(AssertCoverageTest.class);
+            AssertCoverage.assertEveryClassHasATest(classes);
+        }).isInstanceOf(AssertionError.class);
 
     }
 
@@ -92,7 +91,7 @@ public final class AssertCoverageTest {
                 return !clasz.getSimpleName().equals("ExampleClass") && !clasz.equals(ExampleExcludedClass.class);
             }
         });
-        assertThat(classes.size()).isEqualTo(0);
+        assertThat(classes).isEmpty();
 
     }
 

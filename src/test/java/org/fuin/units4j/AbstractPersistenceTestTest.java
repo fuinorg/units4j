@@ -17,11 +17,11 @@
  */
 package org.fuin.units4j;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 // CHECKSTYLE:OFF Test code
 public class AbstractPersistenceTestTest extends AbstractPersistenceTest {

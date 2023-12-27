@@ -17,19 +17,16 @@
  */
 package org.fuin.units4j.assertionrules;
 
-import static org.fuin.units4j.assertionrules.Visibility.PACKAGE;
-import static org.fuin.units4j.assertionrules.Visibility.PRIVATE;
-import static org.fuin.units4j.assertionrules.Visibility.PROTECTED;
-
-import java.lang.reflect.Modifier;
-import java.util.List;
-
 import jakarta.persistence.Transient;
-
 import org.fuin.units4j.AssertionResult;
 import org.fuin.units4j.AssertionRule;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.FieldInfo;
+
+import java.lang.reflect.Modifier;
+import java.util.List;
+
+import static org.fuin.units4j.assertionrules.Visibility.*;
 
 /**
  * Checks if all persistent fields are declared private, protected, or package-private.

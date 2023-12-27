@@ -17,22 +17,13 @@
  */
 package org.fuin.units4j.dependency;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.fuin.utils4j.Utils4J;
 import org.fuin.utils4j.fileprocessor.FileHandlerResult;
 import org.fuin.utils4j.fileprocessor.FileProcessor;
 import org.objectweb.asm.ClassReader;
+
+import java.io.*;
+import java.util.*;
 
 /**
  * Analyzes package dependencies.

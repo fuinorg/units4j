@@ -17,14 +17,7 @@
  */
 package org.fuin.units4j.assertionrules;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.fuin.units4j.Units4JUtils.classInfo;
-
-import java.util.List;
-import java.util.Optional;
-
 import jakarta.validation.constraints.NotNull;
-
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.fuin.units4j.AssertionResult;
@@ -33,9 +26,15 @@ import org.jboss.jandex.DotName;
 import org.jboss.jandex.MethodInfo;
 import org.jboss.jandex.Type;
 import org.jboss.jandex.Type.Kind;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.fuin.units4j.Units4JUtils.classInfo;
 
 // CHECKSTYLE:OFF Test code
 public class RuleMethodHasNullabilityInfoTest {
@@ -44,12 +43,12 @@ public class RuleMethodHasNullabilityInfoTest {
 
     private RuleMethodHasNullabilityInfo testee;
 
-    @Before
+    @BeforeEach
     public void setup() {
         testee = new RuleMethodHasNullabilityInfo();
     }
 
-    @After
+    @AfterEach
     public void teardown() {
         testee = null;
     }

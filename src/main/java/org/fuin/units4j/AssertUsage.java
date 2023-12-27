@@ -17,16 +17,17 @@
  */
 package org.fuin.units4j;
 
+import org.fuin.units4j.analyzer.MCAMethod;
+import org.fuin.units4j.analyzer.MCAMethodCall;
+import org.fuin.units4j.analyzer.MethodCallAnalyzer;
+import org.fuin.utils4j.Utils4J;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.util.Arrays;
 import java.util.List;
 
-import org.fuin.units4j.analyzer.MCAMethod;
-import org.fuin.units4j.analyzer.MCAMethodCall;
-import org.fuin.units4j.analyzer.MethodCallAnalyzer;
-import org.fuin.utils4j.Utils4J;
-import org.junit.Assert;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Assertion tool class for checking usage of some code.
@@ -83,7 +84,7 @@ public final class AssertUsage {
                 sb.append("\n");
                 sb.append(methodCall);
             }
-            Assert.fail(sb.toString());
+            fail(sb.toString());
         }
 
     }

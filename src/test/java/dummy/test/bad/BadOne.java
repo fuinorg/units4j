@@ -1,10 +1,9 @@
 // CHECKSTYLE:OFF
 package dummy.test.bad;
 
-import org.fuin.utils4j.Utils4J;
-
 import dummy.bad.a.BadA;
 import dummy.test.Parent;
+import org.fuin.utils4j.Utils4J;
 
 public class BadOne {
 

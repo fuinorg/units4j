@@ -17,7 +17,8 @@
  */
 package org.fuin.units4j.analyzer;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.fuin.utils4j.Utils4J;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,8 +27,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.fuin.utils4j.Utils4J;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 // CHECKSTYLE:OFF
 
