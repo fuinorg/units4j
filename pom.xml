@@ -48,6 +48,7 @@
 			<groupId>org.ow2.asm</groupId>
 			<artifactId>asm</artifactId>
 			<version>9.5</version>
+			<!-- Don't forget to change Opcodes.ASMx constants! -->
 		</dependency>
 
 		<dependency>
