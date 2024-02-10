@@ -38,10 +38,10 @@ import static org.junit.jupiter.api.Assertions.fail;
  *
  * @deprecated Use <a href="https://www.archunit.org/">ArchUnit</a> rules instead.
  *
- * <code>{@code
- * &#64;AnalyzeClasses(packagesOf = AClassInRootPackage.class, importOptions = ImportOption.DoNotIncludeTests.class)
+ * <code>
+ * @AnalyzeClasses(packagesOf = AClassInRootPackage.class, importOptions = ImportOption.DoNotIncludeTests.class)
  * class ArchitectureTest {
- *     &#64;ArchTest
+ *     @ArchTest
  *     static final ArchRule all_classes_should_have_tests =
  *         classes()
  *             .that()
@@ -52,8 +52,8 @@ import static org.junit.jupiter.api.Assertions.fail;
  *                 .and().doNotHaveModifier(JavaModifier.ABSTRACT)
  *                 .and().areNotAnnotatedWith(ArchIgnore.class)
  *                 .should(haveACorrespondingClassEndingWith("Test"));
- * }
- * }</code>
+ * </code>
+ *
  */
 @Deprecated
 public final class AssertCoverage {

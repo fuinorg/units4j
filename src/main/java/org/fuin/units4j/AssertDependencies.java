@@ -34,8 +34,8 @@ import static org.junit.jupiter.api.Assertions.fail;
  * @deprecated Use <a href="https://www.archunit.org/">ArchUnit</a> rules instead.
  *
  * Example ArchUnit test rule:
- * <pre>{@code
- * &#64;ArchTest
+ * <code>
+ * @ArchTest
  * static final ArchRule core_access_only_to_defined_packages =
  *     classes()
  *         .that()
@@ -43,7 +43,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  *         .should()
  *             .onlyDependOnClassesThat()
  *             .resideInAnyPackage("my.package.common..", "java.lang..");
- * }</pre>
+ * </code>
  */
 @Deprecated
 public final class AssertDependencies {
