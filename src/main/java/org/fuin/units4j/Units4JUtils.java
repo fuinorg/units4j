@@ -267,7 +267,17 @@ public final class Units4JUtils {
      *            Exception with the cause to check,
      * @param expectedMessage
      *            Message of the cause.
+     *
+     * @deprecated Use <a href="https://joel-costigliola.github.io/assertj/">AssertJ</a> "assertThatThrownBy/hasRootCauseMessage" instead.
+     *
+     * Example of "assertThatThrownBy":
+     * <code>
+     * assertThatThrownBy(() -> { throw new Exception("boom!"); })
+     *   .isInstanceOf(Exception.class)
+     *   .hasRootCauseMessage("boom");
+     * </code>
      */
+    @Deprecated
     public static void assertCauseMessage(final Throwable ex, final String expectedMessage) {
         assertThat(ex.getCause()).isNotNull();
         assertThat(ex.getCause().getMessage()).isEqualTo(expectedMessage);
@@ -280,7 +290,17 @@ public final class Units4JUtils {
      *            Exception with the cause/cause to check,
      * @param expectedMessage
      *            Message of the cause/cause.
+     *
+     * @deprecated Use <a href="https://joel-costigliola.github.io/assertj/">AssertJ</a> "assertThatThrownBy/hasRootCauseMessage" instead.
+     *
+     * Example of "assertThatThrownBy":
+     * <code>
+     * assertThatThrownBy(() -> { throw new Exception("boom!"); })
+     *   .isInstanceOf(Exception.class)
+     *   .hasRootCauseMessage("boom");
+     * </code>
      */
+    @Deprecated
     public static void assertCauseCauseMessage(final Throwable ex, final String expectedMessage) {
         assertThat(ex.getCause()).isNotNull();
         assertThat(ex.getCause().getCause()).isNotNull();
@@ -294,7 +314,18 @@ public final class Units4JUtils {
      *            Exception with the cause/cause/cause to check,
      * @param expectedMessage
      *            Message of the cause/cause.
+     *
+     * @deprecated Use <a href="https://joel-costigliola.github.io/assertj/">AssertJ</a> "assertThatThrownBy/hasRootCauseMessage" instead.
+     *
+     * Example of "assertThatThrownBy":
+     * <code>
+     * assertThatThrownBy(() -> { throw new Exception("boom!"); })
+     *   .isInstanceOf(Exception.class)
+     *   .hasRootCauseMessage("boom");
+     * </code>
+     *
      */
+    @Deprecated
     public static void assertCauseCauseCauseMessage(final Throwable ex, final String expectedMessage) {
         assertThat(ex.getCause()).isNotNull();
         assertThat(ex.getCause().getCause()).isNotNull();
@@ -560,7 +591,17 @@ public final class Units4JUtils {
      *            Exception to test.
      * 
      * @return TRUE if the object is exactly of the same class and has the same message, else FALSE.
+     *
+     * @deprecated Use <a href="https://joel-costigliola.github.io/assertj/">AssertJ</a> "assertThatThrownBy/hasRootCauseMessage" instead.
+     *
+     * Example of "assertThatThrownBy":
+     * <code>
+     * assertThatThrownBy(() -> { throw new Exception("boom!"); })
+     *   .isInstanceOf(Exception.class)
+     *   .hasRootCauseMessage("boom");
+     * </code>
      */
+    @Deprecated
     public static boolean isExpectedException(final Class<? extends Exception> expectedClass,
             final String expectedMessage, final Exception ex) {
         if (!isExpectedType(expectedClass, ex)) {

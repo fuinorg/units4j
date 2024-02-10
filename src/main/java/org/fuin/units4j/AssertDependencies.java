@@ -30,7 +30,22 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Assertion tool class for checking dependencies.
+ *
+ * @deprecated Use <a href="https://www.archunit.org/">ArchUnit</a> rules instead.
+ *
+ * Example ArchUnit test rule:
+ * <code>
+ * @ArchTest
+ * static final ArchRule core_access_only_to_defined_packages =
+ *     classes()
+ *         .that()
+ *             .resideInAPackage("my.package.core..")
+ *         .should()
+ *             .onlyDependOnClassesThat()
+ *             .resideInAnyPackage("my.package.common..", "java.lang..");
+ * </code>
  */
+@Deprecated
 public final class AssertDependencies {
 
     /**
