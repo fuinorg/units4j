@@ -249,7 +249,10 @@ public final class Units4JUtils {
      *            Name of the attribute to set.
      * @param value
      *            Value to set for the attribute.
+     *
+     * @deprecated Use Utils4J class that has same method: <a href="https://github.com/fuinorg/utils4j">Utils4J</a>.
      */
+    @Deprecated
     public static void setPrivateField(final Object obj, final String name, final Object value) {
         try {
             final Field field = obj.getClass().getDeclaredField(name);
@@ -533,7 +536,10 @@ public final class Units4JUtils {
      *            Attribute name and new value.
      * 
      * @return Replaced content.
+     *
+     * @deprecated Use <a href="https://www.xmlunit.org/">XMLUnit</a> and ignore field while comparing result.
      */
+    @Deprecated
     public static String replaceXmlAttr(final String xml, final KV... keyValues) {
 
         final List<String> searchList = new ArrayList<>();

@@ -24,7 +24,10 @@ import jakarta.validation.constraints.NotNull;
  * 
  * @param <CONTEXT>
  *            Type of the context.
+ *
+ * @deprecated Use class with same name from <a href="https://github.com/fuinorg/utils4j">Utils4J</a>.
  */
+@Deprecated
 public interface TestCommand<CONTEXT> {
 
     /**

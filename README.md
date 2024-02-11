@@ -14,6 +14,7 @@ A home for additional useful unit testing modules for Java.
 > because they are not strictly bound to test functions.
 
 ## Versions
+- 0.12.0-SNAPSHOT = LAST VERSION (Will never be released :worried:)
 - 0.11.0 (or later) = **Java 17** with **junit5** / **WeldJUnit4Runner removed** in favor of [weld-junit5](https://github.com/weld/weld-testing)
 - 0.10.0 = **Java 11** with new **jakarta** namespace
 - 0.9.x = **Java 11** before namespace change from 'javax' to 'jakarta'
