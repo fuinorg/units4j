@@ -13,7 +13,7 @@ public class EmptyMethodVisitor extends MethodVisitor {
     private EmptyAnnotationVisitor an;
 
     public EmptyMethodVisitor() {
-        super(Opcodes.ASM7);
+        super(Opcodes.ASM9);
         an = new EmptyAnnotationVisitor();
     }
 

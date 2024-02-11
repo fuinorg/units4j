@@ -21,10 +21,13 @@ import java.lang.annotation.*;
 
 /**
  * States that the annotated test class contains no tests by intention. This avoids test failures when test coverage checks are done.
+ *
+ * @deprecated Use class with same name from <a href="https://github.com/fuinorg/utils4j">Utils4J</a>.
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
+@Deprecated
 public @interface TestOmitted {
 
     /**

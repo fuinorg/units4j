@@ -35,7 +35,27 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Assertion tool class for checking the test coverage.
+ *
+ * @deprecated Use <a href="https://www.archunit.org/">ArchUnit</a> rules instead.
+ *
+ * <code>{@code
+ * &#64;AnalyzeClasses(packagesOf = AClassInRootPackage.class, importOptions = ImportOption.DoNotIncludeTests.class)
+ * class ArchitectureTest {
+ *     &#64;ArchTest
+ *     static final ArchRule all_classes_should_have_tests =
+ *         classes()
+ *             .that()
+ *                 .areTopLevelClasses()
+ *                 .and().areNotInterfaces()
+ *                 .and().areNotRecords()
+ *                 .and().areNotEnums()
+ *                 .and().doNotHaveModifier(JavaModifier.ABSTRACT)
+ *                 .and().areNotAnnotatedWith(ArchIgnore.class)
+ *                 .should(haveACorrespondingClassEndingWith("Test"));
+ * }
+ * }</code>
  */
+@Deprecated
 public final class AssertCoverage {
 
     /**

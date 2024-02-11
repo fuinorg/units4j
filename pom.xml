@@ -12,7 +12,7 @@
 
 	<artifactId>units4j</artifactId>
 	<packaging>jar</packaging>
-	<version>0.11.0</version>
+	<version>0.12.0-SNAPSHOT</version>
 	<description>A home for additional useful unit testing modules for Java.</description>
 	<url>http://www.fuin.org/units4j/</url>
 
@@ -48,6 +48,7 @@
 			<groupId>org.ow2.asm</groupId>
 			<artifactId>asm</artifactId>
 			<version>9.5</version>
+			<!-- Don't forget to change Opcodes.ASMx constants! -->
 		</dependency>
 
 		<dependency>
@@ -59,7 +60,7 @@
 		<dependency>
 			<groupId>org.fuin</groupId>
 			<artifactId>utils4j</artifactId>
-			<version>0.13.0</version>
+			<version>0.14.0-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>

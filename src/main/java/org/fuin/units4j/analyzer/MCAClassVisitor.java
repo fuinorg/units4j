@@ -48,7 +48,7 @@ public final class MCAClassVisitor extends ClassVisitor {
      *            Method calls to find.
      */
     public MCAClassVisitor(final List<MCAMethod> methodsToFind) {
-        super(Opcodes.ASM7, new EmptyClassVisitor());
+        super(Opcodes.ASM9, new EmptyClassVisitor());
         if (methodsToFind == null) {
             throw new IllegalArgumentException("Argument 'methodsToFind' canot be NULL");
         }

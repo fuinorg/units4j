@@ -29,7 +29,10 @@ import java.util.List;
  * 
  * @param <CONTEXT>
  *            Type of the test context.
+ *
+ * @deprecated Use class with same name from <a href="https://github.com/fuinorg/utils4j">Utils4J</a>.
  */
+@Deprecated
 public final class MultipleCommands<CONTEXT> implements TestCommand<CONTEXT> {
 
     private final List<TestCommand<CONTEXT>> commands;
