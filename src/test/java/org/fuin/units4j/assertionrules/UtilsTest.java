@@ -20,7 +20,7 @@ package org.fuin.units4j.assertionrules;
 import jakarta.validation.constraints.NotNull;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.fuin.units4j.Units4JUtils;
-import org.fuin.utils4j.JandexUtils;
+import org.fuin.utils4j.jandex.JandexUtils;
 import org.fuin.utils4j.Utils4J;
 import org.jboss.jandex.*;
 import org.jboss.jandex.Type.Kind;
