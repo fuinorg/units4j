@@ -4,6 +4,7 @@ import com.tngtech.archunit.core.domain.JavaClass;
 import com.tngtech.archunit.lang.ArchCondition;
 import com.tngtech.archunit.lang.ConditionEvents;
 import com.tngtech.archunit.lang.SimpleConditionEvent;
+import org.fuin.utils4j.TestOmitted;
 
 import java.util.Collection;
 import java.util.Set;
@@ -15,6 +16,7 @@ import static java.util.stream.Collectors.toSet;
 /**
  * Defines a condition that all top level classes should have a test class.
  */
+@TestOmitted("Tested implicitly")
 public final class AllTopLevelClassesHaveATestCondition extends ArchCondition<JavaClass> {
 
     private final String suffix;
