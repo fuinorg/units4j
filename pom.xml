@@ -35,26 +35,26 @@
 		<dependency>
 			<groupId>jakarta.validation</groupId>
 			<artifactId>jakarta.validation-api</artifactId>
-			<version>3.1.1</version>
+			<version>3.0.2</version>
 		</dependency>
 
 		<dependency>
 			<groupId>jakarta.persistence</groupId>
 			<artifactId>jakarta.persistence-api</artifactId>
-			<version>3.2.0</version>
+			<version>3.1.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.ow2.asm</groupId>
 			<artifactId>asm</artifactId>
-			<version>9.8</version>
+			<version>9.7.1</version>
 			<!-- Don't forget to change Opcodes.ASMx constants on major version change! -->
 		</dependency>
 
 		<dependency>
 			<groupId>org.ow2.asm</groupId>
 			<artifactId>asm-commons</artifactId>
-			<version>9.8</version>
+			<version>9.7.1</version>
 		</dependency>
 
 		<dependency>
@@ -73,7 +73,7 @@
 			<!-- Yes, this is a compile time dependency... ;-) -->
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
-			<version>5.12.1</version>
+			<version>5.10.5</version>
 		</dependency>
 
 		<dependency>
@@ -97,7 +97,7 @@
 		<dependency>
 			<groupId>org.assertj</groupId>
 			<artifactId>assertj-core</artifactId>
-			<version>4.0.0-M1</version>
+			<version>3.26.3</version>
 		</dependency>
 
 		<dependency>
@@ -130,7 +130,7 @@
 		<dependency>
 			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>9.0.0.CR1</version>
+			<version>8.0.2.Final</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -144,7 +144,7 @@
 		<dependency>
 			<groupId>org.glassfish.expressly</groupId>
 			<artifactId>expressly</artifactId>
-			<version>6.0.0-M1</version>
+			<version>5.0.0</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -158,14 +158,14 @@
 		<dependency>
     		<groupId>org.eclipse.persistence</groupId>
 		    <artifactId>org.eclipse.persistence.jpa</artifactId>
-    		<version>5.0.0-B07</version>
+    		<version>4.0.5</version>
             <scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
-			<version>2.7.4</version>
+			<version>2.7.3</version>
 			<scope>test</scope>
 		</dependency>
 
