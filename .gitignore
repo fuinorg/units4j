@@ -4,6 +4,7 @@
 !.checkstyle
 !.mvn
 !.github
+!.sonarlint
 target
 META-INF
 *.log
