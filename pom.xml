@@ -210,7 +210,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<argLine>${argLine} -Duser.language=en -Duser.region=US</argLine>
+					<argLine>@{argLine} -Duser.language=en -Duser.region=US</argLine>
 				</configuration>
 			</plugin>
 
