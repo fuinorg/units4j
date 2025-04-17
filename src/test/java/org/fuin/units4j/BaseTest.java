@@ -22,6 +22,8 @@ import org.fuin.units4j.analyzer.EmptyAnnotationVisitor;
 import org.fuin.units4j.analyzer.EmptyClassVisitor;
 import org.fuin.units4j.analyzer.EmptyFieldVisitor;
 import org.fuin.units4j.analyzer.EmptyMethodVisitor;
+import org.fuin.units4j.archunit.AllTopLevelClassesHaveATestCondition;
+import org.fuin.units4j.archunit.Units4JConditions;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -34,8 +36,12 @@ public final class BaseTest {
         AssertCoverage.assertEveryClassHasATest(new File("src/main/java"), new ClassFilter() {
             @Override
             public boolean isIncludeClass(final Class<?> clasz) {
-                if ((clasz == EmptyClassVisitor.class) || (clasz == EmptyAnnotationVisitor.class) || (clasz == EmptyFieldVisitor.class)
-                        || (clasz == EmptyMethodVisitor.class)) {
+                if (clasz == EmptyClassVisitor.class
+                        || clasz == EmptyAnnotationVisitor.class
+                        || clasz == EmptyFieldVisitor.class
+                        || clasz == EmptyMethodVisitor.class
+                        || clasz == AllTopLevelClassesHaveATestCondition.class
+                        || clasz == Units4JConditions.class) {
                     return false;
                 }
                 return true;
