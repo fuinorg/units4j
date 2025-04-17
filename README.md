@@ -9,7 +9,7 @@ A home for additional useful unit testing modules for Java.
 [![Java Development Kit 17](https://img.shields.io/badge/JDK-17-green.svg)](https://openjdk.java.net/projects/jdk/17/)
 
 ## Versions
-- 0.12.0-SNAPSHOT = Made several functions deprecated and added new [ArchUnit](https://www.archunit.org/) helper.
+- 0.12.0 = See [Release Notes](release-notes.md)
 - 0.11.0 (or later) = **Java 17** with **junit5** / **WeldJUnit4Runner removed** in favor of [weld-junit5](https://github.com/weld/weld-testing)
 - 0.10.0 = **Java 11** with new **jakarta** namespace
 - 0.9.x = **Java 11** before namespace change from 'javax' to 'jakarta'
