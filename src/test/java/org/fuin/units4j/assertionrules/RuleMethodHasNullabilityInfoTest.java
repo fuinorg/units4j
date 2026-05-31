@@ -18,8 +18,8 @@
 package org.fuin.units4j.assertionrules;
 
 import jakarta.validation.constraints.NotNull;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.fuin.units4j.AssertionResult;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;

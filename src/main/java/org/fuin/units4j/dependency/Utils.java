@@ -22,6 +22,7 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import org.fuin.utils4j.Utils4J;
 import org.fuin.utils4j.jaxb.JaxbUtils;
+import org.jspecify.annotations.Nullable;
 
 import java.io.*;
 import java.net.URL;
@@ -161,7 +162,7 @@ public final class Utils {
      * 
      * @return Entry or <code>null</code> if nothing was found.
      */
-    public static DependsOn findAllowedByName(final List<DependsOn> allowed, final String pkgName) {
+    public static @Nullable DependsOn findAllowedByName(final @Nullable List<DependsOn> allowed, final String pkgName) {
         if (allowed == null) {
             return null;
         }
@@ -191,7 +192,7 @@ public final class Utils {
      * 
      * @return Entry or <code>null</code> if nothing was found.
      */
-    public static NotDependsOn findForbiddenByName(final List<NotDependsOn> forbidden, final String pkgName) {
+    public static @Nullable NotDependsOn findForbiddenByName(final @Nullable List<NotDependsOn> forbidden, final String pkgName) {
         if (forbidden == null) {
             return null;
         }

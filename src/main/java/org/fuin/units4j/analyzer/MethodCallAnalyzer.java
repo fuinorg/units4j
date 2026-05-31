@@ -19,6 +19,7 @@ package org.fuin.units4j.analyzer;
 
 import org.fuin.utils4j.fileprocessor.FileHandlerResult;
 import org.fuin.utils4j.fileprocessor.FileProcessor;
+import org.jspecify.annotations.Nullable;
 import org.objectweb.asm.ClassReader;
 
 import java.io.*;
@@ -125,7 +126,7 @@ public final class MethodCallAnalyzer {
      * @param filter
      *            File filter or NULL (process all '*.class' files).
      */
-    public final void findCallingMethodsInDir(final File dir, final FileFilter filter) {
+    public final void findCallingMethodsInDir(final File dir, @Nullable final FileFilter filter) {
 
         final FileProcessor fileProcessor = new FileProcessor(file -> {
             if (file.isDirectory()) {

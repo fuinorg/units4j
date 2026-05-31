@@ -17,6 +17,7 @@
  */
 package org.fuin.units4j.analyzer;
 
+import org.jspecify.annotations.Nullable;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
@@ -32,6 +33,7 @@ public final class MCAMethodVisitor extends MethodVisitor {
 
     private final List<MCAMethod> toFind;
 
+    @Nullable
     private MCAMethod found;
 
     private int line;

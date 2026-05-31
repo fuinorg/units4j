@@ -20,6 +20,7 @@ package org.fuin.units4j.dependency;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import org.fuin.utils4j.ToDebugStringCapable;
 import org.fuin.utils4j.Utils4J;
+import org.jspecify.annotations.Nullable;
 
 import java.io.Serializable;
 
@@ -34,11 +35,13 @@ public abstract class Dependency implements ToDebugStringCapable, Serializable {
     private String packageName;
 
     @XmlAttribute(name = "includeSubPackages")
+    @Nullable
     private Boolean includeSubPackages;
 
     /**
      * Default constructor for unmarshalling.
      */
+    @SuppressWarnings("NullAway.Init")
     protected Dependency() {
         super();
     }

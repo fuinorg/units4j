@@ -8,6 +8,7 @@
     <dependsOn package="org.assertj"/>
     <dependsOn package="org.jboss.weld.environment.se"/>
     <dependsOn package="org.jboss.jandex"/>
+    <dependsOn package="org.jspecify"/>
   </alwaysAllowed>
   
   <alwaysForbidden>

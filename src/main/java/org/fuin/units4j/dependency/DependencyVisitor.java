@@ -30,6 +30,7 @@
  */
 package org.fuin.units4j.dependency;
 
+import org.jspecify.annotations.Nullable;
 import org.objectweb.asm.*;
 import org.objectweb.asm.signature.SignatureReader;
 import org.objectweb.asm.signature.SignatureVisitor;
@@ -61,6 +62,7 @@ public class DependencyVisitor extends ClassVisitor {
 
     private Map<String, Integer> current;
 
+    @SuppressWarnings("NullAway.Init")
     public DependencyVisitor() {
         super(Opcodes.ASM9);
         mv = new MVisitor();
@@ -81,11 +83,12 @@ public class DependencyVisitor extends ClassVisitor {
     public void visit(final int version, final int access, final String name, final String signature, final String superName,
             final String[] interfaces) {
         String p = getGroupKey(name);
-        current = groups.get(p);
-        if (current == null) {
-            current = new HashMap<>();
-            groups.put(p, current);
+        Map<String, Integer> grp = groups.get(p);
+        if (grp == null) {
+            grp = new HashMap<>();
+            groups.put(p, grp);
         }
+        current = grp;
 
         if (signature == null) {
             addInternalName(superName);
@@ -303,6 +306,7 @@ public class DependencyVisitor extends ClassVisitor {
 
     public class SVisitor extends SignatureVisitor {
 
+        @Nullable
         private String signatureClassName;
 
         public SVisitor() {

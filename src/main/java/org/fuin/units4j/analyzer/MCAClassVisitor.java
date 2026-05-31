@@ -47,6 +47,7 @@ public final class MCAClassVisitor extends ClassVisitor {
      * @param methodsToFind
      *            Method calls to find.
      */
+    @SuppressWarnings("NullAway.Init")
     public MCAClassVisitor(final List<MCAMethod> methodsToFind) {
         super(Opcodes.ASM9, new EmptyClassVisitor());
         if (methodsToFind == null) {

@@ -34,6 +34,7 @@ import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.Index;
 import org.jboss.jandex.Indexer;
+import org.jspecify.annotations.Nullable;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -70,7 +71,7 @@ public final class Units4JUtils {
      * @deprecated Use {@link Utils4J#serialize(Object)}
      */
     @Deprecated
-    public static byte[] serialize(final Object obj) {
+    public static byte @Nullable [] serialize(@Nullable final Object obj) {
         return Utils4J.serialize(obj);
     }
 
@@ -88,7 +89,7 @@ public final class Units4JUtils {
      * @deprecated Use {@link Utils4J#deserialize(byte[])}
      */
     @Deprecated
-    public static <T> T deserialize(final byte[] data) {
+    public static <T> @Nullable T deserialize(final byte @Nullable [] data) {
         return Utils4J.deserialize(data);
     }
 
@@ -108,7 +109,7 @@ public final class Units4JUtils {
      * @deprecated Use {@link JaxbUtils#marshal(Object, Class...)}
      */
     @Deprecated
-    public static <T> String marshal(final T data, @NotNull final Class<?>... classesToBeBound) {
+    public static <T> @Nullable String marshal(@Nullable final T data, @NotNull final Class<?>... classesToBeBound) {
         return JaxbUtils.marshal(data, classesToBeBound);
     }
 
@@ -130,7 +131,8 @@ public final class Units4JUtils {
      * @deprecated Use {@link JaxbUtils#marshal(Object, XmlAdapter[], Class...)}
      */
     @Deprecated
-    public static <T> String marshal(final T data, final XmlAdapter<?, ?>[] adapters, @NotNull final Class<?>... classesToBeBound) {
+    public static <T> @Nullable String marshal(@Nullable final T data, final XmlAdapter<?, ?> @Nullable [] adapters,
+            @NotNull final Class<?>... classesToBeBound) {
         return JaxbUtils.marshal(data, adapters, classesToBeBound);
     }
 
@@ -150,7 +152,7 @@ public final class Units4JUtils {
      * @deprecated Use {@link JaxbUtils#marshal(JAXBContext, Object)}
      */
     @Deprecated
-    public static <T> String marshal(@NotNull final JAXBContext ctx, final T data) {
+    public static <T> @Nullable String marshal(@NotNull final JAXBContext ctx, @Nullable final T data) {
         return JaxbUtils.marshal(marshal(ctx, data));
     }
 
@@ -172,7 +174,8 @@ public final class Units4JUtils {
      * @deprecated Use {@link JaxbUtils#marshal(JAXBContext, Object, XmlAdapter[])}
      */
     @Deprecated
-    public static <T> String marshal(@NotNull final JAXBContext ctx, final T data, final XmlAdapter<?, ?>[] adapters) {
+    public static <T> @Nullable String marshal(@NotNull final JAXBContext ctx, @Nullable final T data,
+            final XmlAdapter<?, ?> @Nullable [] adapters) {
         return JaxbUtils.marshal(ctx, data, adapters);
     }
 
@@ -192,7 +195,7 @@ public final class Units4JUtils {
      * @deprecated Use {@link JaxbUtils#unmarshal(String, Class...)}
      */
     @Deprecated
-    public static <T> T unmarshal(final String xmlData, @NotNull final Class<?>... classesToBeBound) {
+    public static <T> @Nullable T unmarshal(@Nullable final String xmlData, @NotNull final Class<?>... classesToBeBound) {
         return JaxbUtils.unmarshal(xmlData, classesToBeBound);
     }
 
@@ -214,7 +217,8 @@ public final class Units4JUtils {
      * @deprecated Use {@link JaxbUtils#unmarshal(String, XmlAdapter[], Class...)}
      */
     @Deprecated
-    public static <T> T unmarshal(final String xmlData, final XmlAdapter<?, ?>[] adapters, @NotNull final Class<?>... classesToBeBound) {
+    public static <T> @Nullable T unmarshal(@Nullable final String xmlData, final XmlAdapter<?, ?>[] adapters,
+            @NotNull final Class<?>... classesToBeBound) {
         return JaxbUtils.unmarshal(xmlData, adapters, classesToBeBound);
     }
 
@@ -236,7 +240,8 @@ public final class Units4JUtils {
      * @deprecated Use {@link JaxbUtils#unmarshal(JAXBContext, String, XmlAdapter[])}
      */
     @Deprecated
-    public static <T> T unmarshal(@NotNull final JAXBContext ctx, final String xmlData, final XmlAdapter<?, ?>[] adapters) {
+    public static <T> @Nullable T unmarshal(@NotNull final JAXBContext ctx, @Nullable final String xmlData,
+            final XmlAdapter<?, ?> @Nullable [] adapters) {
         return JaxbUtils.unmarshal(ctx, xmlData, adapters);
     }
 
@@ -282,8 +287,9 @@ public final class Units4JUtils {
      */
     @Deprecated
     public static void assertCauseMessage(final Throwable ex, final String expectedMessage) {
-        assertThat(ex.getCause()).isNotNull();
-        assertThat(ex.getCause().getMessage()).isEqualTo(expectedMessage);
+        final Throwable cause = ex.getCause();
+        assertThat(cause).isNotNull();
+        assertThat(Objects.requireNonNull(cause).getMessage()).isEqualTo(expectedMessage);
     }
 
     /**
@@ -305,9 +311,11 @@ public final class Units4JUtils {
      */
     @Deprecated
     public static void assertCauseCauseMessage(final Throwable ex, final String expectedMessage) {
-        assertThat(ex.getCause()).isNotNull();
-        assertThat(ex.getCause().getCause()).isNotNull();
-        assertThat(ex.getCause().getCause().getMessage()).isEqualTo(expectedMessage);
+        final Throwable cause = ex.getCause();
+        assertThat(cause).isNotNull();
+        final Throwable causeCause = Objects.requireNonNull(cause).getCause();
+        assertThat(causeCause).isNotNull();
+        assertThat(Objects.requireNonNull(causeCause).getMessage()).isEqualTo(expectedMessage);
     }
 
     /**
@@ -330,10 +338,13 @@ public final class Units4JUtils {
      */
     @Deprecated
     public static void assertCauseCauseCauseMessage(final Throwable ex, final String expectedMessage) {
-        assertThat(ex.getCause()).isNotNull();
-        assertThat(ex.getCause().getCause()).isNotNull();
-        assertThat(ex.getCause().getCause().getCause()).isNotNull();
-        assertThat(ex.getCause().getCause().getCause().getMessage()).isEqualTo(expectedMessage);
+        final Throwable cause = ex.getCause();
+        assertThat(cause).isNotNull();
+        final Throwable causeCause = Objects.requireNonNull(cause).getCause();
+        assertThat(causeCause).isNotNull();
+        final Throwable causeCauseCause = Objects.requireNonNull(causeCause).getCause();
+        assertThat(causeCauseCause).isNotNull();
+        assertThat(Objects.requireNonNull(causeCauseCause).getMessage()).isEqualTo(expectedMessage);
     }
 
     /**

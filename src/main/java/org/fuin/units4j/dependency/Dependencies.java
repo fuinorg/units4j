@@ -20,6 +20,7 @@ package org.fuin.units4j.dependency;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import org.jspecify.annotations.Nullable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -175,7 +176,7 @@ public final class Dependencies implements Serializable {
      * 
      * @return Package or <code>null</code> if no entry with the given name was found.
      */
-    public final Package<DependsOn> findAllowedByName(final String packageName) {
+    public final @Nullable Package<DependsOn> findAllowedByName(final String packageName) {
         final List<Package<DependsOn>> list = getAllowed();
         for (final Package<DependsOn> pkg : list) {
             if (pkg.getName().equals(packageName)) {
@@ -193,7 +194,7 @@ public final class Dependencies implements Serializable {
      * 
      * @return Package or <code>null</code> if no entry with the given name was found.
      */
-    public final Package<NotDependsOn> findForbiddenByName(final String packageName) {
+    public final @Nullable Package<NotDependsOn> findForbiddenByName(final String packageName) {
         final List<Package<NotDependsOn>> list = getForbidden();
         for (final Package<NotDependsOn> pkg : list) {
             if (pkg.getName().equals(packageName)) {

@@ -18,6 +18,7 @@
 package org.fuin.units4j.dependency;
 
 import org.fuin.utils4j.Utils4J;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Some kind of dependency is not valid.
@@ -28,6 +29,7 @@ public final class DependencyError {
 
     private final String referencedPackage;
 
+    @Nullable
     private final String comment;
 
     /**
@@ -40,7 +42,7 @@ public final class DependencyError {
      * @param comment
      *            Comment describing why the dependency is not OK or <code>null</code>.
      */
-    public DependencyError(final String className, final String referencedPackage, final String comment) {
+    public DependencyError(final String className, final String referencedPackage, @Nullable final String comment) {
         super();
         Utils4J.checkNotNull("className", className);
         Utils4J.checkNotNull("referencedPackage", referencedPackage);
@@ -72,7 +74,7 @@ public final class DependencyError {
      * 
      * @return Comment or <code>null</code>
      */
-    public final String getComment() {
+    public final @Nullable String getComment() {
         return comment;
     }
 

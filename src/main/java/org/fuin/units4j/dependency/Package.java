@@ -22,6 +22,7 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import org.fuin.utils4j.ToDebugStringCapable;
 import org.fuin.utils4j.Utils4J;
+import org.jspecify.annotations.Nullable;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -45,14 +46,17 @@ public final class Package<DEP_TYPE extends Dependency> implements ToDebugString
     private String name;
 
     @XmlAttribute(name = "comment")
+    @Nullable
     private String comment;
 
     @XmlAnyElement(lax = true)
+    @Nullable
     private List<DEP_TYPE> dependencies;
 
     /**
      * Default constructor for unmarshalling.
      */
+    @SuppressWarnings("NullAway.Init")
     protected Package() {
         super();
     }
@@ -75,7 +79,7 @@ public final class Package<DEP_TYPE extends Dependency> implements ToDebugString
      * @param comment
      *            Comment why restrictions apply.
      */
-    public Package(final String name, final String comment) {
+    public Package(final String name, @Nullable final String comment) {
         super();
         Utils4J.checkNotNull("name", name);
         this.name = name;
@@ -141,7 +145,7 @@ public final class Package<DEP_TYPE extends Dependency> implements ToDebugString
      * 
      * @return Description of the restriction for all dependencies in the package.
      */
-    public final String getComment() {
+    public final @Nullable String getComment() {
         return comment;
     }
 

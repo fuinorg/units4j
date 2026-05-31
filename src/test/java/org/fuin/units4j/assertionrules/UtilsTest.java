@@ -18,7 +18,7 @@
 package org.fuin.units4j.assertionrules;
 
 import jakarta.validation.constraints.NotNull;
-import org.checkerframework.checker.nullness.qual.NonNull;
+import org.jspecify.annotations.NonNull;
 import org.fuin.units4j.Units4JUtils;
 import org.fuin.utils4j.jandex.JandexUtils;
 import org.fuin.utils4j.Utils4J;
@@ -181,25 +181,25 @@ public class UtilsTest {
 
         final ClassInfo implClass = index.getClassByName(DotName.createSimple(HasAnnotationIntf.class.getName()));
         String jakartaNotNull = "jakarta.validation.constraints.NotNull";
-        String checkerNonNull = "org.checkerframework.checker.nullness.qual.NonNull";
+        String jspecifyNonNull = "org.jspecify.annotations.NonNull";
         final Type stringType = Type.create(DotName.createSimple(String.class.getName()), Kind.CLASS);
         final MethodInfo methodJavax = implClass.method("javax", stringType);
         final MethodInfo methodJavax2 = implClass.method("javax2", stringType);
-        final MethodInfo methodChecker = implClass.method("checker", stringType);
+        final MethodInfo methodJspecify = implClass.method("jspecify", stringType);
         final MethodInfo methodAny = implClass.method("any");
 
         assertThat(Utils.hasAnnotation(Utils.createReturnTypeAnnotationList(methodJavax), jakartaNotNull)).isTrue();
-        assertThat(Utils.hasAnnotation(Utils.createReturnTypeAnnotationList(methodJavax), checkerNonNull)).isFalse();
+        assertThat(Utils.hasAnnotation(Utils.createReturnTypeAnnotationList(methodJavax), jspecifyNonNull)).isFalse();
         assertThat(Utils.hasAnnotation(Utils.createReturnTypeAnnotationList(methodJavax2), jakartaNotNull)).isFalse();
-        assertThat(Utils.hasAnnotation(Utils.createReturnTypeAnnotationList(methodChecker), jakartaNotNull)).isFalse();
-        assertThat(Utils.hasAnnotation(Utils.createReturnTypeAnnotationList(methodChecker), checkerNonNull)).isTrue();
+        assertThat(Utils.hasAnnotation(Utils.createReturnTypeAnnotationList(methodJspecify), jakartaNotNull)).isFalse();
+        assertThat(Utils.hasAnnotation(Utils.createReturnTypeAnnotationList(methodJspecify), jspecifyNonNull)).isTrue();
         assertThat(Utils.hasAnnotation(Utils.createReturnTypeAnnotationList(methodAny), jakartaNotNull)).isFalse();
 
         assertThat(Utils.hasAnnotation(Utils.createParameterAnnotationMap(methodJavax).get(0), jakartaNotNull)).isTrue();
-        assertThat(Utils.hasAnnotation(Utils.createParameterAnnotationMap(methodJavax).get(0), checkerNonNull)).isFalse();
+        assertThat(Utils.hasAnnotation(Utils.createParameterAnnotationMap(methodJavax).get(0), jspecifyNonNull)).isFalse();
         assertThat(Utils.hasAnnotation(Utils.createParameterAnnotationMap(methodJavax2).get(0), jakartaNotNull)).isTrue();
-        assertThat(Utils.hasAnnotation(Utils.createParameterAnnotationMap(methodChecker).get(0), jakartaNotNull)).isFalse();
-        assertThat(Utils.hasAnnotation(Utils.createParameterAnnotationMap(methodChecker).get(0), checkerNonNull)).isTrue();
+        assertThat(Utils.hasAnnotation(Utils.createParameterAnnotationMap(methodJspecify).get(0), jakartaNotNull)).isFalse();
+        assertThat(Utils.hasAnnotation(Utils.createParameterAnnotationMap(methodJspecify).get(0), jspecifyNonNull)).isTrue();
 
     }
 
@@ -208,26 +208,26 @@ public class UtilsTest {
 
         final ClassInfo implClass = index.getClassByName(DotName.createSimple(HasAnnotationIntf.class.getName()));
         String jakartaNotNull = "jakarta.validation.constraints.NotNull";
-        String checkerNonNull = "org.checkerframework.checker.nullness.qual.NonNull";
+        String jspecifyNonNull = "org.jspecify.annotations.NonNull";
         final Type stringType = Type.create(DotName.createSimple(String.class.getName()), Kind.CLASS);
         final MethodInfo methodJavax = implClass.method("javax", stringType);
         final MethodInfo methodJavax2 = implClass.method("javax2", stringType);
-        final MethodInfo methodChecker = implClass.method("checker", stringType);
+        final MethodInfo methodJspecify = implClass.method("jspecify", stringType);
         final MethodInfo methodAny = implClass.method("any");
 
-        assertThat(Utils.hasOneOfAnnotations(Utils.createReturnTypeAnnotationList(methodJavax), list(jakartaNotNull, checkerNonNull)))
+        assertThat(Utils.hasOneOfAnnotations(Utils.createReturnTypeAnnotationList(methodJavax), list(jakartaNotNull, jspecifyNonNull)))
                 .isTrue();
-        assertThat(Utils.hasOneOfAnnotations(Utils.createReturnTypeAnnotationList(methodJavax), list(checkerNonNull))).isFalse();
+        assertThat(Utils.hasOneOfAnnotations(Utils.createReturnTypeAnnotationList(methodJavax), list(jspecifyNonNull))).isFalse();
         assertThat(Utils.hasOneOfAnnotations(Utils.createReturnTypeAnnotationList(methodJavax2), list(jakartaNotNull))).isFalse();
-        assertThat(Utils.hasOneOfAnnotations(Utils.createReturnTypeAnnotationList(methodChecker), list(jakartaNotNull))).isFalse();
-        assertThat(Utils.hasOneOfAnnotations(Utils.createReturnTypeAnnotationList(methodChecker), list(checkerNonNull))).isTrue();
+        assertThat(Utils.hasOneOfAnnotations(Utils.createReturnTypeAnnotationList(methodJspecify), list(jakartaNotNull))).isFalse();
+        assertThat(Utils.hasOneOfAnnotations(Utils.createReturnTypeAnnotationList(methodJspecify), list(jspecifyNonNull))).isTrue();
         assertThat(Utils.hasOneOfAnnotations(Utils.createReturnTypeAnnotationList(methodAny), list(jakartaNotNull))).isFalse();
 
         assertThat(Utils.hasOneOfAnnotations(Utils.createParameterAnnotationMap(methodJavax).get(0), list(jakartaNotNull))).isTrue();
-        assertThat(Utils.hasOneOfAnnotations(Utils.createParameterAnnotationMap(methodJavax).get(0), list(checkerNonNull))).isFalse();
+        assertThat(Utils.hasOneOfAnnotations(Utils.createParameterAnnotationMap(methodJavax).get(0), list(jspecifyNonNull))).isFalse();
         assertThat(Utils.hasOneOfAnnotations(Utils.createParameterAnnotationMap(methodJavax2).get(0), list(jakartaNotNull))).isTrue();
-        assertThat(Utils.hasOneOfAnnotations(Utils.createParameterAnnotationMap(methodChecker).get(0), list(jakartaNotNull))).isFalse();
-        assertThat(Utils.hasOneOfAnnotations(Utils.createParameterAnnotationMap(methodChecker).get(0), list(checkerNonNull))).isTrue();
+        assertThat(Utils.hasOneOfAnnotations(Utils.createParameterAnnotationMap(methodJspecify).get(0), list(jakartaNotNull))).isFalse();
+        assertThat(Utils.hasOneOfAnnotations(Utils.createParameterAnnotationMap(methodJspecify).get(0), list(jspecifyNonNull))).isTrue();
 
     }
 
@@ -310,7 +310,7 @@ public class UtilsTest {
         public void javax2(@NotNull String str);
 
         @NonNull
-        public Integer checker(@NonNull String str);
+        public Integer jspecify(@NonNull String str);
 
         public void any();
 

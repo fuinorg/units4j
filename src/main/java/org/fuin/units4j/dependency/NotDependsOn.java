@@ -19,6 +19,7 @@ package org.fuin.units4j.dependency;
 
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Forbidden dependency.
@@ -29,6 +30,7 @@ public final class NotDependsOn extends Dependency {
     private static final long serialVersionUID = 1L;
 
     @XmlAttribute(name = "comment")
+    @Nullable
     private String comment;
 
     /**
@@ -57,7 +59,7 @@ public final class NotDependsOn extends Dependency {
      * @param comment
      *            Comment why the dependency is OK or not - May be null.
      */
-    public NotDependsOn(final String packageName, final String comment) {
+    public NotDependsOn(final String packageName, @Nullable final String comment) {
         super(packageName, true);
         this.comment = comment;
     }
@@ -72,7 +74,7 @@ public final class NotDependsOn extends Dependency {
      * @param comment
      *            Comment why the dependency is OK or not - May be null.
      */
-    public NotDependsOn(final String packageName, final boolean includeSubPackages, final String comment) {
+    public NotDependsOn(final String packageName, final boolean includeSubPackages, @Nullable final String comment) {
         super(packageName, includeSubPackages);
         this.comment = comment;
     }
@@ -82,7 +84,7 @@ public final class NotDependsOn extends Dependency {
      * 
      * @return Comment or <code>null</code>.
      */
-    public final String getComment() {
+    public final @Nullable String getComment() {
         return comment;
     }
 

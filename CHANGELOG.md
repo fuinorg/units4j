@@ -1,5 +1,8 @@
 # Release Notes
 
+## 0.12.1
+- Use Super BOM
+
 ## 0.12.0
 
 ### General

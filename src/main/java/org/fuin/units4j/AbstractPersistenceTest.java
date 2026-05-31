@@ -22,6 +22,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.jspecify.annotations.Nullable;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -48,6 +49,7 @@ public abstract class AbstractPersistenceTest {
 
     private static EntityManager em;
 
+    @Nullable
     private static Connection connection;
 
     @BeforeAll
