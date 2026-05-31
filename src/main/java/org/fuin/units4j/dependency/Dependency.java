@@ -31,9 +31,11 @@ public abstract class Dependency implements ToDebugStringCapable, Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /** Full qualified name of the package. */
     @XmlAttribute(name = "package")
     private String packageName;
 
+    /** If sub package dependencies are included <code>true</code> (default) else <code>false</code>. */
     @XmlAttribute(name = "includeSubPackages")
     @Nullable
     private Boolean includeSubPackages;

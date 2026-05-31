@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  *
  * @deprecated Use <a href="https://www.archunit.org/">ArchUnit</a> rules instead.
  *
- * <code>{@code
+ * <pre>{@code
  * &#64;AnalyzeClasses(packagesOf = AClassInRootPackage.class, importOptions = ImportOption.DoNotIncludeTests.class)
  * class ArchitectureTest {
  *     &#64;ArchTest
@@ -53,7 +53,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  *                 .and().areNotAnnotatedWith(ArchIgnore.class)
  *                 .should(haveACorrespondingClassEndingWith("Test"));
  * }
- * }</code>
+ * }</pre>
  */
 @Deprecated
 public final class AssertCoverage {

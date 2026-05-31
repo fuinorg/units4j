@@ -32,6 +32,13 @@ import java.util.List;
  */
 public final class RuleJsonbFieldNotFinal implements AssertionRule<FieldInfo> {
 
+    /**
+     * Default constructor.
+     */
+    public RuleJsonbFieldNotFinal() {
+        super();
+    }
+
     @Override
     public final AssertionResult verify(final FieldInfo info) {
         

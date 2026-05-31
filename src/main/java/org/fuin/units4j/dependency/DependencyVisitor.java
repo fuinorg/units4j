@@ -62,6 +62,9 @@ public class DependencyVisitor extends ClassVisitor {
 
     private Map<String, Integer> current;
 
+    /**
+     * Default constructor.
+     */
     @SuppressWarnings("NullAway.Init")
     public DependencyVisitor() {
         super(Opcodes.ASM9);
@@ -71,10 +74,20 @@ public class DependencyVisitor extends ClassVisitor {
         fv = new FVisitor();
     }
 
+    /**
+     * Returns the map of packages and their referenced packages with usage count.
+     *
+     * @return Map of group key to referenced packages and their counts.
+     */
     public Map<String, Map<String, Integer>> getGlobals() {
         return groups;
     }
 
+    /**
+     * Returns the set of packages found.
+     *
+     * @return Package names.
+     */
     public Set<String> getPackages() {
         return packages;
     }
@@ -304,11 +317,17 @@ public class DependencyVisitor extends ClassVisitor {
 
     }
 
+    /**
+     * Signature visitor that collects the referenced class names.
+     */
     public class SVisitor extends SignatureVisitor {
 
         @Nullable
         private String signatureClassName;
 
+        /**
+         * Default constructor.
+         */
         public SVisitor() {
             super(Opcodes.ASM9);
         }

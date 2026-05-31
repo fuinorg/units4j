@@ -26,6 +26,7 @@ public class InvalidDependenciesDefinitionException extends Exception {
 
     private static final long serialVersionUID = 1L;
 
+    /** The invalid dependencies definition that caused the exception. */
     private final Dependencies dependencies;
 
     /**

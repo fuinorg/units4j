@@ -42,13 +42,16 @@ public final class Package<DEP_TYPE extends Dependency> implements ToDebugString
 
     private static final long serialVersionUID = 1L;
 
+    /** Name of the package. */
     @XmlAttribute(name = "name")
     private String name;
 
+    /** Comment why restrictions apply - May be <code>null</code>. */
     @XmlAttribute(name = "comment")
     @Nullable
     private String comment;
 
+    /** Allowed or disallowed dependencies of the package - May be <code>null</code>. */
     @XmlAnyElement(lax = true)
     @Nullable
     private List<DEP_TYPE> dependencies;

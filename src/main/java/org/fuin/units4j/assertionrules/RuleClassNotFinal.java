@@ -28,6 +28,13 @@ import java.lang.reflect.Modifier;
  */
 public final class RuleClassNotFinal implements AssertionRule<ClassInfo> {
 
+    /**
+     * Default constructor.
+     */
+    public RuleClassNotFinal() {
+        super();
+    }
+
     @Override
     public final AssertionResult verify(final ClassInfo info) {
 

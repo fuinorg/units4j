@@ -12,6 +12,9 @@ public class EmptyFieldVisitor extends FieldVisitor {
 
     private EmptyAnnotationVisitor an;
 
+    /**
+     * Default constructor.
+     */
     public EmptyFieldVisitor() {
         super(Opcodes.ASM9);
         an = new EmptyAnnotationVisitor();

@@ -30,6 +30,13 @@ import java.util.List;
  */
 public final class RuleClassHasNoFinalMethods implements AssertionRule<ClassInfo> {
 
+    /**
+     * Default constructor.
+     */
+    public RuleClassHasNoFinalMethods() {
+        super();
+    }
+
     @Override
     public final AssertionResult verify(final ClassInfo info) {
 

@@ -29,6 +29,7 @@ public final class NotDependsOn extends Dependency {
 
     private static final long serialVersionUID = 1L;
 
+    /** Comment why the dependency is OK or not - May be <code>null</code>. */
     @XmlAttribute(name = "comment")
     @Nullable
     private String comment;

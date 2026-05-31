@@ -52,6 +52,19 @@ public abstract class AbstractPersistenceTest {
     @Nullable
     private static Connection connection;
 
+    /**
+     * Default constructor.
+     */
+    protected AbstractPersistenceTest() {
+        super();
+    }
+
+    /**
+     * Creates the entity manager factory and entity manager before all tests of a class are run.
+     *
+     * @throws Exception
+     *             Setting up the persistence context failed.
+     */
     @BeforeAll
     public static void beforeClass() throws Exception {
         try {
@@ -71,6 +84,9 @@ public abstract class AbstractPersistenceTest {
         }
     }
 
+    /**
+     * Closes the entity manager, entity manager factory and database connection after all tests of a class have run.
+     */
     @AfterAll
     public static void afterClass() {
         if (em != null) {

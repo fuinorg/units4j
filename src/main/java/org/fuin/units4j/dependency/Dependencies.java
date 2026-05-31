@@ -35,18 +35,22 @@ public final class Dependencies implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /** Packages that are always OK to depend on. */
     @XmlElementWrapper(name="alwaysAllowed")
     @XmlElement(name = "dependsOn")
     private final List<DependsOn> alwaysAllowed;
 
+    /** Packages that are always forbidden to depend on. */
     @XmlElementWrapper(name="alwaysForbidden")
     @XmlElement(name = "notDependsOn")
     private final List<NotDependsOn> alwaysForbidden;
 
+    /** Explicitly allowed package dependencies. */
     @XmlElementWrapper(name="allowed")
     @XmlElement(name = "package")
     private final List<Package<DependsOn>> allowed;
 
+    /** Explicitly forbidden package dependencies. */
     @XmlElementWrapper(name="forbidden")
     @XmlElement(name = "package")
     private final List<Package<NotDependsOn>> forbidden;

@@ -9,6 +9,9 @@ import org.objectweb.asm.Opcodes;
  */
 public class EmptyAnnotationVisitor extends AnnotationVisitor {
 
+    /**
+     * Default constructor.
+     */
     public EmptyAnnotationVisitor() {
         super(Opcodes.ASM9);
     }

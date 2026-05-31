@@ -71,6 +71,9 @@ public final class AllTopLevelClassesHaveATestCondition extends ArchCondition<Ja
     /**
      * Defines a condition that all classes should have a corresponding "*SUFFIX" class.
      *
+     * @param suffix
+     *            Suffix the corresponding class name is expected to end with.
+     *
      * @return Condition.
      */
     public static ArchCondition<JavaClass> haveACorrespondingClassEndingWith(String suffix) {

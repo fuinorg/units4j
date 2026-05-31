@@ -29,6 +29,13 @@ import java.lang.reflect.Modifier;
  */
 public final class RulePublicOrProtectedNoArgConstructor implements AssertionRule<ClassInfo> {
 
+    /**
+     * Default constructor.
+     */
+    public RulePublicOrProtectedNoArgConstructor() {
+        super();
+    }
+
     @Override
     public final AssertionResult verify(final ClassInfo info) {
 
