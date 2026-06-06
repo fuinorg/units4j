@@ -2,6 +2,7 @@
 
 ## 0.12.1
 - Use Super BOM
+- Added [JSpecify](https://jspecify.dev/) and [NullAway](https://github.com/uber/nullaway)
 
 ## 0.12.0
 
