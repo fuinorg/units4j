@@ -18,21 +18,21 @@ import static com.tngtech.archunit.lang.ConditionEvent.createMessage;
  * Matching by name (instead of by annotation class) deliberately avoids a compile-time dependency on the library that actually defines the
  * annotations - any annotation with a matching simple name satisfies the condition, regardless of its package.
  * <p>
- * The default set are the thread-safety annotations {@code Immutable}, {@code ThreadSafe}, {@code NotThreadSafe} and
- * {@code ThreadSafetyUndefined}.
+ * The default set are the thread-safety annotations {@code Immutable}, {@code ThreadSafe}, {@code NotThreadSafe},
+ * {@code ThreadSafetyUndefined} and {@code ImmutableAfterUnmarshal}.
  */
 @TestOmitted("Tested implicitly")
 public final class HaveThreadSafetyAnnotationCondition extends ArchCondition<JavaClass> {
 
     /** Simple names of the standard thread-safety annotations. */
     public static final Set<String> THREAD_SAFETY_ANNOTATION_NAMES =
-            Set.of("Immutable", "ThreadSafe", "NotThreadSafe", "ThreadSafetyUndefined");
+            Set.of("Immutable", "ThreadSafe", "NotThreadSafe", "ThreadSafetyUndefined", "ImmutableAfterUnmarshal");
 
     private final Set<String> annotationSimpleNames;
 
     /**
-     * Default constructor using the standard thread-safety annotation names: {@code Immutable}, {@code ThreadSafe}, {@code NotThreadSafe}
-     * and {@code ThreadSafetyUndefined}.
+     * Default constructor using the standard thread-safety annotation names: {@code Immutable}, {@code ThreadSafe}, {@code NotThreadSafe},
+     * {@code ThreadSafetyUndefined} and {@code ImmutableAfterUnmarshal}.
      */
     public HaveThreadSafetyAnnotationCondition() {
         this(THREAD_SAFETY_ANNOTATION_NAMES);
@@ -67,7 +67,7 @@ public final class HaveThreadSafetyAnnotationCondition extends ArchCondition<Jav
 
     /**
      * Condition that a class is annotated with one of the standard thread-safety annotations ({@code Immutable}, {@code ThreadSafe},
-     * {@code NotThreadSafe} or {@code ThreadSafetyUndefined}), matched by simple name.
+     * {@code NotThreadSafe}, {@code ThreadSafetyUndefined} or {@code ImmutableAfterUnmarshal}), matched by simple name.
      *
      * @return Condition.
      */
