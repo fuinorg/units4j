@@ -3,6 +3,7 @@
 ## 0.12.1
 - Use Super BOM
 - Added [JSpecify](https://jspecify.dev/) and [NullAway](https://github.com/uber/nullaway)
+- Added a new [ALL_CLASSES_SHOULD_HAVE_A_THREAD_SAFETY_ANNOTATION](src/main/java/org/fuin/units4j/archunit/Units4JConditions.java) arch unit condition
 
 ## 0.12.0
 

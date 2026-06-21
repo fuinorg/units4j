@@ -23,6 +23,7 @@ import org.fuin.units4j.analyzer.EmptyClassVisitor;
 import org.fuin.units4j.analyzer.EmptyFieldVisitor;
 import org.fuin.units4j.analyzer.EmptyMethodVisitor;
 import org.fuin.units4j.archunit.AllTopLevelClassesHaveATestCondition;
+import org.fuin.units4j.archunit.HaveThreadSafetyAnnotationCondition;
 import org.fuin.units4j.archunit.Units4JConditions;
 import org.junit.jupiter.api.Test;
 
@@ -41,6 +42,7 @@ public final class BaseTest {
                         || clasz == EmptyFieldVisitor.class
                         || clasz == EmptyMethodVisitor.class
                         || clasz == AllTopLevelClassesHaveATestCondition.class
+                        || clasz == HaveThreadSafetyAnnotationCondition.class
                         || clasz == Units4JConditions.class) {
                     return false;
                 }
